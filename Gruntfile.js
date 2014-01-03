@@ -10,12 +10,40 @@ module.exports = function(grunt) {
         ],
         dest: 'doc'
       }
+    },
+    jade: {
+      compile: {
+        options: {
+          pretty: false,
+          data: {
+            debug: false,
+          }
+        },
+        files: [
+          {
+            expand: true, 
+            cwd: 'ui/',
+            src: "**/*.jade",
+            dest: "ui/",
+            ext: ".html",
+          }
+        ]
+      }
+    },
+    clean: {
+      html: {
+        src: [
+          'ui/**/*.html'
+        ]
+      }      
     }
   });
 
 
   grunt.loadNpmTasks('grunt-jsdoc');
+  grunt.loadNpmTasks('grunt-contrib-jade');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['jsdoc']);
+  grunt.registerTask('build', ['jade','jsdoc']);
 };
