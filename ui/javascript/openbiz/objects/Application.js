@@ -1,5 +1,5 @@
 "use strict";
-define(['./object'],function(object){
+define(['./Object'],function(object){
 	return  object.extend({		
 		modules:{}
 	});
