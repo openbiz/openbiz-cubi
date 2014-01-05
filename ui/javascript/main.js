@@ -36,13 +36,17 @@ define(['backbone','i18n!../nls/locale','bootstrap'],
 		loaderView.fadeIn();
 		loaderView.html(locale.loading.framework);
 		require(['openbiz'],function(openbiz){
-			var appRouter = new openbiz.Router();
+			window.appRouter = new openbiz.Router();
 			window.openbiz = openbiz;
 			loaderView.html(locale.loading.cubi);
 			require(['cubi'], function(cubi){	
 				 loaderView.html(locale.loading.done);
-				 loaderView.fadeOut();
-			     Backbone.history.start();				
+				 loaderView.fadeOut();			     		
+			     if(window.hasOwnProperty('onCubiLoaded')){
+			     	onCubiLoaded.apply(this);
+			     }else{
+			     	Backbone.history.start();
+			     }
 			});
 		});
 	}

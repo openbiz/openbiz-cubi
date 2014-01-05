@@ -14,7 +14,7 @@ define(["./objects/Object",
 			Application: Application,
 			Module : 	 Module,
 			Router : 	 Router
-		},
+		},		
 		//shortcut alias
 		Application: Application,
 		Module: Module,
