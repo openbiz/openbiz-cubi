@@ -1,11 +1,11 @@
 "use strict";
-define(["./objects/Object",
-		"./objects/Module",
-		"./objects/Application",
-		"./objects/Router",
-		"./loaders/TemplateLoader",
-		"./utils/MobileDetection",
-		"./utils/BrowserDetection"
+define(["objects/Object",
+		"objects/Module",
+		"objects/Application",
+		"objects/Router",
+		"loaders/TemplateLoader",
+		"utils/MobileDetection",
+		"utils/BrowserDetection"
 		],
 	function(Object,
 		Module,

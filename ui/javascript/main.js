@@ -13,7 +13,8 @@ requirejs.config({
 		'i18n'		: 'vendor/require/plugins/i18n',
 		'text'		: 'vendor/require/plugins/text',
 		'respond'	: 'vendor/bootstrap/libs/respond.js/1.3.0/respond.min',
-		'html5shiv'	: 'vendor/bootstrap/libs/html5shiv/3.7.0/html5shiv'
+		'html5shiv'	: 'vendor/bootstrap/libs/html5shiv/3.7.0/html5shiv',
+		'openbiz'	: 'built/openbiz.min'
 	},
 	shim:{
 		'backbone':{
