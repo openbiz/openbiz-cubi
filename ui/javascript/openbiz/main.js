@@ -5,13 +5,16 @@ define(["./objects/Object",
 		"./objects/Router",
 		"./loaders/TemplateLoader",
 		"./utils/MobileDetection",
+		"./utils/BrowserDetection"
 		],
 	function(Object,
 		Module,
 		Application,
 		Router,
 		TemplateLoader,
-		MobileDetection){		
+		MobileDetection,
+		BrowserDetection
+		){		
 	return {
 		apps:{},
 		loaders:{
@@ -24,13 +27,15 @@ define(["./objects/Object",
 			Router : 	 Router
 		},			
 		utils:{
-			MobileDetection: MobileDetection
+			MobileDetection: MobileDetection,
+			BrowserDetection: BrowserDetection
 		},
 		//shortcut alias
 		Application: Application,
 		Module: Module,
 		Object: Object,
 		Router: Router,
-		isMobile: MobileDetection
+		isMobile: MobileDetection,
+		Browser: BrowserDetection
 	}
 });
