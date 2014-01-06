@@ -1,9 +1,12 @@
 "use strict";
-define(['./modules/login/main'],
-	function(login){
+define(['./modules/user/main'],
+	function(user){
 	return openbiz.Application.extend({
 		modules:{
-			login: login
+			user: user
+		},
+		views:{
+			LoginView: new user.views.LoginView()
 		}
 	});
 });

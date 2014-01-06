@@ -3,8 +3,9 @@ define(function(){
 	var object = {		
 		extend:function(properties)
 		{
-			_.extend(properties,this);
-			return properties;
+			var newClass = {};
+			_.extend(newClass,this,properties);
+			return newClass;
 		}
 	};
 	_.extend(object,Backbone.Events);

@@ -36,10 +36,11 @@ define(['backbone','i18n!../nls/locale','bootstrap'],
 		loaderView.fadeIn();
 		loaderView.html(locale.loading.framework);
 		require(['openbiz'],function(openbiz){
-			window.appRouter = new openbiz.Router();
+			var appRouter = new openbiz.Router();
 			window.openbiz = openbiz;
 			loaderView.html(locale.loading.cubi);
 			require(['cubi'], function(cubi){	
+				 openbiz.apps.cubi = cubi;
 				 loaderView.html(locale.loading.done);
 				 loaderView.fadeOut();			     		
 			     if(window.hasOwnProperty('onCubiLoaded')){
