@@ -8,7 +8,7 @@ requirejs.config({
 	paths:{
 		'bootstrap'	: 'vendor/bootstrap/js/bootstrap.min',
 		'underscore': 'vendor/underscore/underscore-min',
-		'jquery' 	: 'vendor/jquery/jquery-2.0.3.min',
+		'jquery' 	: 'vendor/jquery/jquery-1.10.2.min',
 		'backbone'	: 'vendor/backbone/backbone-min',
 		'i18n'		: 'vendor/require/plugins/i18n',
 		'text'		: 'vendor/require/plugins/text',
