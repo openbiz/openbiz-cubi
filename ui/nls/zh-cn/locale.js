@@ -1,10 +1,5 @@
 "use strict";
-define({	
-    loading:{
-    	framework: 	'正在加载 Openbiz 框架',
-    	cubi: 		'正在加载 Cubi 应用程序',
-    	done: 		'全部加载完成！'
-    },
+define({	    
 	loginView:{
     	existingUsers: '我是老用户',
     	email: '电子邮件',
