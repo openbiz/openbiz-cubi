@@ -6,7 +6,7 @@ define(['i18n!./nls/locale','./modules/user/main'],
 		modules:{
 			user: user
 		},		
-		render:function(){
+		init:function(){
 			var view = new user.views.LoginView();			
 			return view.render().el;
 		},
