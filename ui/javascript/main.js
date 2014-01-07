@@ -2,7 +2,7 @@
 requirejs.config({
 	config:{
 		i18n:{
-//			locale: 'zh-cn' //force to use this locale for test translation
+			locale: 'zh-cn' //force to use this locale for test translation
 		}
 	},
 	paths:{
