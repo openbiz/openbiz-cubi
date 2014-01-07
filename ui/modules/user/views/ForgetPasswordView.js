@@ -17,7 +17,7 @@ define(['text!templates/user/forgetPasswordView.html'],function(templateData){
 		{
 			event.preventDefault();
 			var self=this;
-			$(this.el).find('.go-to-login').html(openbiz.apps.cubi.locale.loading);
+			$(this.el).find('.go-to-login').replaceWith(openbiz.apps.cubi.locale.loading);
 			openbiz.apps.cubi.require(['./modules/user/views/LoginView'],function(forgetPasswordView){
 				var view = new forgetPasswordView();
 				$(self.el).fadeOut(function(){
