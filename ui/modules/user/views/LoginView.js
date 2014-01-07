@@ -9,9 +9,11 @@ define(['text!templates/user/loginView.html'],function(templateData){
 		{
 			event.preventDefault();
 			var self = this;
-			require(['cubi/modules/user/views/ForgetPasswordView'],function(forgetPasswordView){
+			openbiz.apps.cubi.require(['./modules/user/views/ForgetPasswordView'],function(forgetPasswordView){
 				var view = new forgetPasswordView();
-				$(self.el).html(view.render());
+				$(self.el).fadeOut(function(){
+					$(self.el).html(view.render().el).fadeIn();
+				})
 			})
 		},
 		checkLogin:function(event)
