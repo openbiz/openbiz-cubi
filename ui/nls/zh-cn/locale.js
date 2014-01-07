@@ -1,5 +1,6 @@
 "use strict";
-define({	    
+define({	   
+    loading:'数据加载中 ...', 
 	loginView:{
     	existingUsers: '我是老用户',
     	email: '电子邮件',

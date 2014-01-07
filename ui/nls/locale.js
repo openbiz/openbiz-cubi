@@ -1,6 +1,7 @@
 "use strict";
 define({
-	'root':{	    
+	'root':{
+		loading:'Loading ...',
 	    loginView:{
 	    	existingUsers: 'Existing Users',
 	    	email: 'Email',
