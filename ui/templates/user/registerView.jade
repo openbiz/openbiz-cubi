@@ -1,0 +1,58 @@
+div.panel.panel-default
+	div.panel-body
+		form.create-account-form.form-horizontal.col-md-10(role="form")
+			h4 <%= createAccountTitle %>
+			hr
+			div.form-group
+				label.col-sm-2.col-xs-12.col-md-3.control-label(for="inputFirstName") <%= title %>
+				div.col-sm-8.col-xs-12
+					label.radio-inline
+						input(type="radio",id="title-mr",name="title",value="Mr",checked="checked") 
+						span <%= titleMr %>
+					label.radio-inline
+						input(type="radio",id="title-ms",name="title",value="Ms") 
+						span <%= titleMs %>
+			div.form-group
+				label.col-sm-2.col-xs-12.col-md-3.control-label(for="inputFirstName") <%= name %>
+				div.col-sm-8.col-xs-12
+					input.form-control.pull-left#inputFirstName(name="firstName",required,type="text",placeholder!="<%= firstName %>",style="width:47%;margin-right:3%")
+					input.form-control.pull-left#inputLastName(name="lastName",required,type="text",placeholder!="<%= lastName %>",style="width:50%")
+			div.form-group
+				label.col-sm-2.col-md-3.control-label(for="inputCompany") <%= company %>
+				div.col-sm-8
+					input.form-control#inputCompany(name="company",required,type="text",placeholder!="<%= company %>")
+			div.form-group
+				label.col-sm-2.col-xs-12.col-md-3.control-label <%= mobile %>
+				div.col-sm-8.col-xs-12
+					input.form-control.pull-left#inputMobileCountryCode(name="mobileCountryCode",required,type="tel",placeholder!="<%= phoneCountryCode %>",value!="<%= phoneDefaultCountryCode %>",style="width:22%;margin-right:3%")
+					input.form-control.pull-left#inputMobileNumber(name="mobileNumber",required,type="tel",placeholder!="<%= mobileNumber %>",style="width:75%")
+			hr
+			div.form-group
+				label.col-sm-2.col-md-3.control-label(for="inputEmail") <%= email %>
+				div.col-sm-8
+					input.form-control#inputEmail(name="email",required,type="email",placeholder!="<%= email %>")
+			div.form-group
+				label.col-sm-2.col-md-3.control-label(for="inputPassword") <%= password %>
+				div.col-sm-8
+					input.form-control#inputPassword(name="password",required,type="password",placeholder!="<%= password %>")
+			div.form-group
+				label.col-sm-2.col-md-3.control-label(for="inputRepeatPassword") <%= repeatPassword %>
+				div.col-sm-8
+					input.form-control#inputRepeatPassword(name="repeatPassword",required,type="password",placeholder!="<%= repeatPassword %>")
+			div.form-group
+				div.col-sm-10.col-md-9
+					div.checkbox
+						label
+							input(name="agreement",required,type="checkbox")
+							span <%= agreeWith %> 
+							a(href="#") <%= termOfUse %>
+			hr
+			div.form-group
+				div.col-sm-4
+					button.btn.btn-primary(type="submit") 
+						|  &nbsp; <%= createAccountButton %> &nbsp;
+			div.form-group
+				div.col-sm-10
+					| <%= alreadyHaveAccount %>
+					a.go-to-login.text-info(href="#") <%= goToLogin %>
+	
