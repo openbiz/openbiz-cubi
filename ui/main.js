@@ -3,6 +3,7 @@ define(['i18n!./nls/locale','./modules/user/main'],
 	function(locale, user){
 	return openbiz.Application.extend({
 		name:'cubi',
+		appUrl:null,
 		modules:{
 			user: user
 		},		
