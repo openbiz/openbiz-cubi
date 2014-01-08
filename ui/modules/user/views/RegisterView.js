@@ -8,7 +8,7 @@ define(['text!templates/user/registerView.html',
 			"submit .create-account-form"  	:  "createAccount",
 			"click .go-to-login"  			:  "gotoLogin"
 		},	
-		validateForm:function(){				
+		validate:function(){				
 			$(this.el).find('.create-account-form').validate({		
 				debug: true,		
 				rules:{
@@ -52,7 +52,7 @@ define(['text!templates/user/registerView.html',
 		render:function(){
 	        $(this.el).html(this.template(openbiz.apps.cubi.locale.registerView));	        
 	        this.localize();
-	        this.validateForm();
+	        this.validate();
 	        return this;
 	    },
 	    localize:function(){
