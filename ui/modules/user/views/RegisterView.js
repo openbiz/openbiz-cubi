@@ -26,7 +26,6 @@ define(['text!templates/user/registerView.html',
 		},	
 		createAccount:function(event)
 		{
-			console.log($(this.el).find('.create-account-form').valid());
 			if(!$(this.el).find('.create-account-form').valid())return;
 			var userRecord = {
 				username: $(this.el).find('#inputEmail').val(),
