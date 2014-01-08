@@ -47,7 +47,10 @@ define({
 	    	password: 'Password',
 	    	repeatPassword: 'Repeat',
 	    	agreeWith: 'I have read and agreed with ',
-	    	termOfUse: 'term of use'
+	    	termOfUse: 'term of use',
+	    	validation:{
+	    		passwordNotMatch:'The password is not matched'
+	    	}
 	    }
 	},
 	'en-us': true,

@@ -46,6 +46,9 @@ define({
         password: '密码',
         repeatPassword: '重复密码',
         agreeWith: '我已经阅读并且认同',
-        termOfUse: '使用条款'
+        termOfUse: '使用条款',
+        validation:{
+            passwordNotMatch:'两次密码输入不一致'
+        }
     }
 });

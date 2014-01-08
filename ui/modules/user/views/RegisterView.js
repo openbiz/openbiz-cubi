@@ -12,13 +12,13 @@ define(['text!templates/user/registerView.html',
 			$(this.el).find('.create-account-form').validate({		
 				debug: true,		
 				rules:{
-					inputRepeatPassword: {
+					repeatPassword: {
 						equalTo : "#inputPassword"
 					}
 				},
 				messages:{					
-					inputRepeatPassword: {
-						equalTo : 'The password is not matched'
+					repeatPassword: {
+						equalTo : openbiz.apps.cubi.locale.registerView.validation.passwordNotMatch
 					}
 				}
 			});
