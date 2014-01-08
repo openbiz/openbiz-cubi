@@ -12,6 +12,9 @@ define(['text!templates/user/registerView.html',
 			$(this.el).find('.create-account-form').validate({		
 				debug: true,		
 				rules:{
+					mobileNumber:{
+						number:true
+					},
 					repeatPassword: {
 						equalTo : "#inputPassword"
 					}
@@ -27,9 +30,33 @@ define(['text!templates/user/registerView.html',
 		createAccount:function(event)
 		{
 			if(!$(this.el).find('.create-account-form').valid())return;
+			if(openbiz.apps.cubi.locale.registerView.nameFormat[0]=='firstName'){
+				var displayName = $(this.el).find('#inputLastName').val() + $(this.el).find('#inputFirstName').val();
+			}else{
+				var displayName = $(this.el).find('#inputLastName').val() + $(this.el).find('#inputFirstName').val();
+			}			
 			var userRecord = {
 				username: $(this.el).find('#inputEmail').val(),
-				password: $(this.el).find('#inputPassword').val()
+				password: $(this.el).find('#inputPassword').val(),
+				contact:{
+					name:{
+						firstName: 		$(this.el).find('#inputFirstName').val(),
+						lastName: 		$(this.el).find('#inputLastName').val(),
+						displayName: 	displayName
+					},
+					company: $(this.el).find('#inputCompany').val(),
+					title:   $(this.el).find('input:radio[name="title"]#title-mr').is(":checked")?'Mr.':'Ms.',
+					emails:[{
+						category: 	'Default',
+						email: 		$(this.el).find('#inputEmail').val()
+					}],
+					phones:[{
+						type: 		'mobile',
+						category: 	'Default',
+						countryCode:$(this.el).find('#inputMobileCountryCode').val(),
+						number: 	$(this.el).find('#inputMobileNumber').val(),
+					}]
+				}
 			}
 			console.log('Create Account');
 			console.log(userRecord);
