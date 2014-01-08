@@ -19,5 +19,33 @@ define({
         email: '电子邮件',
         sendRequest: '发送请求',
         goToLogin: '返回登陆页面'
+    },
+    registerView:{
+        createAccountTitle: '创建新的账户',        
+        createAccountButton: '创建账户',
+        alreadyHaveAccount: '已经有账户了么? ',
+        goToLogin: '返回登录',
+        title: '称呼',
+        titleMr:    '先生',
+        titleMiss:  '小姐',
+        titleMrs:   '夫人',
+        titleMs:    '女士',
+        name: '姓名',
+        firstName : '名字',
+        lastName : '姓氏',
+        nameFormat: ['lastName','firstName'],
+        company: '公司', 
+        phone: '电话',
+        mobile: '手机',
+        mobileNumber: '手机号码',
+        phoneDefaultCountryCode: '+86',
+        phoneCountryCode: '国家编码',
+        phoneAreaCode: '区号',
+        phoneNumber: '电话号码',
+        email: '电子邮件',
+        password: '密码',
+        repeatPassword: '重复密码',
+        agreeWith: '我已经阅读并且认同',
+        termOfUse: '使用条款'
     }
 });

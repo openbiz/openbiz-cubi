@@ -6,11 +6,11 @@ div.panel.panel-default
 			div.form-group
 				label.col-sm-2.col-md-3.control-label(for="inputEmail") <%= email %>
 				div.col-sm-8
-					input.form-control#inputEmail(type="email",placeholder="Email")
+					input.form-control#inputEmail(required,type="email",placeholder!="<%= email %>")
 			div.form-group
 				label.col-sm-2.col-md-3.control-label(for="inputPassword") <%= password %>
 				div.col-sm-8
-					input.form-control#inputPassword(type="password",placeholder="Password")
+					input.form-control#inputPassword(required,type="password",placeholder!="<%= password %>")
 			div.form-group
 				div.col-sm-3.col-md-4.col-lg-3
 					button.btn.btn-primary.btn-lg(type="submit") 
@@ -28,7 +28,7 @@ div.panel.panel-default
 			hr
 			div
 				p <%= ifDontHaveAccount %>
-				a.btn.btn-default.btn-lg <%= createAccount %>					
+				button.btn-create-account.btn.btn-default.btn-lg <%= createAccount %>					
 			div
 				
 			

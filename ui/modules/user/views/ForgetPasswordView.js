@@ -1,6 +1,9 @@
 "use strict";
-define(['text!templates/user/forgetPasswordView.html'],function(templateData){
+define(['text!templates/user/forgetPasswordView.html',
+		'../models/User'],
+	function(templateData,model){
 	return Backbone.View.extend({
+		model:model,
 		events:{
 			"submit .forget-password-form"  :  "resetPassword",
 			"click .go-to-login"  			:  "gotoLogin",
