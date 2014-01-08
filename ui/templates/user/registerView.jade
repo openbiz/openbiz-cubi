@@ -40,7 +40,7 @@ div.panel.panel-default
 				div.col-sm-8
 					input.form-control#inputRepeatPassword(name="repeatPassword",required,type="password",placeholder!="<%= repeatPassword %>")
 			div.form-group
-				div.col-sm-10.col-md-9
+				div.col-lg-offset-2.col-md-offset-2.col-sm-10.col-md-9
 					div.checkbox
 						label
 							input(name="agreement",required,type="checkbox")
@@ -48,11 +48,11 @@ div.panel.panel-default
 							a(href="#") <%= termOfUse %>
 			hr
 			div.form-group
-				div.col-sm-4
+				div.col-lg-offset-2.col-md-offset-2.col-sm-4
 					button.btn.btn-primary(type="submit") 
 						|  &nbsp; <%= createAccountButton %> &nbsp;
 			div.form-group
-				div.col-sm-10
+				div.col-lg-offset-2.col-md-offset-2.col-sm-10
 					| <%= alreadyHaveAccount %>
 					a.go-to-login.text-info(href="#") <%= goToLogin %>
 	
