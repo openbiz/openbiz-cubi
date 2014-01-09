@@ -3,11 +3,11 @@ define(['text!templates/user/registerView.html',
 		'../models/User'],
 		function(templateData,model){
 	return Backbone.View.extend({
-		model:model,
+		model:new model(),
 		events:{
 			"submit .create-account-form"  	:  "createAccount",
 			"click .go-to-login"  			:  "gotoLogin"
-		},	
+		},
 		validate:function(){				
 			$(this.el).find('.create-account-form').validate({		
 				debug: true,		
@@ -25,7 +25,6 @@ define(['text!templates/user/registerView.html',
 					}
 				}
 			});
-
 		},	
 		createAccount:function(event)
 		{
@@ -35,7 +34,7 @@ define(['text!templates/user/registerView.html',
 			}else{
 				var displayName = $(this.el).find('#inputLastName').val() + $(this.el).find('#inputFirstName').val();
 			}			
-			var userRecord = {
+			var user = {
 				username: $(this.el).find('#inputEmail').val(),
 				password: $(this.el).find('#inputPassword').val(),
 				contact:{
@@ -58,8 +57,10 @@ define(['text!templates/user/registerView.html',
 					}]
 				}
 			}
-			console.log('Create Account');
-			console.log(userRecord);
+			console.log('Create Account');			
+			this.model.createAccount(user,function(){
+
+			});
 		},
 		gotoLogin:function()
 		{
@@ -74,7 +75,7 @@ define(['text!templates/user/registerView.html',
 			})
 		},
 		initialize:function(){				
-	        this.template = _.template(templateData);
+	        this.template = _.template(templateData);	        
     	},
 		render:function(){
 	        $(this.el).html(this.template(openbiz.apps.cubi.locale.registerView));	        

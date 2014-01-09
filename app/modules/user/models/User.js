@@ -3,7 +3,6 @@ module.exports = function(app)
 {
 	var mongoose = app.openbiz.mongoose;
     var schema = new mongoose.Schema({
-        _id: mongoose.Schema.Types.ObjectId,
         username: {
             type: String,
             required: true
@@ -24,7 +23,7 @@ module.exports = function(app)
         },
         contact:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'cubi.contact.Contact'  
+            ref: 'cubi.contact.Contact' 
         },
         roles:[{
             type: String,
@@ -32,7 +31,7 @@ module.exports = function(app)
         }]
     },{
         versionKey: false,
-        collection: 'cubi-user'
+        collection: 'cubi_user'
     });
 
     schema.methods.hasPermission = function(permission)
@@ -48,5 +47,5 @@ module.exports = function(app)
         return false;
     };
 
-    return mongoose.model('cubi.user.User', schema);
+    return app.openbiz.db.model('cubi.user.User', schema);
 }

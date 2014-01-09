@@ -3,7 +3,6 @@ module.exports = function(app)
 {
 	var mongoose = app.openbiz.mongoose;
     var schema = new mongoose.Schema({
-        _id: mongoose.Schema.Types.ObjectId,
         name:{
             firstName:  String,
             middleName: String,
@@ -43,7 +42,7 @@ module.exports = function(app)
             account:    String
         }],
         creator:{
-            _id:{
+            id:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'cubi.user.User'
             },
@@ -54,8 +53,7 @@ module.exports = function(app)
         }
         
     },{
-        versionKey: true,
-        collection: 'cubi-contact'
+        collection: 'cubi_contact'
     });
-    return mongoose.model('cubi.contact.Contact', schema);
+    return app.openbiz.db.model('cubi.contact.Contact', schema);
 }

@@ -1,15 +1,43 @@
 'use strict';
 module.exports = function(app){
-    return app.openbiz.ModelController.extend({
-        _model: app.getModel('User'),
-        createAccount:function(req,res)
+    var self = function(){
+        return app.getController(require('path').basename(module.filename,'.js')); 
+    };
+    return app.openbiz.ModelController.extend({     
+        model:app.getModel('User'),
+        create:function(req,res)
+        {            
+            var user = new self().model();
+            var contactModel = app.getModel.call(app,'Contact');
+            var contact = new contactModel(req.body.contact);
+
+            contact.creator.id = user.id;
+            user.username = req.body.username;
+            user.password = req.body.password;
+            user.contact = contact.id;
+
+            contact.save(function(err){
+                if(err){
+                    res.json(500,{error:err});
+                    return;
+                }else{
+                    user.save(function(err){
+                        if(err){
+                            res.json(500,{error:err});
+                            return;
+                        }else{
+                            res.json(201,{id: user.id});
+                        }
+                    });
+                }
+            });
+        },
+        resetPasswordWithToken:function(res,req)
         {
 
         },
-        resetPasswordWithToken:function(res,req){
-
-        },
-        responseResetPassword:function(res,req){
+        responseResetPassword:function(res,req)
+        {
 
         }
     });
