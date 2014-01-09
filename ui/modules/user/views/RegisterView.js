@@ -12,6 +12,12 @@ define(['text!templates/user/registerView.html',
 			$(this.el).find('.create-account-form').validate({		
 				debug: true,		
 				rules:{
+					email:{
+						remote: {
+							url: openbiz.apps.cubi.appUrl+'/users/check-duplicate',
+							type: 'post'
+						}
+					},
 					mobileNumber:{
 						number:true
 					},
@@ -19,7 +25,10 @@ define(['text!templates/user/registerView.html',
 						equalTo : "#inputPassword"
 					}
 				},
-				messages:{					
+				messages:{
+					email:{
+						remote : openbiz.apps.cubi.locale.registerView.validation.emailDuplicated
+					},				
 					repeatPassword: {
 						equalTo : openbiz.apps.cubi.locale.registerView.validation.passwordNotMatch
 					}

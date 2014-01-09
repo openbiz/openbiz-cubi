@@ -32,6 +32,16 @@ module.exports = function(app){
                 }
             });
         },
+        checkUsernameDuplicate:function(req,res)
+        {
+            self().model.findOne({username:req.body.username},"username",function(err,user){
+                if(user){
+                    res.json(200,true);
+                }else{
+                    res.json(200,false);
+                }
+            });
+        },
         resetPasswordWithToken:function(res,req)
         {
 

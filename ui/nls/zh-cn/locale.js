@@ -48,7 +48,8 @@ define({
         agreeWith: '我已经阅读并且认同',
         termOfUse: '使用条款',
         validation:{
-            passwordNotMatch:'两次密码输入不一致'
+            passwordNotMatch:'两次密码输入不一致',
+            emailDuplicated: '该邮件地址已经被其他用户注册'
         }
     }
 });

@@ -49,7 +49,8 @@ define({
 	    	agreeWith: 'I have read and agreed with ',
 	    	termOfUse: 'term of use',
 	    	validation:{
-	    		passwordNotMatch:'The password is not matched'
+	    		passwordNotMatch:'The password is not matched',
+	    		emailDuplicated: 'The email address has been registered by other user'
 	    	}
 	    }
 	},
