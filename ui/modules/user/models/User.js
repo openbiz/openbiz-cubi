@@ -17,9 +17,13 @@ define(function(templateData){
 				contentType : "application/json",
 				url  		: this.url,				
 				data 		: JSON.stringify(user),
-				statusCode  : {
-					201: function(){
-						callback();
+				complete 	: function(jqXHR,textStatus){
+					switch(jqXHR.status){
+						case 201:
+							callback(true,jqXHR.responseJSON);
+							break;						
+						default:
+							break;
 					}
 				}
 			});
@@ -30,8 +34,29 @@ define(function(templateData){
 		resetPasswordWithToken:function(email,newPassword,token){
 
 		},
-		login:function(){
-
+		login:function(username,password,callback){
+			var payload = {
+				username: username,
+				password: password
+			};
+			$.ajax({
+				type 		: "POST",
+				dataType 	: "json",
+				contentType : "application/json",
+				url  		: this.url+'/login',				
+				data 		: JSON.stringify(payload),
+				complete 	: function(jqXHR,textStatus){
+					switch(jqXHR.status){
+						case 200:
+							callback(true,jqXHR.responseJSON);
+							break;
+						case 401:
+							callback(false);
+						default:
+							break;
+					}
+				}
+			});
 		}
 	});
 })

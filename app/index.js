@@ -16,6 +16,6 @@ module.exports = function(openbiz)
         _path : __dirname,
         _ui : path.join(path.dirname(__dirname),'ui'),
         openbiz: openbiz
-    });
+    });    
     return application;
 }

@@ -48,5 +48,10 @@ module.exports = function(app)
         return false;
     };
 
+    schema.statics.encryptPassword = function(password) 
+    {
+        return require('crypto').createHmac('sha512', app.openbiz.context.get('crypto-key')).update(password).digest('hex');
+    };
+
     return app.openbiz.db.model('cubi.user.User', schema);
 }

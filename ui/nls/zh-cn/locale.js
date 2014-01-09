@@ -11,7 +11,11 @@ define({
     	signInWithSocial: '使用社交网络账号登录',
     	newUsers: '我是新用户',
     	ifDontHaveAccount: "如果您还有没创建过账户，请点击下面的按钮来开始创建。",
-    	createAccount: '创建新账户'
+    	createAccount: '创建新账户',
+        signing: '登录中...',
+        validation:{
+            incorrectPassword: "您输入的用户名或密码可能不正确"
+        }
     },
     resetPasswordView:{
         resetPassword: '找回密码',

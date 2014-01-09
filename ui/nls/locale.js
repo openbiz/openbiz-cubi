@@ -12,7 +12,11 @@ define({
 	    	signInWithSocial: 'Sign in with Soical Networks',
 	    	newUsers: 'New Users',
 	    	ifDontHaveAccount: "If you don't have an account yet, Please click below button to create a new account",
-	    	createAccount: 'Create Account'
+	    	createAccount: 'Create Account',
+	    	signing: 'Signing in',
+	    	validation:{
+	            incorrectPassword: "Email or password is incorrect"
+	        }
 	    },
 	    resetPasswordView:{
 	    	resetPassword: 'Reset Password',

@@ -1,7 +1,8 @@
 'use strict';
-module.exports = function(app){
+module.exports = function(app){	
     return {
+    	"post /users/login" 		: [ app.getController("AuthController").authenticate ],
         "post /users" 		    	: [ app.getController("UserController").create ],
-        "post /users/check-duplicate" 	: [ app.getController("UserController").checkUsernameDuplicate ],
+        "post /users/check-unique" 	: [ app.getController("UserController").checkUsernameUnique ]
     }
 }

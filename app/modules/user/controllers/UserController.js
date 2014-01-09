@@ -13,7 +13,7 @@ module.exports = function(app){
 
             contact.creator.id = user.id;
             user.username = req.body.username;
-            user.password = req.body.password;
+            user.password = self().model.encryptPassword(req.body.password);
             user.contact = contact.id;
 
             contact.save(function(err){
@@ -32,23 +32,23 @@ module.exports = function(app){
                 }
             });
         },
-        checkUsernameDuplicate:function(req,res)
+        checkUsernameUnique:function(req,res)
         {
             self().model.findOne({username:req.body.username},"username",function(err,user){
                 if(user){
-                    res.json(200,true);
-                }else{
                     res.json(200,false);
+                }else{
+                    res.json(200,true);
                 }
             });
         },
-        resetPasswordWithToken:function(res,req)
+        resetPasswordWithToken:function(req,res)
         {
 
         },
-        responseResetPassword:function(res,req)
+        responseResetPassword:function(req,res)
         {
 
         }
-    });
+    });    
 }

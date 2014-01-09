@@ -3,19 +3,21 @@ define(['text!templates/user/registerView.html',
 		'../models/User'],
 		function(templateData,model){
 	return Backbone.View.extend({
-		model:new model(),
+		model:model,
 		events:{
 			"submit .create-account-form"  	:  "createAccount",
 			"click .go-to-login"  			:  "gotoLogin"
 		},
 		validate:function(){				
 			$(this.el).find('.create-account-form').validate({		
-				debug: true,		
 				rules:{
 					email:{
 						remote: {
-							url: openbiz.apps.cubi.appUrl+'/users/check-duplicate',
-							type: 'post'
+							url: openbiz.apps.cubi.appUrl+'/users/check-unique',
+							type: 'post',
+							data: {
+								username: function(){ return $("#inputEmail").val() }
+							}
 						}
 					},
 					mobileNumber:{
@@ -38,6 +40,7 @@ define(['text!templates/user/registerView.html',
 		createAccount:function(event)
 		{
 			if(!$(this.el).find('.create-account-form').valid())return;
+			var self = this;
 			if(openbiz.apps.cubi.locale.registerView.nameFormat[0]=='firstName'){
 				var displayName = $(this.el).find('#inputLastName').val() + $(this.el).find('#inputFirstName').val();
 			}else{
@@ -66,9 +69,17 @@ define(['text!templates/user/registerView.html',
 					}]
 				}
 			}
-			console.log('Create Account');			
-			this.model.createAccount(user,function(){
 
+			this.model.createAccount(user,function(data)
+			{
+				self.model.login( user.username, user.password,function(isAuthed, user)
+				{								
+					if(isAuthed)
+					{
+						//we are good to go !
+						openbiz.session.user = user;			
+					}
+				});
 			});
 		},
 		gotoLogin:function()
@@ -76,8 +87,9 @@ define(['text!templates/user/registerView.html',
 			event.preventDefault();
 			var self=this;
 			$(this.el).find('.go-to-login').replaceWith(openbiz.apps.cubi.locale.loading);
-			openbiz.apps.cubi.require(['./modules/user/views/LoginView'],function(forgetPasswordView){
-				var view = new forgetPasswordView();
+			openbiz.apps.cubi.require(['./modules/user/views/LoginView'],function(targetView){
+				self.undelegateEvents();
+				var view = new targetView();
 				$(self.el).fadeOut(function(){
 					$(self.el).html(view.render().el).fadeIn();
 				})
@@ -110,10 +122,8 @@ define(['text!templates/user/registerView.html',
 	    				elem.css({'width':'50%','margin-right':'0%'});
 	    				break;
 	    		}
-	    		nameRootElem.append(elem);
-	    		
-	    	}
-	    	
+	    		nameRootElem.append(elem);	    	
+	    	}	    	
 	    }
 	});
 })

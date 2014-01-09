@@ -55,5 +55,6 @@ module.exports = function(app)
     },{
         collection: 'cubi_contact'
     });
+
     return app.openbiz.db.model('cubi.contact.Contact', schema);
 }
