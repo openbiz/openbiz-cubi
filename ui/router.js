@@ -9,7 +9,8 @@ define(['./modules/system/views/LayoutView'],
 		routes:{
 			"" 						: "home",			
 			"!/user/login" 			: "login",
-			"!/user/register"		: "register"
+			"!/user/register"		: "register",
+			"!/user/forget-password": "forgetPassword"
 		},		
 		initialize:function(){			
 			// wired way to call parent methods 
@@ -20,10 +21,14 @@ define(['./modules/system/views/LayoutView'],
 		home:function(){
 			if(openbiz.session.hasOwnProperty('user')){
 				//render main dashboard view
+				location.href="#!/user/dashboard";
 			}else{
 				//render login view
-				this.login();
+				location.href="#!/user/login";
 			}
+		},
+		forgetPassword:function(){
+			this.renderView("user.ForgetPasswordView");
 		},
 		login:function(){
 			this.renderView("user.LoginView");

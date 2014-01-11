@@ -1,0 +1,50 @@
+.logo-area.clearfix
+  a.logo(href='#')
+  // //logo-area
+  .tools-bar
+    ul.nav.navbar-nav.nav-main-xs
+      li
+        a.icon-toolsbar(href='#menu')
+          i.fa.fa-bars
+    ul.nav.navbar-nav.navbar-right.tooltip-area
+      li
+        a(href='#contact-right', data-toggle='tooltip', title='Find Contact', data-container='body', data-placement='left')
+          i.fa.fa-search
+      li.hidden-xs.hidden-sm
+        a.h-seperate(href='#') Help
+      li
+        a.nav-collapse.avatar-header(href='#')
+          img.circle(alt='', src='assets/img/avatar.png')
+          span.badge 3
+      li.dropdown
+        a.dropdown-toggle(href='#', data-toggle='dropdown', data-hover='dropdown')
+          em
+            strong Hi
+            | , Nutprawee
+          i.dropdown-icon.fa.fa-angle-down
+        ul.dropdown-menu.pull-right.icon-right.arrow
+          li
+            a(href='#')
+              i.fa.fa-user
+              | Profile
+          li
+            a(href='#')
+              i.fa.fa-cog
+              | Setting
+          li
+            a(href='#')
+              i.fa.fa-bookmark
+              | Bookmarks
+          li
+            a(href='#')
+              i.fa.fa-money
+              | Make a Deposit
+          li.divider
+          li
+            a(href='#')
+              i.fa.fa-sign-out
+              | Signout
+        // //dropdown-menu
+      li.visible-lg
+        a.h-seperate.fullscreen(href='#', data-toggle='tooltip', title='Full Screen', data-container='body', data-placement='left')
+          i.fa.fa-expand

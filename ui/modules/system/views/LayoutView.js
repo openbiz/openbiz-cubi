@@ -21,5 +21,6 @@ define(['text!templates/system/layoutView.html'],
 	        $('#wrapper div#menu').hide();	
 	        openbiz.ui.update();
 	    }
+
 	});	
 })

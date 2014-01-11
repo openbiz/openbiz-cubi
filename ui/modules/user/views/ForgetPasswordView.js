@@ -6,9 +6,7 @@ define(['text!templates/user/forgetPasswordView.html',
 		app: 'cubi',
 		el: '#main',
 		model:model,
-		events:{
-			"click .go-to-login"  			:  "gotoLogin",
-		},		
+		events:{},		
 		validate:function(){
 			var self=this;				
 			$(this.el).find('#form-forget-password').parsley('addListener',{
@@ -20,16 +18,6 @@ define(['text!templates/user/forgetPasswordView.html',
 					}
 				}
 			});
-		},	
-		gotoLogin:function(event)
-		{
-			event.preventDefault();			
-			$(this.el).find('.go-to-login').replaceWith(
-					$("<span/>")
-					.html(openbiz.apps.cubi.locale.loading)
-					.addClass($(this.el).find('.go-to-login ').attr('class')));
-
-			this.switchView('user.LoginView');			
 		},		
 		resetPassword:function(event)
 		{
@@ -41,8 +29,13 @@ define(['text!templates/user/forgetPasswordView.html',
 	        this.template = _.template(templateData);
     	},
 		render:function(){
-	        $(this.el).html(this.template(openbiz.apps.cubi.locale.forgetPasswordView));	  
-	        this.validate();      
+			var self = this;
+			$(this.el).fadeOut(function(){
+	        	$(self.el).html(self.template(openbiz.apps.cubi.locale.forgetPasswordView));
+	        	$(self.el).fadeIn();	        
+				self.validate(); 	        			
+	        	openbiz.ui.update();
+	    	});	        
 	        return this;
 	    }
 	});

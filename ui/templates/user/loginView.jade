@@ -36,7 +36,7 @@
               .iCheck.pull-left(data-color='red')
                 input(type='checkbox', checked='checked', parsley-group="remember")
                 label <%= remember %>
-              a.pull-right.help.btn-forget-password(href='#') <%= forgetPassword %>
+              a.pull-right.help.btn-forget-password(href='#!/user/forget-password') <%= forgetPassword %>
             span.or(data-text!='<%= or %>')
-            button.btn.btn-lg.btn-inverse.btn-block.btn-create-account(type='button') <%= createAccount %>
+            a.btn.btn-lg.btn-inverse.btn-block.btn-create-account(href="#!/user/register") <%= createAccount %>
           a.footer-link(href='#') <%= copyright %>

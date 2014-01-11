@@ -6,9 +6,7 @@ define(['text!templates/user/registerView.html',
 		app: 'cubi',
 		el: '#main',
 		model:model,
-		events:{
-			"click .go-to-login"  			:  "gotoLogin",
-		},		
+		events:{},		
 		validate:function(){
 			var self=this;
 			$(this.el).find('#inputEmail').attr("parsley-remote",this.app.appUrl+'/users/check-unique');
@@ -21,17 +19,7 @@ define(['text!templates/user/registerView.html',
 					}
 				}
 			});
-		},	
-		gotoLogin:function(event)
-		{
-			event.preventDefault();
-			var self=this;
-			$(this.el).find('.go-to-login').replaceWith(
-					$("<span/>")
-					.html(openbiz.apps.cubi.locale.loading)
-					.addClass($(this.el).find('.go-to-login ').attr('class')));
-			this.switchView('user.LoginView');
-		},
+		},		
 		signUp:function(event)
 		{
 			event.preventDefault();
@@ -92,13 +80,17 @@ define(['text!templates/user/registerView.html',
 		},
 		initialize:function(){						
 			openbiz.View.prototype.initialize.call(this); 				
-	        this.template = _.template(templateData);	        
+	        this.template = _.template(templateData);	        	        
     	},
-		render:function(){
-	        $(this.el).html(this.template(openbiz.apps.cubi.locale.registerView));	  	             
-	        this.localize();
-			this.validate(); 	        
-	        openbiz.ui.update();
+		render:function(){			
+			var self = this;
+			$(this.el).fadeOut(function(){
+	        	$(self.el).html(self.template(openbiz.apps.cubi.locale.registerView));
+	        	$(self.el).fadeIn();
+	        	self.localize();
+				self.validate(); 	        			
+	        	openbiz.ui.update();
+	    	});	        
 	        return this;
 	    },
 	    localize:function(){
