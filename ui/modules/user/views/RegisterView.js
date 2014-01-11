@@ -22,7 +22,7 @@ define(['text!templates/user/registerView.html',
 				}
 			});
 		},	
-		gotoLogin:function()
+		gotoLogin:function(event)
 		{
 			event.preventDefault();
 			var self=this;
