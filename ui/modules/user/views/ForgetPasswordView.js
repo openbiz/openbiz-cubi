@@ -21,7 +21,7 @@ define(['text!templates/user/forgetPasswordView.html',
 				}
 			});
 		},	
-		gotoLogin:function()
+		gotoLogin:function(event)
 		{
 			event.preventDefault();			
 			$(this.el).find('.go-to-login').replaceWith(
