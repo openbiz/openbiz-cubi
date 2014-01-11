@@ -20,7 +20,7 @@ define(function(templateData){
 				complete 	: function(jqXHR,textStatus){
 					switch(jqXHR.status){
 						case 201:
-							callback(true,jqXHR.responseJSON);
+							callback(true,jqXHR.responseJSON);							
 							break;						
 						default:
 							break;
@@ -49,6 +49,7 @@ define(function(templateData){
 					switch(jqXHR.status){
 						case 200:
 							callback(true,jqXHR.responseJSON);
+							openbiz.session.user = jqXHR.responseJSON;
 							break;
 						case 401:
 							callback(false);
@@ -57,6 +58,24 @@ define(function(templateData){
 					}
 				}
 			});
+		},
+		logout:function(){
+			$.ajax({
+				type 		: "POST",
+				dataType 	: "json",
+				contentType : "application/json",
+				url  		: this.url+'/logout',				
+				complete 	: function(jqXHR,textStatus){
+					switch(jqXHR.status){
+						case 200:
+							delete openbiz.session.user;
+							callback();							
+							break;
+						default:
+							break;
+					}
+				}
+			});			
 		}
 	});
 })

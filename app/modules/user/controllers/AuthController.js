@@ -15,7 +15,7 @@ module.exports = function(app){
 
     passport.use(new LocalStrategy(
         function(username, password, done) {
-          self().model.findOne({username:username}).populate('contact').exec(function(err,user){
+          self().model.findOne({username:username}).populate('contact').populate('account').exec(function(err,user){            
             if (err) { return done(err); }
             if (!user) {
               return done(null, false);
@@ -33,7 +33,7 @@ module.exports = function(app){
     });
 
     passport.deserializeUser(function(id, done) {
-      self().model.findOne({_id:id}).populate('contact').exec(function(err,user){
+      self().model.findOne({_id:id}).populate('contact').populate('account').exec(function(err,user){
         done(err, userInfoFilter(user));
       });
     });
@@ -46,9 +46,15 @@ module.exports = function(app){
                 if (!user) { return res.send(401); }
                 req.logIn(user, function(err) {
                     if (err) { return next(err); }
+                    user.recordLoginAction(req.ip);
                     return res.json(200,userInfoFilter(user));
                 });
             })(req,res,next);
+        },
+        logout:function(req,res)
+        {
+            req.logout();
+            res.send(200);
         }
     });
 }

@@ -3,30 +3,35 @@ define({
 	'root':{
 		loading:'Loading ...',
 	    loginView:{
-	    	existingUsers: 'Existing Users',
+	    	viewTitle: '<span>Wel</span>come',
+	    	viewDescription: 'Openbiz Cubi Application Platform 4.0',
 	    	email: 'Email',
 	    	password: 'Password',
 	    	signIn: 'Sign In',
-	    	forgetPassword: 'Forget password?',
 	    	or: 'or',
-	    	signInWithSocial: 'Sign in with Soical Networks',
-	    	newUsers: 'New Users',
-	    	ifDontHaveAccount: "If you don't have an account yet, Please click below button to create a new account",
+	    	remember: 'Remember',
+	    	forgetPassword: 'Forget Password?',
 	    	createAccount: 'Create Account',
 	    	signing: 'Signing in',
+	    	copyright: '&copy; 2014 Openbiz LLC',
 	    	validation:{
 	            incorrectPassword: "Email or password is incorrect"
 	        }
 	    },
-	    resetPasswordView:{
-	    	resetPassword: 'Reset Password',
+	    forgetPasswordView:{
+	    	viewTitle: '<span>Reset</span> Password',
+	    	viewDescription: 'Openbiz Cubi Application Platform 4.0',
 	    	pleaseInputEmail: 'Please fill in yout email address in below field. Our system will send you an email with a link to allow your to reset your password.',
 	    	email: 'Email',
 	    	sendRequest: 'Send Request',
-	    	goToLogin: 'Go to Login'
+	    	or: 'or',
+	    	goToLogin: 'Go to Login',	    	
+	    	copyright: '&copy; 2014 Openbiz LLC'
 	    },
 	    registerView:{
-	    	createAccountTitle: 'Create New Account',
+	    	viewTitle: '<span>Create</span> New Account',
+	    	viewDescription: 'Openbiz Cubi Application Platform 4.0',
+	    	copyright: '&copy; 2014 Openbiz LLC',	    	
 	    	createAccountButton: 'Create Account',
 	    	alreadyHaveAccount: 'Already have an account? ',
 	    	goToLogin: 'Go to Login',
@@ -49,10 +54,14 @@ define({
 	    	phoneNumber: 'Phone Number',
 	    	email: 'Email',
 	    	password: 'Password',
+	    	passwordPlaceholder: 'At leaset 6 charactors',
 	    	repeatPassword: 'Repeat',
+	    	repeatPasswordPlaceholder: 'Repeat password',	    	
 	    	agreeWith: 'I have read and agreed with ',
 	    	termOfUse: 'term of use',
+	    	signing: 'Signing up',
 	    	validation:{
+	    		needAgreement: 'You need to check this agreement before continue',
 	    		passwordNotMatch:'The password is not matched',
 	    		emailDuplicated: 'The email address has been registered by other user'
 	    	}

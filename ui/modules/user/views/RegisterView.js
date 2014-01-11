@@ -1,45 +1,49 @@
 "use strict";
 define(['text!templates/user/registerView.html',
 		'../models/User'],
-		function(templateData,model){
-	return Backbone.View.extend({
+	function(templateData,model){
+	return openbiz.View.extend({
+		app: 'cubi',
+		el: '#main',
 		model:model,
 		events:{
-			"submit .create-account-form"  	:  "createAccount",
-			"click .go-to-login"  			:  "gotoLogin"
-		},
-		validate:function(){				
-			$(this.el).find('.create-account-form').validate({		
-				rules:{
-					email:{
-						remote: {
-							url: openbiz.apps.cubi.appUrl+'/users/check-unique',
-							type: 'post',
-							data: {
-								username: function(){ return $("#inputEmail").val() }
-							}
-						}
-					},
-					mobileNumber:{
-						number:true
-					},
-					repeatPassword: {
-						equalTo : "#inputPassword"
-					}
-				},
-				messages:{
-					email:{
-						remote : openbiz.apps.cubi.locale.registerView.validation.emailDuplicated
-					},				
-					repeatPassword: {
-						equalTo : openbiz.apps.cubi.locale.registerView.validation.passwordNotMatch
+			"click .go-to-login"  			:  "gotoLogin",
+		},		
+		validate:function(){
+			var self=this;
+			$(this.el).find('#inputEmail').attr("parsley-remote",this.app.appUrl+'/users/check-unique');
+			$(this.el).find('#form-sign-up').parsley('addListener',{
+				onFormValidate:function(isValid,event,ParsleyForm)
+				{	
+					if(isValid){
+						event.preventDefault();
+						self.signUp.call(self,event);
 					}
 				}
 			});
 		},	
-		createAccount:function(event)
+		gotoLogin:function()
 		{
-			if(!$(this.el).find('.create-account-form').valid())return;
+			event.preventDefault();
+			var self=this;
+			$(this.el).find('.go-to-login').replaceWith(
+					$("<span/>")
+					.html(openbiz.apps.cubi.locale.loading)
+					.addClass($(this.el).find('.go-to-login ').attr('class')));
+			this.switchView('user.LoginView');
+		},
+		signUp:function(event)
+		{
+			event.preventDefault();
+			$(this.el).find('.btn-sign-up')
+						.attr('data-loading-text',openbiz.apps.cubi.locale.registerView.signing)						
+						.tbButton('loading');
+			//scroll to top
+			$(this.el).animate({
+				scrollTop: 0
+			}, 500);
+			$(this.el).addClass("slideDown");
+
 			var self = this;
 			if(openbiz.apps.cubi.locale.registerView.nameFormat[0]=='firstName'){
 				var displayName = $(this.el).find('#inputLastName').val() + $(this.el).find('#inputFirstName').val();
@@ -73,35 +77,28 @@ define(['text!templates/user/registerView.html',
 			this.model.createAccount(user,function(data)
 			{
 				self.model.login( user.username, user.password,function(isAuthed, user)
-				{								
+				{	
+					$(this.el).find('.btn-sign-up').tbButton('reset');
+					setTimeout(function(){
+						$(self.el).removeClass("slideDown");						
+					},500);									
 					if(isAuthed)
 					{
 						//we are good to go !
-						openbiz.session.user = user;			
-					}
+										
+					}				
 				});
 			});
 		},
-		gotoLogin:function()
-		{
-			event.preventDefault();
-			var self=this;
-			$(this.el).find('.go-to-login').replaceWith(openbiz.apps.cubi.locale.loading);
-			openbiz.apps.cubi.require(['./modules/user/views/LoginView'],function(targetView){
-				self.undelegateEvents();
-				var view = new targetView();
-				$(self.el).fadeOut(function(){
-					$(self.el).html(view.render().el).fadeIn();
-				})
-			})
-		},
-		initialize:function(){				
+		initialize:function(){						
+			openbiz.View.prototype.initialize.call(this); 				
 	        this.template = _.template(templateData);	        
     	},
 		render:function(){
-	        $(this.el).html(this.template(openbiz.apps.cubi.locale.registerView));	        
+	        $(this.el).html(this.template(openbiz.apps.cubi.locale.registerView));	  	             
 	        this.localize();
-	        this.validate();
+			this.validate(); 	        
+	        openbiz.ui.update();
 	        return this;
 	    },
 	    localize:function(){
@@ -116,14 +113,15 @@ define(['text!templates/user/registerView.html',
 	    		switch(parseInt(i))
 	    		{
 	    			case 0:
-	    				elem.css({'width':'47%','margin-right':'3%'});	    				
+	    				elem.css({'padding-left':'20px','padding-right':'0px'});	    				
 	    				break;
 	    			case 1:
-	    				elem.css({'width':'50%','margin-right':'0%'});
+	    				elem.css({'padding-left':'0px','padding-right':'20px'});	    				
 	    				break;
 	    		}
 	    		nameRootElem.append(elem);	    	
 	    	}	    	
 	    }
+
 	});
 })

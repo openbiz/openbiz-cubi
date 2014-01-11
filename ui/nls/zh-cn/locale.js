@@ -2,30 +2,31 @@
 define({	   
     loading:'数据加载中 ...', 
 	loginView:{
-    	existingUsers: '我是老用户',
+        viewTitle: '<span>欢迎</span>登录',
     	email: '电子邮件',
     	password: '登录密码',
     	signIn: '登录',
+        or: '或者',
+        remember: '记住我的账户',
     	forgetPassword: '忘记密码?',
-    	or: '或者',
-    	signInWithSocial: '使用社交网络账号登录',
-    	newUsers: '我是新用户',
-    	ifDontHaveAccount: "如果您还有没创建过账户，请点击下面的按钮来开始创建。",
     	createAccount: '创建新账户',
         signing: '登录中...',
+        copyright: '&copy; 2014 Openbiz LLC',
         validation:{
             incorrectPassword: "您输入的用户名或密码可能不正确"
         }
     },
-    resetPasswordView:{
-        resetPassword: '找回密码',
+    forgetPasswordView:{
+        viewTitle: '<span>找回</span>密码',
         pleaseInputEmail: '请在下面的输入框内填写您的电子邮件地址，我们的系统将会自动发给你一封带有密码重置连接的电子邮件，请注意查收。',
         email: '电子邮件',
+        or: '或者',
         sendRequest: '发送请求',
+        copyright: '&copy; 2014 Openbiz LLC',
         goToLogin: '返回登陆页面'
     },
     registerView:{
-        createAccountTitle: '创建新的账户',        
+        viewTitle: '<span>创建</span>新的账户',        
         createAccountButton: '创建账户',
         alreadyHaveAccount: '已经有账户了么? ',
         goToLogin: '返回登录',
@@ -51,7 +52,9 @@ define({
         repeatPassword: '重复密码',
         agreeWith: '我已经阅读并且认同',
         termOfUse: '使用条款',
+        signing: '创建中...',
         validation:{
+            needAgreement: '您需要同意本协议才可以继续',
             passwordNotMatch:'两次密码输入不一致',
             emailDuplicated: '该邮件地址已经被其他用户注册'
         }

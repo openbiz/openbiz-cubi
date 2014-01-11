@@ -2,43 +2,47 @@
 define(['text!templates/user/forgetPasswordView.html',
 		'../models/User'],
 	function(templateData,model){
-	return Backbone.View.extend({
+	return openbiz.View.extend({
+		app: 'cubi',
+		el: '#main',
 		model:model,
 		events:{
-			"submit .forget-password-form"  :  "resetPassword",
 			"click .go-to-login"  			:  "gotoLogin",
-			'keydown' 						:  "keydownHandler"
-		},
-		keydownHandler : function (e) {
-			switch (e.which) {
-				case 27 :
-					this.gotoLogin();
-					break;
-			}
-		},
+		},		
+		validate:function(){
+			var self=this;				
+			$(this.el).find('#form-forget-password').parsley('addListener',{
+				onFormValidate:function(isValid,event,ParsleyForm)
+				{	
+					event.preventDefault();
+					if(isValid){
+						self.resetPassword(event);
+					}
+				}
+			});
+		},	
 		gotoLogin:function()
 		{
-			event.preventDefault();
-			var self=this;
-			$(this.el).find('.go-to-login').replaceWith(openbiz.apps.cubi.locale.loading);
-			openbiz.apps.cubi.require(['./modules/user/views/LoginView'],function(forgetPasswordView){
-				self.undelegateEvents();
-				var view = new forgetPasswordView();
-				$(self.el).fadeOut(function(){
-					$(self.el).html(view.render().el).fadeIn();
-				})
-			})
-		},
+			event.preventDefault();			
+			$(this.el).find('.go-to-login').replaceWith(
+					$("<span/>")
+					.html(openbiz.apps.cubi.locale.loading)
+					.addClass($(this.el).find('.go-to-login ').attr('class')));
+
+			this.switchView('user.LoginView');			
+		},		
 		resetPassword:function(event)
 		{
 			event.preventDefault();
 			console.log('reset Password');
 		},
-		initialize:function(){						
+		initialize:function(){			
+			openbiz.View.prototype.initialize.call(this); 			
 	        this.template = _.template(templateData);
     	},
 		render:function(){
-	        $(this.el).html(this.template(openbiz.apps.cubi.locale.resetPasswordView));
+	        $(this.el).html(this.template(openbiz.apps.cubi.locale.forgetPasswordView));	  
+	        this.validate();      
 	        return this;
 	    }
 	});

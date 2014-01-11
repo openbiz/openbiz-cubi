@@ -15,6 +15,7 @@ module.exports = function(app){
             user.username = req.body.username;
             user.password = self().model.encryptPassword(req.body.password);
             user.contact = contact.id;
+            user.roles.push('cubi-user');
 
             contact.save(function(err){
                 if(err){
@@ -33,14 +34,18 @@ module.exports = function(app){
             });
         },
         checkUsernameUnique:function(req,res)
-        {
-            self().model.findOne({username:req.body.username},"username",function(err,user){
-                if(user){
-                    res.json(200,false);
-                }else{
-                    res.json(200,true);
-                }
-            });
+        {            
+            if(req.body.username == ""){
+                res.send(406);
+            }else{
+                self().model.findOne({username:req.body.username},"username",function(err,user){
+                    if(user){
+                        res.json(200,false);
+                    }else{
+                        res.json(200,true);
+                    }
+                });
+            }
         },
         resetPasswordWithToken:function(req,res)
         {

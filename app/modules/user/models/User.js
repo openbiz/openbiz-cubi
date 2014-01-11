@@ -29,7 +29,11 @@ module.exports = function(app)
         roles:[{
             type: String,
             default: 'cubi-user'
-        }]
+        }],
+        lastLogin:{
+            timestamp: Date,
+            ip: String
+        }
     },{
         versionKey: false,
         collection: 'cubi_user'
@@ -47,6 +51,12 @@ module.exports = function(app)
         }
         return false;
     };
+
+    schema.methods.recordLoginAction = function(ip){
+        this.lastLogin.timestamp = new Date(),
+        this.lastLogin.ip = ip,
+        this.save();
+    }
 
     schema.statics.encryptPassword = function(password) 
     {
