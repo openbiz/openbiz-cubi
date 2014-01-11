@@ -22,7 +22,6 @@ define(['text!templates/user/loginView.html',
 		checkLogin:function(event)
 		{
 			event.preventDefault();
-			console.log('checking login');
 			var self = this;
 			$(this.el).find('.btn-sign-in')
 						.attr('data-loading-text',openbiz.apps.cubi.locale.loginView.signing)						
@@ -48,7 +47,7 @@ define(['text!templates/user/loginView.html',
 					},500);					
 				}else{
 					//we are good to go !
-					
+					location.href="#!/user/dashboard";
 				}
 			});
 		},
@@ -58,31 +57,28 @@ define(['text!templates/user/loginView.html',
     	},
 		render:function(){		
 			var self = this;
-			$(this.el).fadeOut(function(){	
-		        $(self.el).html(self.template(openbiz.apps.cubi.locale.loginView));
-		        $(self.el).fadeIn();
-		        $('#wrapper div#header').hide();
-		        $('#wrapper div#nav').hide();
-		        $('#wrapper div#menu').hide();						
-		    	function toCenter(){
-					var mainH=$(self.el).find("#main").outerHeight();
-					var accountH=$(self.el).find(".account-wall").outerHeight();
-					var marginT=(mainH-accountH)/2;
-				   	if(marginT>30){
-					    $(self.el).find(".account-wall").css("margin-top",marginT-15);
-					}else{
-						$(self.el).find(".account-wall").css("margin-top",30);
-					}
+		    $(this.el).html(this.template(openbiz.apps.cubi.locale.loginView));
+		    $('#wrapper div#header').hide();
+	        $('#wrapper div#nav').hide();
+	        $('#wrapper div#menu').hide();						
+	    	function toCenter(){
+				var mainH=$(self.el).find("#main").outerHeight();
+				var accountH=$(self.el).find(".account-wall").outerHeight();
+				var marginT=(mainH-accountH)/2;
+			   	if(marginT>30){
+				    $(self.el).find(".account-wall").css("margin-top",marginT-15);
+				}else{
+					$(self.el).find(".account-wall").css("margin-top",30);
 				}
-				toCenter();
-				var toResize;
-				$(window).resize(function(e) {
-					clearTimeout(toResize);
-					toResize = setTimeout(toCenter(), 500);
-				});	        	        
-		        openbiz.ui.update();
-		        self.validate();	
-	        });        
+			}
+			toCenter();
+			var toResize;
+			$(window).resize(function(e) {
+				clearTimeout(toResize);
+				toResize = setTimeout(toCenter, 500);
+			});	      
+			this.validate();	
+	        openbiz.ui.update();
 	        return this;
 	    }
 	});

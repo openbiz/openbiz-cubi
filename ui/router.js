@@ -3,6 +3,7 @@ define(['./modules/system/views/LayoutView'],
 		function(layoutView){
 	return openbiz.Router.extend({		
 		app: openbiz.apps.cubi?openbiz.apps.cubi:'cubi',
+		dashboardUIInited:false,
 		views:{
 			layout  	: layoutView			
 		},
@@ -10,7 +11,8 @@ define(['./modules/system/views/LayoutView'],
 			"" 						: "home",			
 			"!/user/login" 			: "login",
 			"!/user/register"		: "register",
-			"!/user/forget-password": "forgetPassword"
+			"!/user/forget-password": "forgetPassword",
+			"!/user/dashboard" 		: "dashboard",
 		},		
 		initialize:function(){			
 			// wired way to call parent methods 
@@ -26,6 +28,20 @@ define(['./modules/system/views/LayoutView'],
 				//render login view
 				location.href="#!/user/login";
 			}
+		},
+		dashboard:function(){
+			if(openbiz.session.hasOwnProperty('user')){
+				this.initDashboardUI();
+				//if user has no account yet, show wizard
+				this.renderView("user.DashboardView");
+			}else{
+				location.href="#!/user/login";
+			}
+		},
+		initDashboardUI:function(){
+			if(this.dashboardUIInited==true) return;
+			this.dashboardUIInited=true;
+			this.renderView('system.HeaderView');
 		},
 		forgetPassword:function(){
 			this.renderView("user.ForgetPasswordView");

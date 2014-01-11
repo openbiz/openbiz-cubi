@@ -28,15 +28,11 @@ define(['text!templates/user/forgetPasswordView.html',
 			openbiz.View.prototype.initialize.call(this); 			
 	        this.template = _.template(templateData);
     	},
-		render:function(){
-			var self = this;
-			$(this.el).fadeOut(function(){
-	        	$(self.el).html(self.template(openbiz.apps.cubi.locale.forgetPasswordView));
-	        	$(self.el).fadeIn();	        
-				self.validate(); 	        			
-	        	openbiz.ui.update();
-	    	});	        
-	        return this;
+		render:function(){			
+	        $(this.el).html(this.template(openbiz.apps.cubi.locale.forgetPasswordView));
+			this.validate(); 	        			
+        	openbiz.ui.update();
+ 	        return this;
 	    }
 	});
 })

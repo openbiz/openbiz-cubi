@@ -83,14 +83,10 @@ define(['text!templates/user/registerView.html',
 	        this.template = _.template(templateData);	        	        
     	},
 		render:function(){			
-			var self = this;
-			$(this.el).fadeOut(function(){
-	        	$(self.el).html(self.template(openbiz.apps.cubi.locale.registerView));
-	        	$(self.el).fadeIn();
-	        	self.localize();
-				self.validate(); 	        			
-	        	openbiz.ui.update();
-	    	});	        
+        	$(this.el).html(this.template(openbiz.apps.cubi.locale.registerView));
+        	this.localize();
+			this.validate(); 	        			
+        	openbiz.ui.update();
 	        return this;
 	    },
 	    localize:function(){
