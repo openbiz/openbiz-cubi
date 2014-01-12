@@ -1,0 +1,95 @@
+#nav-scroll
+  .avatar-slide
+    span.avatar-chart(data-percent='69')
+      span.percent
+      img.circle(alt='', src!='<%= baseUrl %>/images/avatar.png')
+    // //avatar-chart
+    .avatar-detail
+      p
+        strong Hi
+        | , Nutprawee
+      p
+        a(href='#') @ Chaing Mai , TH
+      span 12,110 Sales
+      span 106 Follower
+    // //avatar-detail
+    .avatar-link.btn-group.btn-group-justified(data-color='theme')
+      a.btn(href='profile.html', title='Portfolio')
+        i.fa.fa-briefcase
+      a.btn(data-toggle='modal', href='#md-notification', title='Notification')
+        i.fa.fa-bell-o
+        em.green
+      a.btn(data-toggle='modal', href='#md-messages', title='Messages')
+        i.fa.fa-envelope-o
+        em.active
+      a.btn(href='#contact-right', title='Contact List')
+        i.fa.fa-book
+    // //avatar-link
+  // //avatar-slide
+  .widget-collapse.dark
+    header
+      a(data-toggle='collapse', href='#collapseSummary')
+        i.collapse-caret.fa.fa-angle-up
+        | Summary Order
+    section#collapseSummary.collapse.in
+      .collapse-boby(style='padding: 0;')
+        .widget-mini-chart.align-xs-left
+          .pull-right
+            .sparkline.mini-chart(data-type='bar', data-color='theme', data-bar-width='10', data-height='35') 2,3,4,5,7,4,5
+          p This week's balance
+          h4 $12,788
+        // //widget-mini-chart
+        .widget-mini-chart.align-xs-right
+          .pull-left
+            .sparkline.mini-chart(data-type='bar', data-color='warning', data-bar-width='10', data-height='45') 2,3,7,5,4,6,6,3
+          p This week sales
+          h4 1,325 item
+        // //widget-mini-chart
+      // //collapse-boby
+    // //collapse
+  // //widget-collapse
+  .widget-collapse.dark
+    header
+      a(data-toggle='collapse', href='#collapseTasks')
+        i.collapse-caret.fa.fa-angle-down
+        | (2) Tasks processing
+    section#collapseTasks.collapse
+      .collapse-boby
+        .widget-slider
+          p Upload status
+          .progress.progress-dark.progress-xs.tooltip-in
+            .progress-bar(data-color='#FA9E2F', aria-valuetransitiongoal='75')
+          label.progress-label Master.zip 4 / 5 
+          // //progress
+          .progress.progress-dark.progress-xs
+            .progress-bar(data-color='theme-inverse', aria-valuetransitiongoal='45')
+          label.progress-label.lasted Profile 2 / 5 
+          // //progress
+        // //widget-slider
+      // //collapse-boby
+    // //collapse
+  // //widget-collapse
+  .widget-collapse.dark
+    header
+      a(data-toggle='collapse', href='#collapseSetting')
+        i.collapse-caret.fa.fa-angle-up
+        | Setting Option
+    section#collapseSetting.collapse.in
+      .collapse-boby(style='padding: 0;')
+        ul.widget-slide-setting
+          li
+            .ios-switch.theme.pull-right
+              .switch
+                input(type='checkbox', name='option')
+            label
+              | Switch
+              span OFF
+            small Lorem ipsum dolor sit amet
+          li
+            .ios-switch.theme-inverse.pull-right
+              .switch
+                input(type='checkbox', name='option_1', checked='checked')
+            label
+              | Switch
+              span ON
+            small Lorem ipsum dolor sit amet

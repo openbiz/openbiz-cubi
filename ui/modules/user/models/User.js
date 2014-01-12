@@ -5,7 +5,9 @@ define(function(templateData){
 		defualts:{
 			email:null,
 			password:null,
-			contact:{}
+			contact:{},
+			account:{},
+			roles:[]
 		},
 		initialize:function(){
 			this.url = openbiz.apps.cubi.appUrl+'/users';

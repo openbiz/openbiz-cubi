@@ -67,6 +67,12 @@ define({
 	    	}
 	    },
 	    dashboardView:{
+
+	    },
+	    headerView:{
+	    	
+	    },
+	    navView:{
 	    	
 	    }
 	},

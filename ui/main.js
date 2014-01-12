@@ -8,6 +8,7 @@ define(['i18n!./nls/locale',
 	return openbiz.Application.extend({
 		name:'cubi',
 		appUrl:null,
+		baseUrl:null,
 		router: router,
 		modules:{
 			user: user

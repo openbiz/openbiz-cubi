@@ -2,13 +2,15 @@
 define(['text!templates/system/layoutView.html'],
 	function(templateData){
 	return openbiz.View.extend({		
-		app: openbiz.apps.cubi,
+		app: 'cubi',
+		name: 'layoutView',
 		el:'#wrapper',
 		initialize:function(){						
 	        this.template = _.template(templateData);
     	},
 		render:function(){
-	        $(this.el).html(this.template(openbiz.apps.cubi.locale.resetPasswordView));	 
+			openbiz.View.prototype.initialize.call(this); 	
+	        $(this.el).html(this.template(this.app.locale.resetPasswordView));	 
 	        this.afterViewRenderred();
 	        return this;
 	    },	    
@@ -16,11 +18,14 @@ define(['text!templates/system/layoutView.html'],
 			var throbber = new Throbber({  size: 32, padding: 17,  strokewidth: 2.8,  lines: 12, rotationspeed: 0, fps: 15 });
 			throbber.appendTo(document.getElementById('canvas_loading'));
 			throbber.start();
-			$('#wrapper div#header').hide();
-	        $('#wrapper div#nav').hide();
-	        $('#wrapper div#menu').hide();	
+			$(this.el).find('div#header').hide();
+	        $(this.el).find('div#nav').hide();
+	        $(this.el).find('div#menu').hide();	
 	        openbiz.ui.update();
+	    },
+	    hideLoading:function(){
+	    	$(this.el).find('div#loading-top').hide();
+	    	return this;
 	    }
-
 	});	
 })

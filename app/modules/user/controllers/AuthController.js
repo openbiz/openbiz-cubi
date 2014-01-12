@@ -4,14 +4,7 @@ module.exports = function(app){
         return app.getController(require('path').basename(module.filename,'.js')); 
     };
     var passport = require('passport'),
-        LocalStrategy = require('passport-local').Strategy;
-    
-    var userInfoFilter = function(user){
-       var result = user.toJSON();
-       delete result.password;
-       delete result.contact.creator;
-       return result;
-    }
+        LocalStrategy = require('passport-local').Strategy;  
 
     passport.use(new LocalStrategy(
         function(username, password, done) {
@@ -34,7 +27,7 @@ module.exports = function(app){
 
     passport.deserializeUser(function(id, done) {
       self().model.findOne({_id:id}).populate('contact').populate('account').exec(function(err,user){
-        done(err, userInfoFilter(user));
+        done(err, user);
       });
     });
     
@@ -47,7 +40,7 @@ module.exports = function(app){
                 req.logIn(user, function(err) {
                     if (err) { return next(err); }
                     user.recordLoginAction(req.ip);
-                    return res.json(200,userInfoFilter(user));
+                    return res.json(200,user.getOutput());
                 });
             })(req,res,next);
         },

@@ -39,18 +39,28 @@ module.exports = function(app)
         collection: 'cubi_user'
     });
 
-    schema.methods.hasPermission = function(permission)
+    schema.methods.hasPermission = function(permission,openbiz)
     {
-        for(var i in this.roles)
+        if(this.roles.length)
         {
-            var roleName = this.roles[i];
-            if(openbiz.getRole(roleName).indexOf(permission) != -1)
+            for(var i in this.roles)
             {
-                return true;                
+                var roleName = this.roles[i];
+                if(openbiz.getRole(roleName).indexOf(permission) != -1)
+                {
+                    return true;                
+                }
             }
         }
         return false;
     };
+
+    schema.methods.getOutput = function(){
+       var result = this.toJSON();
+       delete result.password;
+       delete result.contact.creator;
+       return result;
+    }
 
     schema.methods.recordLoginAction = function(ip){
         this.lastLogin.timestamp = new Date(),

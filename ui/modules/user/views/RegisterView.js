@@ -4,6 +4,7 @@ define(['text!templates/user/registerView.html',
 	function(templateData,model){
 	return openbiz.View.extend({
 		app: 'cubi',
+		name: 'registerView',
 		el: '#main',
 		model:model,
 		events:{},		
@@ -24,7 +25,7 @@ define(['text!templates/user/registerView.html',
 		{
 			event.preventDefault();
 			$(this.el).find('.btn-sign-up')
-						.attr('data-loading-text',openbiz.apps.cubi.locale.registerView.signing)						
+						.attr('data-loading-text',this.locale.signing)						
 						.tbButton('loading');
 			//scroll to top
 			$(this.el).animate({
@@ -33,7 +34,7 @@ define(['text!templates/user/registerView.html',
 			$(this.el).addClass("slideDown");
 
 			var self = this;
-			if(openbiz.apps.cubi.locale.registerView.nameFormat[0]=='firstName'){
+			if(this.locale.nameFormat[0]=='firstName'){
 				var displayName = $(this.el).find('#inputLastName').val() + $(this.el).find('#inputFirstName').val();
 			}else{
 				var displayName = $(this.el).find('#inputLastName').val() + $(this.el).find('#inputFirstName').val();
@@ -82,10 +83,27 @@ define(['text!templates/user/registerView.html',
 			openbiz.View.prototype.initialize.call(this); 				
 	        this.template = _.template(templateData);	        	        
     	},
-		render:function(){			
-        	$(this.el).html(this.template(openbiz.apps.cubi.locale.registerView));
+		render:function(){		
+			var self = this;	
+        	$(this.el).html(this.template(this.locale));
         	this.localize();
-			this.validate(); 	        			
+			this.validate(); 
+			function toCenter(){
+				var mainH=$(self.el).outerHeight();
+				var accountH=$(self.el).find(".account-wall").outerHeight();
+				var marginT=(mainH-accountH)/2;
+			   	if(marginT>30){			   		
+				    $(self.el).find(".account-wall").css("margin-top",marginT-25);
+				}else{
+					$(self.el).find(".account-wall").css("margin-top",30);
+				}
+			}
+			setTimeout(toCenter, 50);
+			var toResize;
+			$(window).on('resize',function(e) {
+				clearTimeout(toResize);
+				toResize = setTimeout(toCenter, 50);
+			});	        			
         	openbiz.ui.update();
 	        return this;
 	    },
@@ -96,8 +114,8 @@ define(['text!templates/user/registerView.html',
 	    	}
 	    	var nameRootElem = nameElems.firstName.parent();
 	    	nameRootElem.html('');
-	    	for(var i in openbiz.apps.cubi.locale.registerView.nameFormat){
-	    		var elem = nameElems[openbiz.apps.cubi.locale.registerView.nameFormat[i]];	    		
+	    	for(var i in this.locale.nameFormat){
+	    		var elem = nameElems[this.locale.nameFormat[i]];	    		
 	    		switch(parseInt(i))
 	    		{
 	    			case 0:
