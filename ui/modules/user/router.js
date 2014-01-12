@@ -1,6 +1,6 @@
 "use strict";
-define(['./modules/system/views/LayoutView',
-		'./modules/myaccount/models/Me' ],
+define(['../system/views/LayoutView',
+		'../myaccount/models/Me' ],
 		function(layoutView, me){
 	return openbiz.Router.extend({		
 		app: openbiz.apps.cubi?openbiz.apps.cubi:'cubi',
@@ -11,10 +11,10 @@ define(['./modules/system/views/LayoutView',
 		},
 		routes:{
 			"" 						: "home",			
-			"!/user/login" 			: "login",
+			"!/user/login" 			: "login",			
 			"!/user/register"		: "register",
 			"!/user/forget-password": "forgetPassword",
-			"!/user/dashboard" 		: "dashboard",
+			"!/user/dashboard" 		: "dashboard"
 		},		
 		initialize:function(){			
 			// wired way to call parent methods 
@@ -56,6 +56,11 @@ define(['./modules/system/views/LayoutView',
 		},
 		login:function(){
 			this.renderView("user.LoginView");	
+		},
+		logout:function(){
+			this.me.logout(function(){
+				location.href="#!/user/login";
+			})
 		},
 		register:function(){
 			this.renderView("user.RegisterView");			

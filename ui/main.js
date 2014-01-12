@@ -1,21 +1,21 @@
 "use strict";
 define(['i18n!./nls/locale',
 		'./modules/user/main',
-		'./router'],
+		'./modules/myaccount/main'],
 	function(locale, 
-			user, 
-			router){
+			user, myaccount){
 	return openbiz.Application.extend({
 		name:'cubi',
 		appUrl:null,
 		baseUrl:null,
-		router: router,
 		modules:{
-			user: user
+			user: user,
+			myaccount: myaccount
 		},		
 		init:function(){
-			var router = new this.router();
-			
+			for(var i in this.modules){
+				this.modules[i].init();
+			}
 		},
 		locale: locale
 	});

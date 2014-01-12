@@ -60,24 +60,6 @@ define(function(templateData){
 					}
 				}
 			});
-		},
-		logout:function(){
-			$.ajax({
-				type 		: "POST",
-				dataType 	: "json",
-				contentType : "application/json",
-				url  		: this.url+'/logout',				
-				complete 	: function(jqXHR,textStatus){
-					switch(jqXHR.status){
-						case 200:
-							delete openbiz.session.user;
-							callback();							
-							break;
-						default:
-							break;
-					}
-				}
-			});			
 		}
 	});
 })
