@@ -7,7 +7,8 @@ define(['text!templates/user/dashboardView.html',
 		name: 'dashboardView',
 		el: '#main',
 		model:model,
-		events:{},		
+		events:{},	
+		subviews:{},	
 		initialize:function(){			
 			openbiz.View.prototype.initialize.call(this); 			
 	        this.template = _.template(templateData);
@@ -17,6 +18,9 @@ define(['text!templates/user/dashboardView.html',
 	        $(window).off('resize');
         	openbiz.ui.update();
  	        return this;
+	    },
+	    undelegateAllEvents:function(){
+	    	console.log('I m going to undelegateAllEvents');
 	    }
 	});
 })

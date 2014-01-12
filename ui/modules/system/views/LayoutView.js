@@ -5,12 +5,13 @@ define(['text!templates/system/layoutView.html'],
 		app: 'cubi',
 		name: 'layoutView',
 		el:'#wrapper',
-		initialize:function(){						
+		initialize:function(){		
+			openbiz.View.prototype.initialize.call(this); 				
 	        this.template = _.template(templateData);
     	},
 		render:function(){
-			openbiz.View.prototype.initialize.call(this); 	
-	        $(this.el).html(this.template(this.app.locale.resetPasswordView));	 
+			//openbiz.View.prototype.initialize.call(this); 	
+	        $(this.el).html(this.template(this.locale));	 
 	        this.afterViewRenderred();
 	        return this;
 	    },	    
@@ -21,7 +22,6 @@ define(['text!templates/system/layoutView.html'],
 			$(this.el).find('div#header').hide();
 	        $(this.el).find('div#nav').hide();
 	        $(this.el).find('div#menu').hide();	
-	        openbiz.ui.update();
 	    },
 	    hideLoading:function(){
 	    	$(this.el).find('div#loading-top').hide();
