@@ -44,7 +44,7 @@ define(['text!templates/user/loginView.html',
 					setTimeout(function(){
 						$(self.el).removeClass("slideDown");
 						$(self.el).find('#inputPassword').closest(".input-group").removeClass("parsley-success").addClass("parsley-error");
-						$(self.el).find('#inputPassword').attr("data-content",this.locale.validation.incorrectPassword).popover('show');						
+						$(self.el).find('#inputPassword').attr("data-content",self.locale.validation.incorrectPassword).popover('show');						
 					},500);					
 				}else{
 					//we are good to go !
