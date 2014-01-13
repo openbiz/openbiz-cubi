@@ -24,7 +24,7 @@ define(['text!templates/system/headerView.html'],
 	        return this;
 	    },
         navcollapse:function(event){
-            if(openbiz.views.renderred['system.NavView'] == false){
+            if(openbiz.views.isRenderred('system.NavView') == false){
                 return;
             }
             event.preventDefault()

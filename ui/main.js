@@ -11,7 +11,7 @@ define(['i18n!./nls/locale',
 		modules:{
 			user: user,
 			myaccount: myaccount
-		},		
+		},
 		init:function(){			
 			for(var i in this.modules){
 				this.modules[i].init();

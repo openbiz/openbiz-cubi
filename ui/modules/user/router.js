@@ -10,38 +10,18 @@ define(['../system/views/LayoutView',
 			"!/user/login" 			: "login",			
 			"!/user/register"		: "register",
 			"!/user/forget-password": "forgetPassword",
-			"!/user/dashboard" 		: "dashboard",
-			"!/backend/testform"	: "renderTestForm"
-		},
-		route: function(route, name, callback) {
-	        var router = this;
-	        if (!callback) callback = this[name];
-
-	        var f = function() {
-	        	if(route.match(/^\!\/backend\/*/)){	        		
-	        		router.renderBackendUI(function(){
-	        			callback.apply(router, arguments);		
-	        		});
-	        	}	            
-	        };
-	        return Backbone.Router.prototype.route.call(this, route, name, f);
-	    },
-		renderBackendUI:function(callback){
-			console.log('render backend UI');
-			callback();
-		},
-		renderTestForm:function(){
-			console.log('render test form');
+			"!/user/dashboard" 		: "dashboard"
 		},
 		initialize:function(){			
 			// wired way to call parent methods 
 			// or this.__proto__.initialize it's even wired
-			openbiz.Router.prototype.initialize.call(this);
+
+            openbiz.Router.prototype.initialize.call(this);
 			this.me = new me();			
 			this.renderView('system.LayoutView');
 			$('body').addClass('full-lg');
 		},
-		home:function(){	
+		home:function(){
 			this.me.fetch({
 				success:function(){		
 					location.href="#!/user/dashboard";
