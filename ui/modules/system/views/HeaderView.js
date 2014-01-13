@@ -6,7 +6,8 @@ define(['text!templates/system/headerView.html'],
 		name: 'headerView',
 		el:'#wrapper #header',
 		events:{
-			'click .fullscreen'  : 'fullscreen'
+			'click .fullscreen'  : 'fullscreen',
+            'click .nav-collapse' : 'navcollapse'
 		},
 		initialize:function(){
 			openbiz.View.prototype.initialize.call(this); 							
@@ -18,6 +19,18 @@ define(['text!templates/system/headerView.html'],
 	        $(this.el).fadeIn();
 	        return this;
 	    },
+        navcollapse:function(event){
+            if(openbiz.views.renderred['system.NavView'] == false){
+                return;
+            }
+            event.preventDefault()
+            var main=$("#nav,#main")
+            main.toggleClass( "nav-collapse-out" );
+            if(!main.hasClass("nav-collapse-out")){
+                main.addClass("none");
+            }
+            setTimeout(function () { main.removeClass("none") }, 600);
+        },
 	    fullscreen:function(event){
 	    	event.preventDefault();
 			this._toggleFullScreen();
