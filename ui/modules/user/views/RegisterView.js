@@ -104,7 +104,7 @@ define(['text!templates/user/registerView.html',
 				clearTimeout(toResize);
 				toResize = setTimeout(toCenter, 50);
 			});	        			
-        	openbiz.ui.update();
+        	openbiz.ui.update($(this.el));
 	        return this;
 	    },
 	    localize:function(){

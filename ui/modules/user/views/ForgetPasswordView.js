@@ -50,7 +50,7 @@ define(['text!templates/user/forgetPasswordView.html',
 				toResize = setTimeout(toCenter, 50);
 			});	    
 			$(this.el).find("#inputEmail").val($.cookie('username'));    			
-        	openbiz.ui.update();
+        	openbiz.ui.update($(this.el));
  	        return this;
 	    }
 	});

@@ -90,7 +90,7 @@ define(['text!templates/user/loginView.html',
 			});			
 			$(this.el).find("#inputEmail").val($.cookie('username'));
 			this.validate();	
-	        openbiz.ui.update();
+	        openbiz.ui.update($(this.el));
 	        return this;
 	    }
 	});

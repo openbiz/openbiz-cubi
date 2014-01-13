@@ -16,7 +16,7 @@ define(['text!templates/user/dashboardView.html',
 		render:function(){			
 	        $(this.el).html(this.template(this.locale));
 	        $(window).off('resize');
-        	openbiz.ui.update();
+        	openbiz.ui.update($(this.el));
  	        return this;
 	    },
 	    undelegateAllEvents:function(){

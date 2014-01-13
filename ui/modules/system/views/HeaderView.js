@@ -16,7 +16,7 @@ define(['text!templates/system/headerView.html'],
 		render:function(){
 	        this.locale.me = openbiz.session.me.toJSON();	        
 	        $(this.el).html(this.template(this.locale));
-	        openbiz.ui.update();
+	        openbiz.ui.update($(this.el));
 	        $(this.el).fadeIn();
 	        return this;
 	    },

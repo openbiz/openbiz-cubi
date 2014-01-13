@@ -11,7 +11,7 @@ define(['text!templates/system/contactRightView.html'],
     	},
 		render:function(){			
 	        $(this.el).html(this.template(this.locale));
-	        openbiz.ui.update();			        
+	        openbiz.ui.update($(this.el));
 	        return this;
 	    }
 	});	
