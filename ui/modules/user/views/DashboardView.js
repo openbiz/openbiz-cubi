@@ -23,4 +23,4 @@ define(['text!templates/user/dashboardView.html',
 	    	console.log('I m going to undelegateAllEvents');
 	    }
 	});
-})
+});

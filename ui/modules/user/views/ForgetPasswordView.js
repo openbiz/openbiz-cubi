@@ -54,4 +54,4 @@ define(['text!templates/user/forgetPasswordView.html',
  	        return this;
 	    }
 	});
-})
+});

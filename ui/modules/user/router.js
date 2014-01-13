@@ -71,4 +71,4 @@ define(['../system/views/LayoutView',
 			this.renderView("user.RegisterView");			
 		}
 	});
-})
+});

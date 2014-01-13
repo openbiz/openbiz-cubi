@@ -94,4 +94,4 @@ define(['text!templates/user/loginView.html',
 	        return this;
 	    }
 	});
-})
+});

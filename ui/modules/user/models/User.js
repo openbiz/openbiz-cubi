@@ -65,4 +65,4 @@ define(['../../myaccount/models/Me'],function(meModel){
 			});
 		}
 	});
-})
+});

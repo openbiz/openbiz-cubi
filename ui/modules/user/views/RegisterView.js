@@ -58,16 +58,16 @@ define(['text!templates/user/registerView.html',
 						type: 		'mobile',
 						category: 	'Default',
 						countryCode:$(this.el).find('#inputMobileCountryCode').val(),
-						number: 	$(this.el).find('#inputMobileNumber').val(),
+						number: 	$(this.el).find('#inputMobileNumber').val()
 					}]
 				}
-			}
+			};
 
 			this.model.createAccount(user,function(data)
 			{
 				self.model.login( user.username, user.password,function(isAuthed, user)
 				{	
-					$(this.el).find('.btn-sign-up').tbButton('reset');
+					$(self.el).find('.btn-sign-up').tbButton('reset');
 					setTimeout(function(){
 						$(self.el).removeClass("slideDown");						
 					},500);									
@@ -111,7 +111,7 @@ define(['text!templates/user/registerView.html',
 	    	var nameElems = {
 	    		firstName : $(this.el).find('#inputFirstName'),
 	    		lastName : $(this.el).find('#inputLastName')
-	    	}
+	    	};
 	    	var nameRootElem = nameElems.firstName.parent();
 	    	nameRootElem.html('');
 	    	for(var i in this.locale.nameFormat){
@@ -130,4 +130,4 @@ define(['text!templates/user/registerView.html',
 	    }
 
 	});
-})
+});

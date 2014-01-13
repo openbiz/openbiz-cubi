@@ -16,4 +16,5 @@ define(['text!templates/system/systemBackendView.html'],
                 return this;
             }
         });
-    })
+    }
+);
