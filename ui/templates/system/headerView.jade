@@ -10,7 +10,7 @@
       a(href='#contact-right', data-toggle='tooltip', title='Find Contact', data-container='body', data-placement='left')
         i.fa.fa-search
     li.hidden-xs.hidden-sm
-      a.h-seperate(href='#do-nothing') Help
+      a.h-seperate(href='#do-nothing') <%= help %>
     li
       a.nav-collapse.avatar-header(href='#')
         img.circle(alt='', src!='<%= baseUrl %>/images/avatar.png')
@@ -18,8 +18,8 @@
     li.dropdown
       a.dropdown-toggle(href='#', data-toggle='dropdown', data-hover='dropdown')
         em
-          strong Hi
-          | , Nutprawee
+          strong <%= hi %>
+          | , <%= me.contact.name.displayName %>
         i.dropdown-icon.fa.fa-angle-down
       ul.dropdown-menu.pull-right.icon-right.arrow
         li

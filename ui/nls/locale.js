@@ -70,10 +70,11 @@ define({
 
 	    },
 	    headerView:{
-	    	
+	    	hi: 'Hi',
+	    	help: 'Help'
 	    },
 	    navView:{
-	    	
+	    	hi: 'Hi'
 	    }
 	},
 	'en-us': true,
