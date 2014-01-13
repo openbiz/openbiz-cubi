@@ -11,8 +11,7 @@ define(['text!templates/system/menuView.html'],
     	},
 		render:function(){
 	        $(this.el).html(this.template(this.app.locale.headerView));	 
-	        openbiz.ui.update();	
-	        $(this.el).fadeIn();        
+	        openbiz.ui.update();		        
 	        return this;
 	    }
 	});	
