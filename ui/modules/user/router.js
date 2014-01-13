@@ -10,15 +10,11 @@ define(['../system/views/LayoutView',
 			"!/user/login" 			: "login",			
 			"!/user/register"		: "register",
 			"!/user/forget-password": "forgetPassword",
-<<<<<<< HEAD
-			"!/user/dashboard" 		: "dashboard"
-=======
 			"!/user/dashboard" 		: "dashboard",
 			"!/backend/testform"	: "renderTestForm"
 		},
 		renderTestForm:function(){
 			console.log('render test form +++');
->>>>>>> 2fc298f50e90be66d36c960aaf138043d35c7152
 		},
 		initialize:function(){			
 			// wired way to call parent methods 
