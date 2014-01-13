@@ -10,10 +10,12 @@ define(['text!templates/system/navView.html'],
 	        this.template = _.template(templateData);
     	},
 		render:function(){			
+			var self = this;
 			this.locale.me = openbiz.session.me.toJSON();			
-	        $(this.el).html(this.template(this.locale));	 	        
-	        openbiz.ui.update($(this.el));
-	        $(this.el).fadeIn();
+	        $(this.el).html(this.template(this.locale));	 	        	        
+	        $(this.el).fadeIn(function(){
+	        	openbiz.ui.update($(self.el));	
+	        });
 	        return this;
 	    }
 	});	
