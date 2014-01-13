@@ -4,6 +4,7 @@ module.exports = function(app){
     return {
     "get /me"					: [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
     								app.getController("MeController").getMe ],
+    "delete /me" 				: [ app.getController("AuthController").logout ]
 //
 //    // start default route rules for subDoc  - contacts
 //    "post /me/contacts"			: [ openbiz.ensurePermission("cubi-myaccount-manage"),

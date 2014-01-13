@@ -48,7 +48,8 @@ define(['text!templates/user/forgetPasswordView.html',
 			$(window).on('resize',function(e) {
 				clearTimeout(toResize);
 				toResize = setTimeout(toCenter, 50);
-			});	        			
+			});	    
+			$(this.el).find("#inputEmail").val($.cookie('username'));    			
         	openbiz.ui.update();
  	        return this;
 	    }

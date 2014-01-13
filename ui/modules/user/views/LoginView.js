@@ -21,7 +21,7 @@ define(['text!templates/user/loginView.html',
 			});
 		},			
 		checkLogin:function(event)
-		{
+		{			
 			event.preventDefault();
 			var self = this;
 			$(this.el).find('.btn-sign-in')
@@ -47,6 +47,13 @@ define(['text!templates/user/loginView.html',
 						$(self.el).find('#inputPassword').attr("data-content",self.locale.validation.incorrectPassword).popover('show');						
 					},500);					
 				}else{
+					//save login to cookies
+					if($(self.el).find("input[name='remember']").is(":checked")){
+						$.cookie('username',user.get('username'));
+					}else{
+						$.removeCookie('username');
+					}
+
 					//we are good to go !
 					setTimeout(function(){
 						$(self.el).removeClass("slideDown");
@@ -80,7 +87,8 @@ define(['text!templates/user/loginView.html',
 			$(window).on('resize',function(e) {
 				clearTimeout(toResize);
 				toResize = setTimeout(toCenter, 50);
-			});
+			});			
+			$(this.el).find("#inputEmail").val($.cookie('username'));
 			this.validate();	
 	        openbiz.ui.update();
 	        return this;

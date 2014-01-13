@@ -10,6 +10,7 @@ define(['text!templates/system/navView.html'],
 	        this.template = _.template(templateData);
     	},
 		render:function(){			
+			this.locale.me = openbiz.session.me.toJSON();			
 	        $(this.el).html(this.template(this.locale));	 	        
 	        openbiz.ui.update();
 	        $(this.el).fadeIn();

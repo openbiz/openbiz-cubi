@@ -34,7 +34,7 @@
               button#sign-in.btn.btn-lg.btn-theme-inverse.btn-block.btn-sign-in(type='submit') <%= signIn %>
             section.clearfix
               .iCheck.pull-left(data-color='red')
-                input(type='checkbox', checked='checked', parsley-group="remember")
+                input(name="remember",type='checkbox', checked='checked', parsley-group="remember")
                 label <%= remember %>
               a.pull-right.help.btn-forget-password(href='#!/user/forget-password') <%= forgetPassword %>
             span.or(data-text!='<%= or %>')

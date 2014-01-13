@@ -30,10 +30,14 @@ define(['./models/Me' ],
 			});
 
 			//@todo: unregister dashboard view's events
-			$('#main').fadeOut(function(){				
-				self.me.logout(function(){
+			if($('#main').children().length==0){
+				location.href="#!/user/login";
+			}
+			$('#main').fadeOut(function(){							
+				openbiz.session.me.on('destroy',function(model,resp,options){
 					location.href="#!/user/login";
 				})
+				openbiz.session.me.destroy();
 			});
 		}
 	});
