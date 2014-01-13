@@ -2,61 +2,22 @@
 define(function(templateData){
 	return Backbone.Model.extend({
 		url: null,
+		idAttribute: "_id",
 		defualts:{
-			email:null,
+			username:null,
 			contact:{},			
 			account:{},
 			roles:[]
 		},
-		initialize:function(){
+		constructor:function(){
 			this.url = openbiz.apps.cubi.appUrl+'/me';
-		},
-		getMe:function(callback){
-			if(openbiz.session.hasOwnProperty('user') && typeof openbiz.session.user=='object')
-			{
-				//check local cache first
-				callback(true,openbiz.session.user);
-			}
-			else
-			{
-				//if not found , then query remote API
-				$.ajax({
-					type 		: "GET",
-					dataType 	: "json",
-					contentType : "application/json",
-					url  		: this.url,						
-					complete 	: function(jqXHR,textStatus){
-						switch(jqXHR.status){
-							case 200:
-								openbiz.session.user = jqXHR.responseJSON;
-								callback(true,jqXHR.responseJSON);
-								break;
-							case 403:
-								callback(false);
-							default:
-								break;
-						}
-					}
-				});
-			}
-		},
-		logout:function(callback){
-			$.ajax({
-				type 		: "POST",
-				dataType 	: "json",
-				contentType : "application/json",
-				url  		: this.url+'/logout',				
-				complete 	: function(jqXHR,textStatus){
-					switch(jqXHR.status){
-						case 200:
-							delete openbiz.session.user;
-							callback();							
-							break;
-						default:
-							break;
-					}
-				}
-			});			
+			Backbone.Model.apply(this, arguments);
+			this.on('sync',function(model,resp,options){				
+				openbiz.session.me = model;
+			});
+			this.on('destroy',function(model,resp,options){
+				delete openbiz.session.me;
+			});
 		}
 	});
 })

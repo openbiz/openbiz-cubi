@@ -1,5 +1,5 @@
 "use strict";
-define(function(templateData){
+define(['../../myaccount/models/Me'],function(meModel){
 	return Backbone.Model.extend({
 		url: null,
 		defualts:{
@@ -50,8 +50,11 @@ define(function(templateData){
 				complete 	: function(jqXHR,textStatus){
 					switch(jqXHR.status){
 						case 200:
-							callback(true,jqXHR.responseJSON);
-							openbiz.session.user = jqXHR.responseJSON;
+							var me = new meModel();
+							openbiz.session.me = me;
+							openbiz.session.me.fetch({success:function(){
+								callback(true,me);
+							}})														
 							break;
 						case 401:
 							callback(false);

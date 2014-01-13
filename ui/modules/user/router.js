@@ -20,36 +20,41 @@ define(['../system/views/LayoutView',
 			this.renderView('system.LayoutView');
 			$('body').addClass('full-lg');
 		},
-		home:function(){
-			this.me.getMe(function(isAuthed,user){
-				if(isAuthed){
-					location.href="#!/user/dashboard";	
-				}else{
+		home:function(){	
+			this.me.fetch({
+				success:function(){		
+					location.href="#!/user/dashboard";
+				},
+				error:function(){
 					location.href="#!/user/login";
 				}
 			});
+			return;			
 		},
 		dashboard:function(){
 			var self = this;
-			this.me.getMe(function(isAuthed,user){
-				if(isAuthed){	
-					self.initDashboardUI();				
-					//if user has no account yet, show wizard
-					self.renderView("user.DashboardView",function(){						
-					});
-				}else{
-					location.href="#!/user/login";
-				}
-			});
+			if(openbiz.session.hasOwnProperty('me') && openbiz.session.me.get('username')!=''){
+				this._renderDashboard();
+			}else{
+				this.me.fetch({
+					success:function(){		
+						self._renderDashboard();
+					},
+					error:function(){
+						location.href="#!/user/login";
+					}
+				});
+			}
 		},
-		initDashboardUI:function(){
+		_renderDashboard:function(){
 			var view = new layoutView();
 			view.hideLoading();			
 			$('body').removeClass('full-lg');
 			this.renderView('system.HeaderView');
 			this.renderView('system.NavView');
 			this.renderView('system.MenuView');
-			this.renderView('system.ContactRightView');
+			this.renderView('system.ContactRightView');		
+			this.renderView("user.DashboardView");
 		},
 		forgetPassword:function(){
 			this.renderView("user.ForgetPasswordView");
