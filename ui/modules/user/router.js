@@ -62,11 +62,6 @@ define(['../system/views/LayoutView',
 		login:function(){
 			this.renderView("user.LoginView");	
 		},
-		logout:function(){
-			this.me.logout(function(){
-				location.href="#!/user/login";
-			})
-		},
 		register:function(){
 			this.renderView("user.RegisterView");			
 		}
