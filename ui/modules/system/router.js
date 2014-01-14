@@ -4,7 +4,7 @@ define( function(){
         app: openbiz.apps.cubi?openbiz.apps.cubi:'cubi',
         middlewares:{
             "!/*any"            : "renderLayout",
-            "!/user/*any"            : "renderUser",
+            "!/user/*any"       : "renderUser",
             "!/backend/*any"	: "renderBackendUI"
         },
         renderUser:function(next){
