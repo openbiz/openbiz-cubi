@@ -25,7 +25,7 @@ module.exports = function(grunt) {
             cwd: 'ui/',
             src: "**/*.jade",
             dest: "ui/",
-            ext: ".html",
+            ext: ".html"
           }
         ]
       }

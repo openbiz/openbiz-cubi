@@ -8,7 +8,8 @@ define(['./models/Me' ],
 		},
 		routes:{
 			"do-nothing"			: "doNothing",
-			"!/me/logout" 			: "logout"
+			"!/me/logout" 			: "logout",
+            "!/backend/me/profile" 			: "logout"
 		},		
 		initialize:function(){			
 			// wired way to call parent methods 

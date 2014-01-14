@@ -4,6 +4,6 @@ module.exports = function(app){
     	"post /users/login" 		: [ app.getController("AuthController").authenticate ],    	
         "post /users" 		    	: [ app.getController("UserController").create ],
         "post /users/check-unique" 	: [ app.getController("UserController").checkUsernameUnique ],
-        "post /users/logout" 		: [ app.getController("AuthController").logout ],
+        "post /users/logout" 		: [ app.getController("AuthController").logout ]
     }
 }

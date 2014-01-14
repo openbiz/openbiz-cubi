@@ -10,57 +10,50 @@ define(['../system/views/LayoutView',
 			"!/user/login" 			: "login",			
 			"!/user/register"		: "register",
 			"!/user/forget-password": "forgetPassword",
-			"!/user/dashboard" 		: "dashboard",
-			"!/backend/testform"	: "renderTestForm"
-		},
-		renderTestForm:function(){
-			console.log('render test form +++');
+            "!/backend/dashboard": "dashboard"
 		},
 		initialize:function(){			
 			// wired way to call parent methods 
 			// or this.__proto__.initialize it's even wired
 
             openbiz.Router.prototype.initialize.call(this);
-			this.me = new me();			
-			this.renderView('system.LayoutView');
-			$('body').addClass('full-lg');
+			this.me = new me();
 		},
 		home:function(){
 			this.me.fetch({
-				success:function(){		
-					location.href="#!/user/dashboard";
-				},
+				success:function(){
+                    console.log("home success");
+                    Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
+                },
 				error:function(){
-					location.href="#!/user/login";
-				}
+                    Backbone.history.navigate("#!/user/login", {trigger: true, replace: true});
+                }
 			});
 			return;			
 		},
-		dashboard:function(){
-			var self = this;
-			if(openbiz.session.hasOwnProperty('me') && openbiz.session.me.get('username')!=''){
-				this._renderDashboard();
-			}else{
-				this.me.fetch({
-					success:function(){		
-						self._renderDashboard();
-					},
-					error:function(){
-						location.href="#!/user/login";
-					}
-				});
-			}
-		},
-		_renderDashboard:function(){
-			var view = new layoutView();
-			view.hideLoading();			
-			$('body').removeClass('full-lg');
-			this.renderView('system.HeaderView');
-			this.renderView('system.NavView');
-			this.renderView('system.MenuView');
-			this.renderView('system.ContactRightView');		
-			this.renderView("user.DashboardView");
-		},
+        dashboard:function(){
+            var self = this;
+            if(openbiz.session.hasOwnProperty('me') && openbiz.session.me.get('username')!=''){
+                this._renderDashboard();
+            }else{
+                this.me.fetch({
+                    success:function(){
+                        self._renderDashboard();
+                    },
+                    error:function(){
+                        Backbone.history.navigate("#!/user/login", {trigger: true, replace: true});
+                    }
+                });
+            }
+        },
+        _renderDashboard:function(){
+            var view = openbiz.views.get("system.LayoutView");
+            if(view != null){
+                view.hideLoading();
+            }
+            $('body').removeClass('full-lg');
+            this.renderView("user.DashboardView");
+        },
 		forgetPassword:function(){
 			this.renderView("user.ForgetPasswordView");
 		},

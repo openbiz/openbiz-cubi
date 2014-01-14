@@ -1,9 +1,9 @@
 "use strict";
-define(['text!templates/system/systemBackendView.html'],
+define(['text!templates/system/backendView.html'],
     function(templateData){
         return openbiz.View.extend({
             app: 'cubi',
-            name: 'systemBackendView',
+            name: 'backendView',
             el: '#main',
             initialize:function(){
                 openbiz.View.prototype.initialize.call(this);
