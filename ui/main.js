@@ -9,14 +9,15 @@ define(['i18n!./nls/locale',
 		name:'cubi',
 		appUrl:null,
 		baseUrl:null,
-		modules:{
-			system: system,
+		modules:{			
 			user: user,
-			myaccount: myaccount
+			myaccount: myaccount,
+			//load system as the latest module, because it has router middle wares
+			system: system 
 		},
 		init:function(){			
-			for(var i in this.modules){
-				this.modules[i].init();
+			for(var i in this.modules){				
+				this.modules[i].init();				
 			}			
 		},
 		locale: locale

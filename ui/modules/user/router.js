@@ -12,17 +12,14 @@ define(['../system/views/LayoutView',
 			"!/user/forget-password": "forgetPassword",
             "!/backend/dashboard": "dashboard"
 		},
-		initialize:function(){			
-			// wired way to call parent methods 
-			// or this.__proto__.initialize it's even wired
-
+		initialize:function(){
             openbiz.Router.prototype.initialize.call(this);
 			this.me = new me();
 		},
 		home:function(){
 			this.me.fetch({
 				success:function(){
-                    console.log("home success");
+                    console.log("home success",Backbone.history);
                     Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
                 },
 				error:function(){
