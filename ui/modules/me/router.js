@@ -10,7 +10,7 @@ define(['./models/Me' ],
 			"do-nothing"			     : "doNothing",
 			"!/backend/me/logout" 	     : "logout",
             "!/backend/me/profile"       : "logout",
-            "!/backend/me/setup-wizard"  : "setupWizard"
+            "!/backend/me/setup"         : "setupWizard"
 		},		
 		initialize:function(){			
 			// wired way to call parent methods 
@@ -22,7 +22,7 @@ define(['./models/Me' ],
 
 		},
         setupWizard:function(){
-
+            this.renderView("me.SetupWizardView");
         },
 		logout:function(){
 			//reinint UI

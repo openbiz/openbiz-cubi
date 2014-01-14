@@ -70,7 +70,7 @@ define({
             hi: '欢迎'
         }
     },
-    myaccount:{
+    me:{
         setupWizardView:{
 
         }

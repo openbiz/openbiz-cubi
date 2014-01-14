@@ -4,8 +4,8 @@ define(['text!templates/me/setupWizardView.html',
     function(templateData,model){
         return openbiz.View.extend({
             app: 'cubi',
-            module:'myaccount',
-            name: 'dashboardView',
+            module:'me',
+            name: 'setupWizardView',
             el: '#main',
             model:model,
             events:{},

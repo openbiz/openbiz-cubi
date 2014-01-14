@@ -80,9 +80,10 @@ define({
                 hi: 'Hi'
             }
         },
-        myaccount:{
+        me:{
             setupWizardView:{
-
+                viewName:'Setup Wizard',
+                viewTitle: 'Account Setup Wizard'
             }
         },
         breadcrumb:{
