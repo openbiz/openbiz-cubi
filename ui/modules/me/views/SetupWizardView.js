@@ -18,10 +18,25 @@ define(['text!templates/me/setupWizardView.html',
                 $(this.el).html(this.template(this.locale));
                 $(window).off('resize');
                 openbiz.ui.update($(this.el));
+                this.setupFormWizard();
                 return this;
             },
-            undelegateAllEvents:function(){
-                console.log('I m going to undelegateAllEvents');
+            setupFormWizard:function(){
+                $(this.el).find('form.wizard-step').bootstrapWizard({
+                    tabClass:"nav-wizard",
+                    onTabShow: function(tab, navigation, index) {
+                        tab.prevAll().addClass('completed');
+                        tab.nextAll().removeClass('completed');
+                        if(tab.hasClass("active")){
+                            tab.removeClass('completed');
+                        }
+                        var $total = navigation.find('li').length;
+                        var $current = index+1;
+                        var $percent = ($current/$total) * 100;
+                        $('#rootwizard').find('.progress-bar').css({width:$percent+'%'});
+                        $('#rootwizard').find('.wizard-status span').html($current+" / "+$total);
+                    }
+                });
             }
         });
     });

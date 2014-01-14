@@ -72,12 +72,12 @@ define({
     },
     me:{
         setupWizardView:{
-
+            viewName:'设置向导',
+            viewTitle: '<strong>账户</strong> 设置向导'
         }
     },
     breadcrumb:{
         home:'首页',
         myAccount:'我的账户',
-        setupWizard: '初始化向导'
     }
 });

@@ -75,7 +75,7 @@ define(['text!templates/user/registerView.html',
 					if(isAuthed)
 					{
 						//we are good to go !
-										
+						location.href="#!/backend/me/setup";
 					}				
 				});
 			});

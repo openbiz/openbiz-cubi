@@ -10,7 +10,7 @@ define(['../system/views/LayoutView',
 			"!/user/login" 			: "login",			
 			"!/user/register"		: "register",
 			"!/user/forget-password": "forgetPassword",
-            "!/backend/dashboard": "dashboard"
+            "!/backend/dashboard"   : "dashboard"
 		},
 		initialize:function(){
             openbiz.Router.prototype.initialize.call(this);
@@ -25,9 +25,12 @@ define(['../system/views/LayoutView',
                     Backbone.history.navigate("#!/user/login", {trigger: true, replace: true});
                 }
 			});
-			return;			
 		},
         dashboard:function(){
+            if(typeof openbiz.session.me.get('account')=='undefined'){
+                location.href="#!/backend/me/setup";
+                return;
+            }
             var view = openbiz.views.get("system.LayoutView");
             if(view != null){
                 view.hideLoading();

@@ -83,13 +83,12 @@ define({
         me:{
             setupWizardView:{
                 viewName:'Setup Wizard',
-                viewTitle: 'Account Setup Wizard'
+                viewTitle: '<strong>Account</strong> Setup Wizard'
             }
         },
         breadcrumb:{
             home:'Home',
-            myAccount:'My Account',
-            setupWizard: 'Setup Wizard'
+            myAccount:'My Account'
         }
 	},
 	'en-us': true,

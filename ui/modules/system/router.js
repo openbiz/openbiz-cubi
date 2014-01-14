@@ -15,7 +15,6 @@ define(['../me/models/Me'], function(me){
         },
         ensureLogin:function(next){
             if(openbiz.session.hasOwnProperty('me') && openbiz.session.me.get('username')!=''){
-               console.log("logined");
                 next();
             }else{
                 this.me.fetch({
