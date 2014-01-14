@@ -58,7 +58,9 @@ define(['text!templates/user/loginView.html',
 					//we are good to go !
 					setTimeout(function(){
 						$(self.el).removeClass("slideDown");
-                        Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
+                        $(self.el).fadeOut(function(){
+                            Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
+                        });
 					},500);		
 				}
 			});
