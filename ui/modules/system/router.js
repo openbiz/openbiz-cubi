@@ -8,33 +8,27 @@ define( function(){
             "!/backend/*any"	: "renderBackendUI"
         },
         renderUser:function(next){
-            console.log("renderUser");
             var view = openbiz.views.get("system.HeaderView");
-            if(view != null){
-                console.log("rm HeaderView");
-                this.removeView("system.HeaderView");
+            if(view){
+                $(view.el).slideUp(500);
             }
             var view = openbiz.views.get("system.NavView");
-            if(view != null){
-                console.log("rm NavView");
-                this.removeView("system.NavView");
+            if(view){
+                $(view.el).slideUp(500);
             }
             var view = openbiz.views.get("system.MenuView");
-            if(view != null){
-                console.log("rm MenuView");
-                this.removeView("system.MenuView");
+            if(view){
+                $(view.el).slideUp(500);
             }
             var view = openbiz.views.get("system.ContactRightView");
-            if(view != null){
-                console.log("rm ContactRightView");
-                this.removeView("system.ContactRightView");
+            if(view){
+                $(view.el).slideUp(500);
             }
-            next();
+            setTimeout(next,500);
         },
         renderLayout:function(next){
             var view = openbiz.views.get("system.LayoutView");
             if(view == null){
-                console.log("renderLayout");
                 this.renderView("system.LayoutView");
             }
             next();
@@ -43,23 +37,31 @@ define( function(){
             $('body').addClass('full-lg');
             var view = openbiz.views.get("system.HeaderView");
             if(view == null){
-                console.log("render HeaderView");
                 this.renderView("system.HeaderView");
+            }
+            else{
+                $(view.el).slideDown();
             }
             var view = openbiz.views.get("system.NavView");
             if(view == null){
-                console.log("render NavView");
                 this.renderView("system.NavView");
+            }
+            else{
+                $(view.el).slideDown();
             }
             var view = openbiz.views.get("system.MenuView");
             if(view == null){
-                console.log("render MenuView");
                 this.renderView("system.MenuView");
+            }
+            else{
+                $(view.el).slideDown();
             }
             var view = openbiz.views.get("system.ContactRightView");
             if(view == null){
-                console.log("render ContactRightView");
                 this.renderView("system.ContactRightView");
+            }
+            else{
+                $(view.el).slideDown();
             }
             next();
         }

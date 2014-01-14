@@ -19,7 +19,6 @@ define(['../system/views/LayoutView',
 		home:function(){
 			this.me.fetch({
 				success:function(){
-                    console.log("home success",Backbone.history);
                     Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
                 },
 				error:function(){
