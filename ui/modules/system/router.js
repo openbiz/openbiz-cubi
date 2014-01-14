@@ -11,18 +11,22 @@ define( function(){
             console.log("renderUser");
             var view = openbiz.views.get("system.HeaderView");
             if(view != null){
+                console.log("rm HeaderView");
                 this.removeView("system.HeaderView");
             }
             var view = openbiz.views.get("system.NavView");
             if(view != null){
+                console.log("rm NavView");
                 this.removeView("system.NavView");
             }
             var view = openbiz.views.get("system.MenuView");
             if(view != null){
+                console.log("rm MenuView");
                 this.removeView("system.MenuView");
             }
             var view = openbiz.views.get("system.ContactRightView");
             if(view != null){
+                console.log("rm ContactRightView");
                 this.removeView("system.ContactRightView");
             }
             next();
@@ -39,22 +43,22 @@ define( function(){
             $('body').addClass('full-lg');
             var view = openbiz.views.get("system.HeaderView");
             if(view == null){
-                console.log("HeaderView");
+                console.log("render HeaderView");
                 this.renderView("system.HeaderView");
             }
             var view = openbiz.views.get("system.NavView");
             if(view == null){
-                console.log("NavView");
+                console.log("render NavView");
                 this.renderView("system.NavView");
             }
             var view = openbiz.views.get("system.MenuView");
             if(view == null){
-                console.log("MenuView");
+                console.log("render MenuView");
                 this.renderView("system.MenuView");
             }
             var view = openbiz.views.get("system.ContactRightView");
             if(view == null){
-                console.log("ContactRightView");
+                console.log("render ContactRightView");
                 this.renderView("system.ContactRightView");
             }
             next();
