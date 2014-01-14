@@ -4,6 +4,7 @@ define(['text!templates/user/registerView.html',
 	function(templateData,model){
 	return openbiz.View.extend({
 		app: 'cubi',
+        module:'user',
 		name: 'registerView',
 		el: '#main',
 		model:model,

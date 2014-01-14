@@ -4,6 +4,7 @@ define(['text!templates/user/loginView.html',
 		function(templateData,model){
 	return openbiz.View.extend({
 		app: 'cubi',
+        module:'user',
 		name: 'loginView',
 		el: '#main',
 		model:model,

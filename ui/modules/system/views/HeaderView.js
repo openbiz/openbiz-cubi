@@ -3,6 +3,7 @@ define(['text!templates/system/headerView.html'],
     function(templateData){
         return openbiz.View.extend({
             app: 'cubi',
+            module:'system',
             name: 'headerView',
             el:'#wrapper #header',
             events:{

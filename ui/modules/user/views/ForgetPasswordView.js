@@ -4,6 +4,7 @@ define(['text!templates/user/forgetPasswordView.html',
 	function(templateData,model){
 	return openbiz.View.extend({
 		app: 'cubi',
+        module:'user',
 		name: 'forgetPasswordView',
 		el: '#main',
 		model:model,

@@ -3,6 +3,7 @@ define(['text!templates/system/layoutView.html'],
     function(templateData){
         return openbiz.View.extend({
             app: 'cubi',
+            module:'system',
             name: 'layoutView',
             el:'#wrapper',
             initialize:function(){

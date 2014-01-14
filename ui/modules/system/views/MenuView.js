@@ -3,6 +3,7 @@ define(['text!templates/system/menuView.html'],
     function(templateData){
         return openbiz.View.extend({
             app: 'cubi',
+            module:'system',
             name: 'menuView',
             el:'#wrapper nav#menu',
             initialize:function(){

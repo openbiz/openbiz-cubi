@@ -1,10 +1,15 @@
 "use strict";
-define(['text!templates/system/backendView.html'],
-    function(templateData){
+define(['text!templates/me/setupWizardView.html',
+    '../models/Me'],
+    function(templateData,model){
         return openbiz.View.extend({
             app: 'cubi',
-            name: 'backendView',
+            module:'myaccount',
+            name: 'dashboardView',
             el: '#main',
+            model:model,
+            events:{},
+            subviews:{},
             initialize:function(){
                 openbiz.View.prototype.initialize.call(this);
                 this.template = _.template(templateData);
@@ -14,7 +19,9 @@ define(['text!templates/system/backendView.html'],
                 $(window).off('resize');
                 openbiz.ui.update($(this.el));
                 return this;
+            },
+            undelegateAllEvents:function(){
+                console.log('I m going to undelegateAllEvents');
             }
         });
-    }
-);
+    });

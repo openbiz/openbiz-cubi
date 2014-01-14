@@ -3,6 +3,7 @@ define(['text!templates/system/contactRightView.html'],
     function(templateData){
         return openbiz.View.extend({
             app: 'cubi',
+            module:'system',
             name: 'contactRightView',
             el:'#wrapper nav#contact-right',
             initialize:function(){

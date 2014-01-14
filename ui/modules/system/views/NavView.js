@@ -3,6 +3,7 @@ define(['text!templates/system/navView.html'],
     function(templateData){
         return openbiz.View.extend({
             app: 'cubi',
+            module:'system',
             name: 'navView',
             el:'#wrapper div#nav',
             initialize:function(){

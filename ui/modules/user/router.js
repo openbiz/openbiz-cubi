@@ -1,6 +1,6 @@
 "use strict";
 define(['../system/views/LayoutView',
-		'../myaccount/models/Me' ],
+		'../me/models/Me' ],
 		function(layoutView, me){
 	return openbiz.Router.extend({		
 		app: openbiz.apps.cubi?openbiz.apps.cubi:'cubi',

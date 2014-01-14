@@ -7,9 +7,10 @@ define(['./models/Me' ],
 		views:{
 		},
 		routes:{
-			"do-nothing"			: "doNothing",
-			"!/me/logout" 			: "logout",
-            "!/backend/me/profile" 			: "logout"
+			"do-nothing"			     : "doNothing",
+			"!/backend/me/logout" 	     : "logout",
+            "!/backend/me/profile"       : "logout",
+            "!/backend/me/setup-wizard"  : "setupWizard"
 		},		
 		initialize:function(){			
 			// wired way to call parent methods 
@@ -20,6 +21,9 @@ define(['./models/Me' ],
 		doNothing:function(){
 
 		},
+        setupWizard:function(){
+
+        },
 		logout:function(){
 			//reinint UI
 			var self = this;

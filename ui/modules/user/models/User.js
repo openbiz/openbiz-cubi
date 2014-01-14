@@ -1,5 +1,5 @@
 "use strict";
-define(['../../myaccount/models/Me'],function(meModel){
+define(['../../me/models/Me'],function(meModel){
 	return Backbone.Model.extend({
 		url: null,
 		defualts:{

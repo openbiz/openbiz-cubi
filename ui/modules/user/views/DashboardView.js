@@ -4,6 +4,7 @@ define(['text!templates/user/dashboardView.html',
 	function(templateData,model){
 	return openbiz.View.extend({
 		app: 'cubi',
+        module:'user',
 		name: 'dashboardView',
 		el: '#main',
 		model:model,

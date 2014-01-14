@@ -2,7 +2,7 @@
 define(['i18n!./nls/locale',
 		'./modules/system/main',
 		'./modules/user/main',
-		'./modules/myaccount/main'],
+		'./modules/me/main'],
 	function(locale, system,
 			user, myaccount){
 	return openbiz.Application.extend({
