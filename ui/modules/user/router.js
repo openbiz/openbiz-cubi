@@ -28,21 +28,6 @@ define(['../system/views/LayoutView',
 			return;			
 		},
         dashboard:function(){
-            var self = this;
-            if(openbiz.session.hasOwnProperty('me') && openbiz.session.me.get('username')!=''){
-                this._renderDashboard();
-            }else{
-                this.me.fetch({
-                    success:function(){
-                        self._renderDashboard();
-                    },
-                    error:function(){
-                        Backbone.history.navigate("#!/user/login", {trigger: true, replace: true});
-                    }
-                });
-            }
-        },
-        _renderDashboard:function(){
             var view = openbiz.views.get("system.LayoutView");
             if(view != null){
                 view.hideLoading();

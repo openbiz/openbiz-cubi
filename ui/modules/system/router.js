@@ -1,11 +1,32 @@
 "use strict";
-define( function(){
+define(['../me/models/Me'], function(me){
     return openbiz.MiddleWareRouter.extend({
         app: openbiz.apps.cubi?openbiz.apps.cubi:'cubi',
+        me:null,
         middlewares:{
             "!/*any"            : "renderLayout",
             "!/user/*any"       : "renderUser",
+            "!/backend/*ensureLogin": "ensureLogin",
             "!/backend/*any"	: "renderBackendUI"
+        },
+        initialize:function(){
+            openbiz.MiddleWareRouter.prototype.initialize.call(this);
+            this.me = new me();
+        },
+        ensureLogin:function(next){
+            if(openbiz.session.hasOwnProperty('me') && openbiz.session.me.get('username')!=''){
+               console.log("logined");
+                next();
+            }else{
+                this.me.fetch({
+                    success:function(){
+                        next();
+                    },
+                    error:function(){
+                        Backbone.history.navigate("#!/user/login", {trigger: true, replace: true});
+                    }
+                });
+            }
         },
         renderUser:function(next){
             var view = openbiz.views.get("system.HeaderView");
