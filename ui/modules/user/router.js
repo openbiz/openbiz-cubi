@@ -28,7 +28,7 @@ define(['../system/views/LayoutView',
 		},
         dashboard:function(){
             if(typeof openbiz.session.me.get('account')=='undefined'){
-                location.href="#!/backend/me/setup";
+                Backbone.history.navigate("#!/backend/me/setup", {trigger: true, replace: true});
                 return;
             }
             var view = openbiz.views.get("system.LayoutView");
