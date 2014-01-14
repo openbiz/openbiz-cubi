@@ -76,7 +76,9 @@ define(['text!templates/user/registerView.html',
 					{
 						//we are good to go !
                         $(self.el).fadeOut(function(){
-                            Backbone.history.navigate("#!/backend/me/setup", {trigger: true, replace: true});
+                            setTimeout(function(){
+                                Backbone.history.navigate("#!/backend/me/setup", {trigger: true, replace: true});
+                            },400);
                         });
 					}				
 				});
