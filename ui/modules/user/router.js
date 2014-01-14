@@ -32,7 +32,6 @@ define(['../system/views/LayoutView',
             if(view != null){
                 view.hideLoading();
             }
-            $('body').removeClass('full-lg');
             this.renderView("user.DashboardView");
         },
 		forgetPassword:function(){

@@ -52,10 +52,11 @@ define(['../me/models/Me'], function(me){
             if(view == null){
                 this.renderView("system.LayoutView");
             }
+            $('body').addClass('full-lg');
             next();
         },
         renderBackendUI:function(next){
-            $('body').addClass('full-lg');
+            $('body').removeClass('full-lg');
             var view = openbiz.views.get("system.HeaderView");
             if(view == null){
                 this.renderView("system.HeaderView");
