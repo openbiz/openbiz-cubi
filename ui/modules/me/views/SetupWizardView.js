@@ -8,19 +8,6 @@ define(['text!templates/me/setupWizardView.html',
             name: 'setupWizardView',
             el: '#main',
             model:model,
-            events:{
-                "click a#test":"test"
-            },
-            test:function(e){
-                e.preventDefault();
-                $("div#nav").animate({'left':'-300'},function(){
-                    $("div#wrapper").animate({'margin-left':'0'},function(){
-                        $("div#header").animate({'top':'-100'});
-                    })
-                });
-                $("div#main").animate({'left':'1000'});
-
-            },
             subviews:{},
             initialize:function(){
                 openbiz.View.prototype.initialize.call(this);

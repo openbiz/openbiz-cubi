@@ -28,7 +28,10 @@ define(['../system/views/LayoutView',
 		},
         dashboard:function(){
             if(typeof openbiz.session.me.get('account')=='undefined'){
-                Backbone.history.navigate("#!/backend/me/setup", {trigger: true, replace: true});
+                setTimeout(function(){
+                    Backbone.history.navigate("#!/backend/me/setup", {trigger: true, replace: true});
+                },401);
+                //@todo: renderview需要耗时400毫秒 避免重复 需要在400毫秒之后执行跳转.
                 return;
             }
             var view = openbiz.views.get("system.LayoutView");

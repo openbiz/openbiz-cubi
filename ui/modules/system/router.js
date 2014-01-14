@@ -30,21 +30,31 @@ define(['../me/models/Me'], function(me){
         renderUser:function(next){
             var view = openbiz.views.get("system.HeaderView");
             if(view){
-                $(view.el).slideUp(500);
+                $(view.el).slideUp(400);
             }
             var view = openbiz.views.get("system.NavView");
             if(view){
-                $(view.el).slideUp(500);
+                $(view.el).slideUp(400);
             }
             var view = openbiz.views.get("system.MenuView");
             if(view){
-                $(view.el).slideUp(500);
+                $(view.el).slideUp(400);
             }
             var view = openbiz.views.get("system.ContactRightView");
             if(view){
-                $(view.el).slideUp(500);
+                $(view.el).slideUp(400);
             }
-            setTimeout(next,500);
+
+            setTimeout(function(){
+                var main=$("#nav,#main")
+                if(main.hasClass("nav-collapse-out")){
+                    main.removeClass("nav-collapse-out");
+                }
+                if(main.hasClass("none")){
+                    main.removeClass("none");
+                }
+            },400);
+            setTimeout(next,400);
         },
         renderLayout:function(next){
             var view = openbiz.views.get("system.LayoutView");
@@ -58,6 +68,7 @@ define(['../me/models/Me'], function(me){
             $('body').removeClass('full-lg');
             var view = openbiz.views.get("system.HeaderView");
             if(view == null){
+                console.log("renderView(system.HeaderView)");
                 this.renderView("system.HeaderView");
             }
             else{
@@ -84,6 +95,7 @@ define(['../me/models/Me'], function(me){
             else{
                 $(view.el).slideDown();
             }
+
             next();
         }
     });
