@@ -47,7 +47,7 @@ define(['../system/views/LayoutView',
 			this.renderView("user.LoginView");	
 		},
 		register:function(){
-			this.renderView("user.RegisterView");			
+			this.renderView("user.RegisterView");
 		}
 	});
 });

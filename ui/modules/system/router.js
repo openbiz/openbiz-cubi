@@ -28,33 +28,36 @@ define(['../me/models/Me'], function(me){
             }
         },
         renderUser:function(next){
-            var view = openbiz.views.get("system.HeaderView");
-            if(view){
-                $(view.el).slideUp(400);
+
+            var main=$("#nav,#main")
+            if(main.hasClass("nav-collapse-out")){
+                main.removeClass("nav-collapse-out");
             }
-            var view = openbiz.views.get("system.NavView");
-            if(view){
-                $(view.el).slideUp(400);
-            }
-            var view = openbiz.views.get("system.MenuView");
-            if(view){
-                $(view.el).slideUp(400);
-            }
-            var view = openbiz.views.get("system.ContactRightView");
-            if(view){
-                $(view.el).slideUp(400);
+            if(main.hasClass("none")){
+                main.removeClass("none");
             }
 
-            setTimeout(function(){
-                var main=$("#nav,#main")
-                if(main.hasClass("nav-collapse-out")){
-                    main.removeClass("nav-collapse-out");
+            var animateOther = function(){
+                var view = openbiz.views.get("system.HeaderView");
+                if(view){
+                    $(view.el).slideUp(400);
                 }
-                if(main.hasClass("none")){
-                    main.removeClass("none");
+                var view = openbiz.views.get("system.MenuView");
+                if(view){
+                    $(view.el).slideUp(400);
                 }
-            },400);
-            setTimeout(next,400);
+                var view = openbiz.views.get("system.ContactRightView");
+                if(view){
+                    $(view.el).slideUp(400);
+                }
+            };
+
+            $("div#wrapper").animate({'margin-left':'0'});
+            $("div#nav").animate({'left':'-300'},function(){
+                animateOther();
+            });
+
+            setTimeout(next,900);
         },
         renderLayout:function(next){
             var view = openbiz.views.get("system.LayoutView");
@@ -65,6 +68,8 @@ define(['../me/models/Me'], function(me){
             next();
         },
         renderBackendUI:function(next){
+            $("div#nav").css("display","block");
+
             $('body').removeClass('full-lg');
             var view = openbiz.views.get("system.HeaderView");
             if(view == null){
@@ -79,7 +84,7 @@ define(['../me/models/Me'], function(me){
                 this.renderView("system.NavView");
             }
             else{
-                $(view.el).slideDown();
+//                $(view.el).slideDown();
             }
             var view = openbiz.views.get("system.MenuView");
             if(view == null){
@@ -96,6 +101,8 @@ define(['../me/models/Me'], function(me){
                 $(view.el).slideDown();
             }
 
+            $("div#wrapper").animate({'margin-left':'50'})
+            $("div#nav").animate({'left':'0'});
             next();
         }
     });
