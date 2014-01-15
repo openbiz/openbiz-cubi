@@ -45,10 +45,16 @@ define(['../me/models/Me'], function(me){
                 $("div#wrapper").animate({'margin-left':'0px'},function(){
                     $("div#wrapper div#main").animate({'margin-left':'0px'},function(){
                         $('body').addClass('full-lg');
+	                    if($("div#main").hasClass("nav-collapse-out")){
+		                    $("div#main").removeClass("nav-collapse-out");
+	                    }
                         next();
                     })
                 });
             }else{
+	            if($("div#main").hasClass("nav-collapse-out")){
+		            $("div#main").removeClass("nav-collapse-out");
+	            }
                 next();
             }
 
