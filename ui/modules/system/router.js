@@ -61,12 +61,24 @@ define(['../me/models/Me'], function(me){
         },
         dismissUserUI:function(next){
             if($('body').hasClass('full-lg')){
-                $("div#wrapper").animate({'margin-left':'50px'},function(){
-                    $("div#wrapper div#main").animate({'margin-left':'250px'},function(){
-                        $('body').removeClass('full-lg');
-                        next();
-                    })
-                });
+                if($( window ).width()>=550){
+                    $("div#wrapper").animate({'margin-left':'50px'},function(){
+                        if($( window ).width()>=991){
+                            $("div#wrapper div#main").animate({'margin-left':'250px'},function(){
+                                $('body').removeClass('full-lg');
+                                next();
+                            })
+                        }else{
+                            $("div#wrapper div#main").css('margin-left','');
+                             $('body').removeClass('full-lg');
+                            next();
+                        }
+                    });
+                }else{
+                    $("div#wrapper").css('margin-left','');
+                    $('body').removeClass('full-lg');
+                    next();
+                }
             }else{
                 next();
             }
@@ -118,7 +130,7 @@ define(['../me/models/Me'], function(me){
                             });                            
                                 
                         }else{
-                            $("div#wrapper div#main").css('margin-left','0px');
+                            $("div#wrapper div#main").css('margin-left','');
                             $('body').removeClass('full-lg');
                             $(view).show();
                             self.trigger('navViewRenderred');
@@ -151,7 +163,7 @@ define(['../me/models/Me'], function(me){
                             });
                         }else{
                             var view = $("nav#menu");
-                            $("div#wrapper").css('margin-left','0px');
+                            $("div#wrapper").css('margin-left','');
                             $(view).show();
                             $("nav#menu").css('display','');
                             self.trigger('menuViewRenderred');
