@@ -19,9 +19,6 @@ define(['text!templates/user/dashboardView.html',
 	        $(window).off('resize');
         	openbiz.ui.update($(this.el));
  	        return this;
-	    },
-	    undelegateAllEvents:function(){
-	    	console.log('I m going to undelegateAllEvents');
 	    }
 	});
 });

@@ -25,25 +25,12 @@ define(['./models/Me' ],
             this.renderView("me.SetupWizardView");
         },
 		logout:function(){
-			//reinint UI
-			var self = this;
-			$('body').addClass("full-lg");
-			
-			this.app.require(['./modules/user/views/DashboardView'],function(viewClass){
-				var view = new viewClass();
-				view.undelegateAllEvents();
-			});
-
-			//@todo: unregister dashboard view's events
-			if($('#main').children().length==0){
-				location.href="#!/user/login";
-			}
-			$('#main').fadeOut(function(){							
-				openbiz.session.me.on('destroy',function(model,resp,options){
-					location.href="#!/user/login";
-				})
-				openbiz.session.me.destroy();
-			});
+			Backbone.history.trigger('dismissBackendUI',function(){
+                openbiz.session.me.on('destroy',function(){
+                    location.href="#!/user/login";
+                });
+                openbiz.session.me.destroy();
+            })
 		}
 	});
-})
+});

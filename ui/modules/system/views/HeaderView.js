@@ -7,8 +7,9 @@ define(['text!templates/system/headerView.html'],
             name: 'headerView',
             el:'#wrapper #header',
             events:{
-                'click .fullscreen'  : 'fullscreen',
+                'click .fullscreen'   : 'fullscreen',
                 'click .nav-collapse' : 'navcollapse'
+                //,'click .btn-logout'   : 'logout'
             },
             initialize:function(){
                 openbiz.View.prototype.initialize.call(this);
@@ -24,8 +25,17 @@ define(['text!templates/system/headerView.html'],
                 });
                 return this;
             },
+            logout:function(event){
+                event.preventDefault();
+                Backbone.history.trigger('dismissBackendUI',function(){
+                    openbiz.session.me.on('destroy',function(){
+                        location.href="#!/user/login";
+                    });
+                    openbiz.session.me.destroy();
+                })
+            },
             navcollapse:function(event){
-                if(openbiz.views.isRenderred('system.NavView') == false){
+                if(this.app.views.isRenderred('system.NavView') == false){
                     return;
                 }
                 event.preventDefault()
