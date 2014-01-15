@@ -8,46 +8,52 @@ ol.breadcrumb
 #content
     .row
         .col-lg-12
-            h1 <%= viewTitle %>
-            label(class="color",style="background-color:#edece5") welcome to setup your account
-            a#test(href="#test") logout test
-            form#rootwizard.wizard-step
-                ul
-                    li
-                        a(href='#tab1', data-toggle='tab') 1
-                    li
-                        a(href='#tab2', data-toggle='tab') 2
-                    li
-                        a(href='#tab3', data-toggle='tab') 3
-                .progress.progress-stripes.progress-sm(style='margin: 0;')
-                    .progress-bar(data-color='info')
-                .tab-content
-                    #tab1.tab-pane.fade
-                        h3 Wizard step : 1
-                        br
-                        p
-                            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    #tab2.tab-pane.fade
-                        h3 Wizard step : 2
-                        br
-                        p
-                            | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    #tab3.tab-pane.fade
-                        h3 Wizard step : 3
-                        br
-                        p
-                            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    hr
-                    footer.row
-                        .col-sm-4
-                            section.wizard
-                                button.btn.btn-inverse.previous(type='button',style="margin-right:4px")
-                                    i.fa.fa-angle-left
-                                    | Previous
-                                button.btn.btn-theme.next(type='button')
-                                    | Next
-                                    i.fa.fa-angle-right
-                        .col-sm-8.align-lg-right
-                            .wizard-status
-                                | Wizard step :
-                                span
+            section.panel
+                form.wizard-form(role="form",parsley-validate,novalidate="novalidate")
+                    header.panel-heading
+                        h2 <%= viewTitle %>
+                        label(class="color",style="background-color:#edece5") Welcome to setup your account
+                    div.panel-body                    
+                        div
+                            p How would you like to setup your account ?
+                            ul.choose-mode.iCheck(data-color='red') 
+                              li
+                                input(type="radio",name="mode",value="create", parsley-trigger="ifClicked ifChanged",parsley-required="true",parsley-group="setup-mode") 
+                                label I want to create a new company account
+                              li
+                                input(type="radio",name="mode",value="join", parsley-trigger="ifClicked ifChanged",parsley-group="setup-mode") 
+                                label I want to join a company account
+                        div.form-create-company
+                            hr
+                            p Please review below form to create a new company account
+                            div.form-group
+                                label Company Name
+                                input.form-control(name="company-name",type="text",placeholder="Company Name")
+                            div.form-group
+                                label Phone Number
+                                div(style="height:34px;")
+                                    input.form-control.pull-left#inputPhoneCountryCode(name="phoneCountryCode",required,placeholder!="<%= phoneCountryCode %>",value!="<%= phoneDefaultCountryCode %>",style="width:19%;margin-right:1%;")
+                                    input.form-control.pull-left#inputPhoneAreaCode(name="phoneAreaCode",required,placeholder!="<%= phoneAreaCode %>",style="width:24%;margin-right:1%;")
+                                    input.form-control.pull-left#inputPhoneNumber(name="phoneNumber",required,type="tel",placeholder!="<%= phoneNumber %>",style="width:55%")
+                            div.form-group
+                                label Address
+                                div(style="height:34px;margin-bottom:5px;")
+                                    input.form-control.pull-left(name="addressCountry",required,placeholder!="<%= addressCountry %>",value!="<%= addressDefaultCountry %>",style="width:32%;margin-right:1%;")
+                                    input.form-control.pull-left(name="addressProvince",required,placeholder!="<%= addressProvince %>",style="width:33%;margin-right:1%;")
+                                    input.form-control.pull-left(name="addressCity",required,type="tel",placeholder!="<%= addressCity %>",style="width:33%")
+                                div(style="height:34px;")
+                                    input.form-control.pull-left(name="addressStreet",required,placeholder!="<%= addressStreet %>",style="width:74%;margin-right:1%;")
+                                    input.form-control.pull-left(name="addressZipcode",required,type="tel",placeholder!="<%= addressZipcode %>",style="width:25%")
+                            div.form-group
+                                label Website
+                                input.form-control(name="company-name",type="text",placeholder="http://www.yourcompany.com")
+                        div.form-join-company
+                            hr
+                            p Please ask your company's administrator for the invitation code. Normally it will send to by email or SMS.
+                            div.form-group
+                                label Company Invitation Code
+                                input.form-control(name="company-invitaion-code",type="text",placeholder!="<%= invitationCodePlaceHolder %>")
+                    footer.panel-footer
+                        button.btn-next.btn.btn-theme(type="submit") Next Step &nbsp;
+                            i.fa.fa-angle-right
+            

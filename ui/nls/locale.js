@@ -83,7 +83,18 @@ define({
         me:{
             setupWizardView:{
                 viewName:'Setup Wizard',
-                viewTitle: '<strong>Account</strong> Setup Wizard'
+                viewTitle: '<strong>Account</strong> Setup Wizard',
+                phoneDefaultCountryCode: '+1',
+                phoneCountryCode: 'Country Code',
+                phoneAreaCode: 'Area Code',
+                phoneNumber: 'Phone Number',
+                addressCountry: 'Country',
+                addressDefaultCountry: 'USA',
+                addressProvince: 'Province',
+                addressCity: 'City',
+                addressStreet: 'Street',
+                addressZipcode: 'Zipcode',
+                invitationCodePlaceHolder: 'ACCT-XXXX-XXXXXX'
             }
         },
         breadcrumb:{
