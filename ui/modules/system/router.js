@@ -107,6 +107,8 @@ define(['../me/models/Me'], function(me){
                         if($( window ).width()>=991){                                                                                                     
                             $(view).show();
                             $(view).css('left','0px');  
+                            $(view).removeClass("nav-collapse-out");
+                            $("div#main").removeClass("nav-collapse-out");
                             $("div#wrapper div#main").css('margin-left','0px');  
                             $("div#wrapper div#main").animate({'margin-left':'250px'},function(){    
                                 $("div#wrapper div#main").css('margin-left','');  
@@ -116,6 +118,7 @@ define(['../me/models/Me'], function(me){
                             });                            
                                 
                         }else{
+                            $("div#wrapper div#main").css('margin-left','0px');
                             $('body').removeClass('full-lg');
                             $(view).show();
                             self.trigger('navViewRenderred');
@@ -141,13 +144,16 @@ define(['../me/models/Me'], function(me){
                         if($( window ).width()>=550){
                             $("nav#menu").hide();
                             $("nav#menu").css('left','0px');
-                            $("nav#menu").show();
+                            $("nav#menu").show();                            
                             $("div#wrapper").animate({'margin-left':'50px'},function(){
+                                $("nav#menu").css('display','');
                                 self.trigger('menuViewRenderred');
                             });
                         }else{
                             var view = $("nav#menu");
+                            $("div#wrapper").css('margin-left','0px');
                             $(view).show();
+                            $("nav#menu").css('display','');
                             self.trigger('menuViewRenderred');
                         }
                     }else{
@@ -169,6 +175,7 @@ define(['../me/models/Me'], function(me){
                         $(view).attr('renderred','true');
                         $("nav#contact-right").show();
                         $(view).show();
+                        $("nav#contact-right").css('display','');
                     }
                     self.trigger('contactViewRenderred');
 
