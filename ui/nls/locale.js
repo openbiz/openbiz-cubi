@@ -94,7 +94,11 @@ define({
                 addressCity: 'City',
                 addressStreet: 'Street',
                 addressZipcode: 'Zipcode',
-                invitationCodePlaceHolder: 'ACCT-XXXX-XXXXXX'
+                invitationCodePlaceHolder: 'ACCT-XXXX-XXXXXX',
+                validation:{
+                    tokenInvalid: 'The token code is invalid',
+                    companyNotUnique: 'The company has been taken',
+                }
             }
         },
         breadcrumb:{
