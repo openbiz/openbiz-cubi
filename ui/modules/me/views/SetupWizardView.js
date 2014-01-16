@@ -46,7 +46,7 @@ define(['text!templates/me/setupWizardView.html',
                     .attr('disabled','disabled')
                     .removeClass('btn-theme');
                 $(this.el).find('.form-join-company input[name="token"]').attr("parsley-remote",this.app.appUrl+'/me/account/check-invitation-token');
-                $(this.el).find('.form-create-company input[name="name"]').attr("parsley-remote",this.app.appUrl+'/me/account/check-unique');
+                $(this.el).find('.form-create-company input[name="name"]').val(openbiz.session.me.get('contact').company).attr("parsley-remote",this.app.appUrl+'/me/account/check-unique');
                 $(this.el).find('.form-join-company').slideUp(0).parsley('addListener',{
                     onFormValidate:function(isValid,event,ParsleyForm)
                     {   
@@ -88,7 +88,19 @@ define(['text!templates/me/setupWizardView.html',
                 var account = {
                     name: $(this.el).find('input[name="name"]').val(),
                     info: {
-                        website: $(this.el).find('input[name="website"]').val(),
+                        website:            $(this.el).find('input[name="website"]').val(),
+                        address:{
+                            country:        $(this.el).find('input[name="address-country"]').val(),
+                            province:       $(this.el).find('input[name="address-province"]').val(),
+                            city:           $(this.el).find('input[name="address-city"]').val(),
+                            street:         $(this.el).find('input[name="address-street"]').val(),
+                            zipcode:        $(this.el).find('input[name="address-zipcode"]').val()
+                        },
+                        phone:{
+                            countryCode:    $(this.el).find('input[name="phone-country-code"]').val(),
+                            areaCode:       $(this.el).find('input[name="phone-area-code"]').val(),
+                            number:         $(this.el).find('input[name="phone-number"]').val()
+                        }
                     }
                 }
                 this.model.createAccount(account,function(isSuccessed){
