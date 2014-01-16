@@ -75,8 +75,8 @@ define(['text!templates/me/setupWizardView.html',
                     $(this.el).find('.form-join-company').parsley( 'validate' );
                 }
             },
-            onJoinAccount:function(){
-                var token = $(this.el).find('input[name="token"]').val();
+            onJoinAccount:function(event){
+                var token = $(this.el).find('input[name="token"]').val().toUpperCase();
                 this.model.joinAccount(token,function(isSuccessed){
                     if(isSuccessed == true)
                     {
@@ -84,7 +84,7 @@ define(['text!templates/me/setupWizardView.html',
                     }
                 });
             },
-            onCreateAccount:function(){
+            onCreateAccount:function(event){
                 var account = {
                     name: $(this.el).find('input[name="name"]').val(),
                     info: {

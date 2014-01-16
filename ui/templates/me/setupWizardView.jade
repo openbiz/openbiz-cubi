@@ -53,7 +53,7 @@ ol.breadcrumb
                             p Please ask your company's administrator for the invitation code. Normally it will send to by email or SMS.
                             div.form-group
                                 label Company Invitation Code
-                                input.form-control(name="token",required,type="text",parsley-remote-method="POST",parsley-remote-message!="<%= validation.tokenInvalid %>",parsley-required="true",placeholder!="<%= invitationCodePlaceHolder %>")
+                                input.form-control(name="token",style="text-transform: uppercase",required,type="text",parsley-remote-method="POST",parsley-remote-message!="<%= validation.tokenInvalid %>",parsley-required="true",placeholder!="<%= invitationCodePlaceHolder %>")
                             button.hidden(type="submit")
                     footer.panel-footer
                         button.btn-next.btn.btn-theme(type="submit") Next Step &nbsp;
