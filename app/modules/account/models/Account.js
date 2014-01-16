@@ -3,9 +3,9 @@ module.exports = function(app)
 {
 	var mongoose = app.openbiz.mongoose;
     var schema = new mongoose.Schema({
-        _id: mongoose.Schema.Types.ObjectId,
         name: String,
         info:{
+	        website: String,
             address:{            
                 country: String,
                 province: String,
@@ -20,7 +20,7 @@ module.exports = function(app)
             }
         },
         users:[{
-        	userId:{
+        	id:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'cubi.user.User'
             },
@@ -43,10 +43,47 @@ module.exports = function(app)
                 type: Date,
                 default: Date.now
             }
-        }       
+        },
+	    invitation:[{
+		    code:{
+			    type: String,
+			    required: true
+		    },
+		    expiredDate: Date,
+		    infomation:{}
+	    }]
     },{
         versionKey: false,
         collection: 'cubi_account'
     });
-    return mongoose.model('cubi.account.Account', schema);
+
+	schema.statics.createInvitationToken = function(callback)
+	{
+		var randomString = function (length) {
+			var chars = '0123456789'.split('');
+			if (! length) {
+				length = Math.floor(Math.random() * chars.length);
+			}
+			var str = '';
+			for (var i = 0; i < length; i++) {
+				str += chars[Math.floor(Math.random() * chars.length)];
+			}
+			return str;
+		}
+		var checkTokenExist = function(){
+			var token = "ACCT-"+randomString(4)+"-"+randomString(6);
+			this.findOne({'invitation.code':token},function(err,account){
+				if(err){
+					callback(null,err);
+				}else if(account){
+					return checkTokenExist();
+				}
+				else{
+					callback(token,null);
+				}
+			});
+		}
+	};
+
+	return app.openbiz.db.model('cubi.account.Account', schema);
 }

@@ -12,7 +12,7 @@ define(['../../me/models/Me'],function(meModel){
 		initialize:function(){
 			this.url = openbiz.apps.cubi.appUrl+'/users';
 		},
-		createAccount:function(user,callback){
+		create:function(user,callback){
 			$.ajax({
 				type 		: "POST",
 				dataType 	: "json",

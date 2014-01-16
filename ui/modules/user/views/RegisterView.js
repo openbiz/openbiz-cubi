@@ -64,7 +64,7 @@ define(['text!templates/user/registerView.html',
 				}
 			};
 
-			this.model.createAccount(user,function(data)
+			this.model.create(user,function(data)
 			{
 				self.model.login( user.username, user.password,function(isAuthed, user)
 				{	

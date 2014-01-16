@@ -9,6 +9,25 @@ define(function(templateData){
 			account:{},
 			roles:[]
 		},
+		createAccount:function(account,callback){
+			$.ajax({
+				type 		: "POST",
+				dataType 	: "json",
+				contentType : "application/json",
+				url  		: this.url+'/create-account',
+				data 		: JSON.stringify(account),
+				complete 	: function(jqXHR,textStatus){
+					switch(jqXHR.status){
+						case 201:
+							callback(true);
+							break;
+						default:
+							callback(false);
+							break;
+					}
+				}
+			});
+		},
 		constructor:function(){
 			this.url = openbiz.apps.cubi.appUrl+'/me';
 			Backbone.Model.apply(this, arguments);
