@@ -10,7 +10,8 @@ define(['text!templates/me/setupWizardView.html',
             model:model,
             events:{
                 "click .btn-next"           :   "onFormSubmit",
-                "click .btn-test"           :   "showAccountDetail",
+                "click .btn-test-join"      :   "showAccountDetail",
+                "click .btn-test-create"    :   "showAppSelector",
                 "ifChecked .choose-mode"    :   "showStep2"
             },
             initialize:function(){
@@ -40,14 +41,14 @@ define(['text!templates/me/setupWizardView.html',
                     });
                 }
             },
-            showAccountDetail:function(){
-                var  btn=$(this.el).find('.btn-test'), panelBody=btn.closest(".panel"),
-                    overlay=$('<div class="load-overlay"><div><div class="c1"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div></div><span>Loading...</span></div>');
+            showAccountDetail:function(event){
+                event.preventDefault();
+                var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
+                    overlay = openbiz.ui.loader
                 btn.removeClass("btn-panel-reload").addClass("disabled")
                 panelBody.append(overlay);
                 overlay.css('opacity',1).fadeIn();
                 this.app.require(["text!templates/me/setupWizardAccountDetailForm.html"],function(templateData){
-                    console.log(templateData);
                     setTimeout(function(){
                         btn.removeClass("disabled").addClass("btn-panel-reload") ;
                         var template = _.template(templateData);
@@ -58,6 +59,22 @@ define(['text!templates/me/setupWizardView.html',
                             panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
                         });
                     },1000);
+                });
+            },
+            showAppSelector:function(event){
+                event.preventDefault();
+                var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
+                    overlay = openbiz.ui.loader
+                btn.removeClass("btn-panel-reload").addClass("disabled")
+                panelBody.append(overlay);
+                overlay.css('opacity',1).fadeIn();
+                this.app.require(['modules/system/models/AppCollection'],function(AppCollection){
+                   var apps = new AppCollection();
+                   apps.fetch({
+                       success:function(){
+                           console.log(apps.toJSON());
+                       }
+                   });
                 });
             },
             setupForm:function(){
