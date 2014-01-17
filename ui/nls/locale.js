@@ -2,6 +2,10 @@
 define({
 	'root':{
 		loading:'Loading ...',
+        app:{
+          name:'Openbiz Cubi Platform',
+          description:"A openbiz based application, provides basically user, account, models and permission contronls."
+        },
         user:{
             loginView:{
                 viewTitle: '<span>Wel</span>come',

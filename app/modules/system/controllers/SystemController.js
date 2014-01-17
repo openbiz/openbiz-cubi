@@ -11,9 +11,13 @@ module.exports = function(app){
             for(var appName in app.openbiz.apps)
             {
                 if(app.openbiz.apps[appName].uiUrl!=null){
+                    var roles = [];
+                    for( var roleName in app.openbiz.apps[appName].roles){
+                        roles.push({id:roleName, name:roleName});
+                    }
                     installedApps.push({
                         name:   appName,
-                        roles:  app.openbiz._.keys(app.openbiz.apps[appName].roles),
+                        roles:  roles,
                         appUrl: app.openbiz.apps[appName].appUrl,
                         baseUrl:app.openbiz.apps[appName].uiUrl,
                         info:   app.openbiz.apps[appName].info

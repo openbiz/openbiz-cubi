@@ -1,0 +1,60 @@
+section.panel.corner-flip
+    div.wizard-form(role="form",parsley-validate,novalidate="novalidate")
+        header.panel-heading
+            h2 Awesome!
+            p Welcome to start your new company
+        div.panel-body
+            div.row
+                div.col-sm-3
+                    p(style="padding-top:5px;")
+
+                        h3 Openbiz LLC
+                div.col-sm-3
+                    P(style="padding-top:5px;")
+                        strong Your Role
+                        br
+                        span Administrator
+                div.col-sm-3.hidden-xs
+                    p(style="padding-top:5px;")
+                        strong Phone
+                        br
+                        span +86 10 64955182
+                div.col-sm-3.hidden-xs
+                    p(style="padding-top:5px;")
+                        strong Website
+                        br
+                        span http://www.openbiz.me
+            hr
+            div
+
+                div.divider(style="margin-bottom:0px;")
+                    h3 Applications
+                    p Please select applications for your company
+                section.clearfix
+                ul.iCheck(data-color='red')
+                    li(style="margin-bottom:10px;")
+                        input(name="app-dss",type="checkbox",checked="checked")
+                        label(style="color:#717171")
+                            h5 决策支撑系统
+                            p(style="margin-bottom:0px;")
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo convallis nibh tristique commodo.
+
+                    li(style="margin-bottom:10px;")
+                        input(name="app-crm",type="checkbox")
+                        label(style="color:#717171")
+                            h5 库存管理系统
+                            p(style="margin-bottom:0px;")
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo convallis nibh tristique commodo.
+                    li(style="margin-bottom:10px;")
+                        input(name="app-erp",type="checkbox")
+                        label(style="color:#717171")
+                            h5 日程管理系统
+                            p(style="margin-bottom:0px;")
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo convallis nibh tristique commodo.
+
+        footer.panel-footer
+            button.btn-next-select-users.btn.btn-theme(type="submit",style="margin-right:10px;") Invite Users &nbsp;
+                i.fa.fa-angle-right
+            button.btn-done.btn-save-selected-apps.btn.button
+                | &nbsp; Done &nbsp;
+        div.flip

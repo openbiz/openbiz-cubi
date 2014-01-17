@@ -41,6 +41,7 @@ define(['../me/models/Me'], function(me){
             }
         },
         renderUserUI:function(next){
+            $("#loading-top").show();
             if(!$('body').hasClass('full-lg')){
                 $("div#wrapper").animate({'margin-left':'0px'},function(){
                     $("div#wrapper div#main").animate({'margin-left':'0px'},function(){
@@ -60,6 +61,7 @@ define(['../me/models/Me'], function(me){
 
         },
         dismissUserUI:function(next){
+            $("#loading-top").hide();
             if($('body').hasClass('full-lg')){
                 if($( window ).width()>=550){
                     $("div#wrapper").animate({'margin-left':'50px'},function(){
@@ -84,6 +86,7 @@ define(['../me/models/Me'], function(me){
             }
         },
         renderBackendUI:function(next){
+            $("#loading-top").hide();
             var self = this;
             var renderHeaderView = function(){
                 var done = function(view){
@@ -223,6 +226,7 @@ define(['../me/models/Me'], function(me){
 
         },
         dismissBackendUI:function(next){
+            $("#loading-top").show();
             var self = this;
             var dismissHeaderView = function(){
                 var done = function(view){

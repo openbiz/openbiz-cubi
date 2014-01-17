@@ -12,6 +12,7 @@ define(['text!templates/me/setupWizardView.html',
                 "click .btn-next"           :   "onFormSubmit",
                 "click .btn-test-join"      :   "showAccountDetail",
                 "click .btn-test-create"    :   "showAppSelector",
+                "click .btn-done"           :   "gotoDashboard",
                 "ifChecked .choose-mode"    :   "showStep2"
             },
             initialize:function(){
@@ -24,6 +25,10 @@ define(['text!templates/me/setupWizardView.html',
                 this.setupForm();
                 openbiz.ui.update($(this.el));
                 return this;
+            },
+            gotoDashboard:function(event){
+                event.preventDefault();
+                Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
             },
             showStep2:function(event){
                 var self = this;
@@ -42,6 +47,7 @@ define(['text!templates/me/setupWizardView.html',
                 }
             },
             showAccountDetail:function(event){
+                var self = this;
                 event.preventDefault();
                 var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
                     overlay = openbiz.ui.loader
@@ -58,11 +64,12 @@ define(['text!templates/me/setupWizardView.html',
                         panelBody.fadeIn(function(){
                             panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
                         });
-                    },1000);
+                    },500);
                 });
             },
             showAppSelector:function(event){
                 event.preventDefault();
+                var self = this;
                 var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
                     overlay = openbiz.ui.loader
                 btn.removeClass("btn-panel-reload").addClass("disabled")
@@ -72,7 +79,19 @@ define(['text!templates/me/setupWizardView.html',
                    var apps = new AppCollection();
                    apps.fetch({
                        success:function(){
-                           console.log(apps.toJSON());
+                           self.app.require(["text!templates/me/setupWizardAppSelectorForm.html"],function(templateData){
+                               setTimeout(function(){
+                                   btn.removeClass("disabled").addClass("btn-panel-reload") ;
+                                   var template = _.template(templateData);
+                                   panelBody.hide();
+                                   self.locale.apps = apps.toJSON();
+                                   panelBody.replaceWith(template(self.locale));
+                                   openbiz.ui.update(panelBody);
+                                   panelBody.fadeIn(function(){
+                                       panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
+                                   });
+                               },500);
+                           });
                        }
                    });
                 });

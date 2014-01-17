@@ -1,6 +1,14 @@
 "use strict";
 define({	   
     loading:'数据加载中 ...',
+    app:{
+        name:'Openbiz Cubi 应用平台',
+        description:"Openbiz 的基础应用平台，提供用户管理，企业账户等通用功能",
+        roles:{
+            "cubi-admin":"Cubi 系统管理员",
+            "cubi-user":"Cubi 普通用户"
+        }
+    },
     user:{
         loginView:{
             viewTitle: '<span>欢迎</span>登录',
