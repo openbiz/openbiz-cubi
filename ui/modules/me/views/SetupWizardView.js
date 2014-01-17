@@ -10,6 +10,7 @@ define(['text!templates/me/setupWizardView.html',
             model:model,
             events:{
                 "click .btn-next"           :   "onFormSubmit",
+                "click .btn-test"           :   "showAccountDetail",
                 "ifChecked .choose-mode"    :   "showStep2"
             },
             initialize:function(){
@@ -25,7 +26,6 @@ define(['text!templates/me/setupWizardView.html',
             },
             showStep2:function(event){
                 var self = this;
-
                 $(this.el).find('button[type="submit"]')
                     .removeAttr('disabled')
                     .addClass('btn-theme');
@@ -39,6 +39,26 @@ define(['text!templates/me/setupWizardView.html',
                         $(self.el).find('.form-join-company').slideDown();
                     });
                 }
+            },
+            showAccountDetail:function(){
+                var  btn=$(this.el).find('.btn-test'), panelBody=btn.closest(".panel"),
+                    overlay=$('<div class="load-overlay"><div><div class="c1"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div></div><span>Loading...</span></div>');
+                btn.removeClass("btn-panel-reload").addClass("disabled")
+                panelBody.append(overlay);
+                overlay.css('opacity',1).fadeIn();
+                this.app.require(["text!templates/me/setupWizardAccountDetailForm.html"],function(templateData){
+                    console.log(templateData);
+                    setTimeout(function(){
+                        btn.removeClass("disabled").addClass("btn-panel-reload") ;
+                        var template = _.template(templateData);
+                        panelBody.hide();
+                        panelBody.replaceWith(template({}));
+                        openbiz.ui.update(panelBody);
+                        panelBody.fadeIn(function(){
+                            panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
+                        });
+                    },1000);
+                });
             },
             setupForm:function(){
                 var self = this;
