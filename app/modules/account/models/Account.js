@@ -1,6 +1,7 @@
 "use strict";
 module.exports = function(app)
 {
+	var async = require('async');
 	var mongoose = app.openbiz.mongoose;
     var schema = new mongoose.Schema({
         name: String,
@@ -73,21 +74,44 @@ module.exports = function(app)
 		}
 		var checkTokenExist = function(){
 			var token = "ACCT-"+randomString(4)+"-"+randomString(6);
-			self.findOne({'invitation.code':token},function(err,account){
+			self.findOne({'invitations.code':token},function(err,account){
 				if(err){
-					console.log("err: ",err);
 					callback(err,null);
 				}else if(account){
-					console.log("account: ",account);
 					return checkTokenExist();
 				}
 				else{
-					console.log("token: ",token);
 					callback(null,token);
 				}
 			});
 		}
 		checkTokenExist();
+	};
+	schema.statics.removeExpiredCode = function(callback){
+		var dateNow = parseInt(new Date().getTime());
+		this.find(function(err,accounts){
+			async.mapLimit(accounts,20,function(account,cb){
+				var invitations = account.invitations;
+				var hasChange = false;
+				for(var i in invitations){
+					var invitation = account.invitations[i];
+					if(dateNow >= parseInt(invitation.expiredDate.getTime())){
+						account.invitations.remove(invitation);
+						hasChange = true;
+					}
+				}
+				if(hasChange){
+					account.save(function(err){
+						cb(err,account);
+					});
+				}
+				else{
+					cb(null,account);
+				}
+			},function(err,results){
+				callback(err,results);
+			});
+		});
 	};
 
 	return app.openbiz.db.model('cubi.account.Account', schema);
