@@ -1,0 +1,43 @@
+section.panel.corner-flip
+    div.wizard-form(role="form",parsley-validate,novalidate="novalidate")
+        header.panel-heading
+            h2 Awesome!
+            p Welcome to join the company
+        div.panel-body
+            div.col-sm-5
+                div.divider
+                    h3 Company
+                strong Name
+                p Openbiz LLC
+                strong Your Role
+                p Member
+                strong Phone
+                p +86 10 64955182
+                strong Website
+                p http://www.openbiz.me
+            div.col-sm-7
+                hr.visible-xs
+                div.divider
+                    h3 Applications
+                ul
+                    li.rounded-list
+                        strong 决策支撑系统
+                        p(style="margin-top:5px")
+                            span.glyphicon.glyphicon-user(style="margin-right:5px")
+                            | 设计总监
+                    li
+                        strong 库存管理系统
+                        p(style="margin-top:5px")
+                            span.glyphicon.glyphicon-user(style="margin-right:5px")
+                            | 仓库主管
+                    li
+                        strong 日程管理系统
+                        p(style="margin-top:5px")
+                            span.glyphicon.glyphicon-user(style="margin-right:5px")
+                            | 普通用户
+
+        footer.panel-footer
+            a.btn-done.btn.btn-theme(href="#!/backend/dashboard")
+                i.fa.fa-check
+                | &nbsp; Done &nbsp;
+        div.flip

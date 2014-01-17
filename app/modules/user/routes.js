@@ -6,4 +6,4 @@ module.exports = function(app){
         "post /users/check-unique" 	: [ app.getController("UserController").checkUsernameUnique ],
         "post /users/logout" 		: [ app.getController("AuthController").logout ]
     }
-}
+};
