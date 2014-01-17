@@ -28,6 +28,25 @@ define(function(templateData){
 				}
 			});
 		},
+		onJoinAccount:function(token,callback){
+			$.ajax({
+				type 		: "POST",
+				dataType 	: "json",
+				contentType : "application/json",
+				url  		: this.url+'/join-account',
+				data 		: {"token":token},
+				complete 	: function(jqXHR,textStatus){
+					switch(jqXHR.status){
+						case 200:
+							callback(true);
+							break;
+						default:
+							callback(false);
+							break;
+					}
+				}
+			});
+		},
 		constructor:function(){
 			this.url = openbiz.apps.cubi.appUrl+'/me';
 			Backbone.Model.apply(this, arguments);

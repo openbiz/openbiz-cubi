@@ -44,7 +44,7 @@ module.exports = function(app)
                 default: Date.now
             }
         },
-	    invitation:[{
+	    invitations:[{
 		    code:{
 			    type: String,
 			    required: true
@@ -59,6 +59,7 @@ module.exports = function(app)
 
 	schema.statics.createInvitationToken = function(callback)
 	{
+		var self = this;
 		var randomString = function (length) {
 			var chars = '0123456789'.split('');
 			if (! length) {
@@ -72,17 +73,21 @@ module.exports = function(app)
 		}
 		var checkTokenExist = function(){
 			var token = "ACCT-"+randomString(4)+"-"+randomString(6);
-			this.findOne({'invitation.code':token},function(err,account){
+			self.findOne({'invitation.code':token},function(err,account){
 				if(err){
-					callback(null,err);
+					console.log("err: ",err);
+					callback(err,null);
 				}else if(account){
+					console.log("account: ",account);
 					return checkTokenExist();
 				}
 				else{
-					callback(token,null);
+					console.log("token: ",token);
+					callback(null,token);
 				}
 			});
 		}
+		checkTokenExist();
 	};
 
 	return app.openbiz.db.model('cubi.account.Account', schema);
