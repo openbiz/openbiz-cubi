@@ -15,7 +15,12 @@ module.exports = function(openbiz)
         _name : path.basename(path.dirname(__dirname)),
         _path : __dirname,
         _ui : path.join(path.dirname(__dirname),'ui'),
-        openbiz: openbiz
+        openbiz: openbiz,
+        config:{
+            invitation:{
+                defaultExpiry: 86400 * 7 * 1000
+            }
+        }
     });    
     return application;
 }
