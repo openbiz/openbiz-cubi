@@ -124,6 +124,7 @@ define(['text!templates/me/setupWizardView.html',
                     }
                 }
                 this.model.createAccount(account,function(isSuccessed){
+	                console.log(isSuccessed);
                     if(isSuccessed == true)
                     {
 

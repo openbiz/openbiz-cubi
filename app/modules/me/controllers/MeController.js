@@ -21,7 +21,29 @@ module.exports = function(app){
 			});
 		},
 		joinAccount:function(req,res){
+			var accounttModel = app.getModel.call(app,'Account');
+			accounttModel.findOne({'invitation.code':req.body.token},function(err,account){
+				if(err){
+					res.json(200,{error:err});
+				}
+				else if(account){
+					//TODO: do something
+					//add user to the account and setup something
+					account.users.push({id:req.user._id});
+					for(var invitation in account.invitation){
+						if(invitation.code == req.body.token){
+							account.invitation.remove(invitation);
+							break;
+						}
+					}
+					account.save();
+  					res.json(200,true);
+				}
+				else{
+					res.json(200,{error:""});
+				}
 
+			});
 		},
 		checkInvitationToken:function(req,res){
 			var accounttModel = app.getModel.call(app,'Account');
