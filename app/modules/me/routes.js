@@ -8,7 +8,8 @@ module.exports = function(app){
 		"post /me/create-account"                   : [ app.getController("MeController").createAccount],
 		"post /me/join-account"                     : [ app.getController("MeController").joinAccount],
 		"post /me/account/check-invitation-token"   : [ app.getController("MeController").checkInvitationToken],
-		"post /me/account/check-unique"             : [ app.getController("MeController").checkAccountUnique]
+		"post /me/account/check-unique"             : [ app.getController("MeController").checkAccountUnique],
+		"post /me/create-invitation-token"          : [ app.getController("MeController").createInvitationToken]
 //
 //    // start default route rules for subDoc  - contacts
 //    "post /me/contacts"			: [ openbiz.ensurePermission("cubi-myaccount-manage"),
