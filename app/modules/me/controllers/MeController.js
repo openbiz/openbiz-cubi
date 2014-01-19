@@ -12,11 +12,21 @@ module.exports = function(app){
 			account.contacts.push(req.user);
 			account.creator = {id:req.user._id};
 			account.save(function(err){
-				console.log(err);
 				if(err){
 					res.json({error:err},500);
 				}else{
-					res.send(201,{id:account._id});
+					var user = req.user;
+					user.roles.push("cubi-account-manage");
+					req.user = user;
+					user.save(function(error){
+						if(error){
+							res.json({error:err},500);
+						}
+						else{
+							res.send(201,{id:account._id});
+						}
+					});
+
 				}
 			});
 		},
@@ -48,7 +58,17 @@ module.exports = function(app){
 								if(err){
 									res.json(500,{error:err});
 								}else{
-									res.json(200,account);
+									var user = req.user;
+									user.roles.push("cubi-account-access");
+									req.user = user;
+									user.save(function(error){
+										if(error){
+											res.json({error:err},500);
+										}
+										else{
+											res.json(200,account);
+										}
+									});
 								}
 							});
 						}
