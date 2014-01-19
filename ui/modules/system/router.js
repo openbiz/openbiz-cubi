@@ -116,8 +116,8 @@ define(['../me/models/Me'], function(me){
             };
 
             var renderNavView = function(){
-                var done = function(view){                    
-                    if($(view).attr('renderred')!='true'){                        
+                var done = function(view){
+                    if($(view).attr('renderred')!='true'){
                         $(view).attr('renderred','true');
                         if($( window ).width()>=991){                                                                                                     
                             $(view).show();
@@ -128,12 +128,13 @@ define(['../me/models/Me'], function(me){
                             $("div#wrapper div#main").animate({'margin-left':'250px'},function(){    
                                 $("div#wrapper div#main").css('margin-left','');  
                                 $('body').removeClass('full-lg');                                                  
-                                $("div#wrapper").css('margin-left',''); 
+                                $("div#wrapper").css('margin-left','');
                                 self.trigger('navViewRenderred');
                             });                            
                                 
                         }else{
                             $("div#wrapper div#main").css('margin-left','');
+                            $("div#wrapper").css('margin-left','');
                             $('body').removeClass('full-lg');
                             $(view).show();
                             self.trigger('navViewRenderred');

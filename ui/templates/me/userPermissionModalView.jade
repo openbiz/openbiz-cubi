@@ -1,0 +1,39 @@
+#user-permission-model.modal.fade(tabindex='-1')
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h3 Setup permission for new user
+    form.modal-body.form-add-user(role="form",parsley-validate,novalidate="novalidate")
+        section.select-mode
+            div.row(style="height:60px;")
+                h4.col-xs-5(style="padding-top:10px") Jixian Wang
+                p.col-xs-7
+                    span
+                        i.fa.fa-envelope
+                        | &nbsp; jixian@openbiz.me
+                    br
+                    span
+                        i.fa.fa-phone-square
+                        | &nbsp; +86 13910154220
+            hr(style="margin-top:0px;")
+        section
+            div
+                h4(style="margin-bottom:5px") 决策支持系统
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo convallis nibh tristique commodo.
+                ul.iCheck.row(data-color='red',style="margin-left:5px;margin-right:5px;")
+                    li.col-md-4(style="margin-bottom:10px;")
+                        input(name="app-dss",type="checkbox",checked="checked")
+                        label(style="color:#717171") 普通用户
+                    li.col-md-4(style="margin-bottom:10px;")
+                        input(name="app-dss",type="checkbox")
+                        label(style="color:#717171") 产品研发总监
+                    li.col-md-4(style="margin-bottom:10px;")
+                        input(name="app-dss",type="checkbox")
+                        label(style="color:#717171") 产品研发助理
+                    li.col-md-4(style="margin-bottom:10px;")
+                        input(name="app-dss",type="checkbox")
+                        label(style="color:#717171") 产品研发助理
+        section
+            hr(style="margin-top:0px;")
+            button.btn-add-permission-done.btn.button.btn-theme(style="margin-right:10px;",type="submit")
+                i.fa.fa-check
+                | &nbsp; Done &nbsp;

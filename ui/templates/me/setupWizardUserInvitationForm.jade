@@ -1,0 +1,64 @@
+section.panel.corner-flip
+    div.wizard-form(role="form",parsley-validate,novalidate="novalidate")
+        header.panel-heading
+            h2 Build your team now!
+            p Now its time to invite your team members join your company account
+        div.panel-body
+            table.table.table-striped.table-bordered.text-center
+                thead
+                    tr
+                        th.hidden-xs Name
+                        th Email
+                        th.hidden-xs Invitation Code
+                        th Action
+                tbody
+                    tr
+                        td.hidden-xs Wang Jixian
+                        td jixian@openbiz.me
+                        td.hidden-xs ACCT-XSDF-123123
+                        td
+                            div.tooltip-area
+                                a.btn.btn-default.btn-sm(href="#")
+                                    span.hidden-xs
+                                        i.fa.fa-trash-o
+                                        |&nbsp; Delete &nbsp;
+                                    span.visible-xs
+                                        i.fa.fa-trash-o
+
+                    tr
+                        td.hidden-xs Wang Jixian
+                        td jixian@openbiz.me
+                        td.hidden-xs ACCT-XSDF-123123
+                        td
+                            div.tooltip-area
+                                a.btn.btn-default.btn-sm(href="#")
+                                    span.hidden-xs
+                                        i.fa.fa-trash-o
+                                        |&nbsp; Delete &nbsp;
+                                    span.visible-xs
+                                        i.fa.fa-trash-o
+                    tr
+                        td.hidden-xs Wang Jixian
+                        td jixian@openbiz.me
+                        td.hidden-xs ACCT-XSDF-123123
+                        td
+                            div.tooltip-area
+                                a.btn.btn-default.btn-sm(href="#")
+                                    span.hidden-xs
+                                        i.fa.fa-trash-o
+                                        |&nbsp; Delete &nbsp;
+                                    span.visible-xs
+                                        i.fa.fa-trash-o
+                    //tr
+                    //    td(colspan="4")
+                    //        | Please click "Add User" button to start add or invite your colleagues
+
+
+        footer.panel-footer
+            button.btn-add-user.btn.button.btn-theme(style="margin-right:10px;")
+                i.fa.fa-plus
+                | &nbsp; Add User &nbsp;
+            button.btn-done.btn-send-invitations.btn.button(disabled="disabled")
+                i.fa.fa-check
+                | &nbsp; Done &nbsp;
+        div.flip

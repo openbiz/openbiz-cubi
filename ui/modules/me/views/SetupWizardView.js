@@ -8,12 +8,15 @@ define(['text!templates/me/setupWizardView.html',
             name: 'setupWizardView',
             el: '#main',
             model:model,
+            modals:{},
             events:{
                 "click .btn-next"           :   "onFormSubmit",
-                "click .btn-test-join"      :   "showAccountDetail",
-                "click .btn-test-create"    :   "showAppSelector",
+                "click .btn-test-join"      :   "showAccountDetailView",
+                "click .btn-test-create"    :   "showAppSelectorView",
+                "click .btn-test-invite"    :   "showUserInvitationView",
+                "click .btn-add-user"       :   "showAddUserView",
                 "click .btn-done"           :   "gotoDashboard",
-                "ifChecked .choose-mode"    :   "showStep2"
+                "ifChecked .choose-mode"    :   "showJoinCompanyForm"
             },
             initialize:function(){
                 openbiz.View.prototype.initialize.call(this);
@@ -28,9 +31,10 @@ define(['text!templates/me/setupWizardView.html',
             },
             gotoDashboard:function(event){
                 event.preventDefault();
+                this.undelegateEvents();
                 Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
             },
-            showStep2:function(event){
+            showJoinCompanyForm:function(event){
                 var self = this;
                 $(this.el).find('button[type="submit"]')
                     .removeAttr('disabled')
@@ -46,7 +50,127 @@ define(['text!templates/me/setupWizardView.html',
                     });
                 }
             },
-            showAccountDetail:function(event){
+            //* 处理用户添加逻辑的表单 开始 *//
+            showAddUserView:function(event){
+                var self = this;
+                event.preventDefault();
+                $('body').modalmanager('loading');
+                this.app.require(["text!templates/me/userAddModalView.html"],function(templateData){
+                    var template = _.template(templateData);
+                    var $modal = $(template(self.locale.addUserView));
+                    $modal.modal();
+                    self.localizeAddUserForm();
+                    openbiz.ui.update($modal);
+                    $modal.find('.form-add-user section.login').slideDown(0);
+                    $modal.find('.form-add-user .user-add-mode').off('ifChecked');
+                    $modal.find('.form-add-user .user-add-mode').on('ifChecked', self.switchUserAddMode);
+                    $modal.find('.form-add-user').find('#inputEmail').attr("parsley-remote",self.app.appUrl+'/users/check-unique');
+                    $modal.find('.form-add-user').parsley();
+                    $modal.find('.form-add-user').parsley('addListener', {
+                        onFormValidate: function ( isFormValid, event, ParsleyForm ) {
+                            event.preventDefault();
+                            if(isFormValid){
+                                if(self.locale.addUserView.nameFormat[0]=='firstName'){
+                                    var displayName = $('.form-add-user').find('#inputLastName').val() + $('.form-add-user').find('#inputFirstName').val();
+                                }else{
+                                    var displayName = $('.form-add-user').find('#inputLastName').val() + $('.form-add-user').find('#inputFirstName').val();
+                                }
+                                var newUserData = {
+                                    mode: $('.form-add-user .user-add-mode input[value="invite-user"]').is(":checked")?'invite-user':'create-user',
+                                    username: $('.form-add-user').find('#inputEmail').val(),
+                                    password: $('.form-add-user').find('#inputPassword').val(),
+                                    contact:{
+                                        name:{
+                                            firstName: 		$('.form-add-user').find('#inputFirstName').val(),
+                                            lastName: 		$('.form-add-user').find('#inputLastName').val(),
+                                            displayName: 	displayName
+                                        },
+                                        company: $('.form-add-user').find('#inputCompany').val(),
+                                        title:   $('.form-add-user').find('input:radio[name="title"]#title-mr').is(":checked")?'Mr.':'Ms.',
+                                        emails:[{
+                                            category: 	'Default',
+                                            email: 		$('.form-add-user').find('#inputEmail').val()
+                                        }],
+                                        phones:[{
+                                            type: 		'mobile',
+                                            category: 	'Default',
+                                            countryCode:$('.form-add-user').find('#inputMobileCountryCode').val(),
+                                            number: 	$('.form-add-user').find('#inputMobileNumber').val()
+                                        }]
+                                    }
+                                };
+                                if($('.form-add-user .user-add-mode input[value="invite-user"]').is(":checked"))
+                                {
+                                    delete newUserData.password;
+                                }
+                                $(self.el).data('newUserData',newUserData);
+                                self.showAddUserPermissionView(event);
+                            }
+                        }
+                    });
+                    self.modals.addUserModal = $modal;
+                });
+
+            },
+            switchUserAddMode:function(event){
+                var self = this;
+                event.preventDefault();
+                if($('.form-add-user .user-add-mode input[value="invite-user"]').is(":checked")){
+                    $('.form-add-user section.login').slideUp();
+                    $('.form-add-user').parsley( 'removeItem', '#inputPassword' );
+                    $('.form-add-user').parsley( 'removeItem', '#inputRepeatPassword' );
+                }else{
+                    $('.form-add-user section.login').slideDown();
+                    $('.form-add-user').parsley( 'addItem', '#inputPassword' );
+                    $('.form-add-user').parsley( 'addItem', '#inputRepeatPassword' );
+                }
+            },
+            showAddUserPermissionView:function(event){
+                var self = this;
+                event.preventDefault();
+                var  btn=$(".form-add-user button[type='submit']"), panelBody=btn.closest(".modal"),
+                    overlay = openbiz.ui.loader
+                btn.removeClass("btn-panel-reload").addClass("disabled")
+                panelBody.append(overlay);
+                overlay.css('opacity',1).fadeIn();
+                this.app.require(["text!templates/me/userPermissionModalView.html"],function(templateData){
+                    setTimeout(function(){
+                        btn.removeClass("disabled").addClass("btn-panel-reload") ;
+                        var template = _.template(templateData);
+                        panelBody.off('hidden.bs.modal');
+                        panelBody.on('hidden.bs.modal',function(){
+                            var $modal = $(template({}));
+                            $modal.modal();
+                            openbiz.ui.update(panelBody);
+                        });
+                        panelBody.modal('hide');
+                    },500);
+                });
+            },
+            localizeAddUserForm:function(){
+                var nameElems = {
+                    firstName :$('.form-add-user').find('#inputFirstName'),
+                    lastName : $('.form-add-user').find('#inputLastName')
+                };
+                var nameRootElem = nameElems.firstName.parent();
+                nameRootElem.html('');
+                for(var i in this.locale.addUserView.nameFormat){
+                    var elem = nameElems[this.locale.addUserView.nameFormat[i]];
+                    switch(parseInt(i))
+                    {
+                        case 0:
+                            elem.css({'margin-right':'2%'});
+                            break;
+                        case 1:
+                            elem.css({'margin-right':'0%'});
+                            break;
+                    }
+                    nameRootElem.append(elem);
+                }
+            },
+            //* 处理用户添加逻辑的表单 结束 *//
+
+            showAccountDetailView:function(event){
                 var self = this;
                 event.preventDefault();
                 var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
@@ -67,7 +191,7 @@ define(['text!templates/me/setupWizardView.html',
                     },500);
                 });
             },
-            showAppSelector:function(event){
+            showAppSelectorView:function(event){
                 event.preventDefault();
                 var self = this;
                 var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
@@ -94,6 +218,27 @@ define(['text!templates/me/setupWizardView.html',
                            });
                        }
                    });
+                });
+            },
+            showUserInvitationView:function(event){
+                var self = this;
+                event.preventDefault();
+                var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
+                    overlay = openbiz.ui.loader
+                btn.removeClass("btn-panel-reload").addClass("disabled")
+                panelBody.append(overlay);
+                overlay.css('opacity',1).fadeIn();
+                this.app.require(["text!templates/me/setupWizardUserInvitationForm.html"],function(templateData){
+                    setTimeout(function(){
+                        btn.removeClass("disabled").addClass("btn-panel-reload") ;
+                        var template = _.template(templateData);
+                        panelBody.hide();
+                        panelBody.replaceWith(template({}));
+                        openbiz.ui.update(panelBody);
+                        panelBody.fadeIn(function(){
+                            panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
+                        });
+                    },500);
                 });
             },
             setupForm:function(){
@@ -158,7 +303,7 @@ define(['text!templates/me/setupWizardView.html',
                             number:         $(this.el).find('input[name="phone-number"]').val()
                         }
                     }
-                }
+                };
                 this.model.createAccount(account,function(isSuccessed){
 	                console.log(isSuccessed);
                     if(isSuccessed == true)
