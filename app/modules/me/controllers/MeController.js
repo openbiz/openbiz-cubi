@@ -8,9 +8,9 @@ module.exports = function(app){
 		createAccount:function(req,res){
 			var accounttModel = app.getModel.call(app,'Account');
 			var account = new accounttModel(req.body);
-			account.users.push({id:req.user._id,role:"administrator"});
+			account.users.push({id:req.user.id,role:"administrator"});
 			account.contacts.push(req.user);
-			account.creator = {id:req.user._id};
+			account.creator = {id:req.user.id};
 			account.save(function(err){
 				if(err){
 					res.json({error:err},500);
@@ -30,97 +30,115 @@ module.exports = function(app){
 				}
 			});
 		},
-		joinAccount:function(req,res){
+		checkAccountNotExist:function(req,res,next){
 			var accounttModel = app.getModel.call(app,'Account');
-			accounttModel.findOne({'users.id':req.user._id},function(myerr,myaccount){
-				if(myerr){
-					res.json(500,{error:myerr});
+			accounttModel.findOne({'users.id':req.user.id},function(err,account){
+				if(err){
+					res.json(500,{error:err});
 				}
-				else if (myaccount){
-					res.send(405);//已有公司 禁止加入.
+				else if (account){
+					res.send(405);
+				}
+				else{
+					next();
+				}
+			});
+		},
+		ensureInvitationToken:function(req,res,next){
+			var accounttModel = app.getModel.call(app,'Account');
+			accounttModel.findOne({'invitations.code':req.body.token},function(err,account){
+				if(err){
+					req.invitationToken = null;
+					req.account = null;
+					req.error = err;
+					next();
+				}
+				else if(account){
+					req.invitationToken = req.body.token;
+					req.account = account;
+					req.error = null;
+					next();
+				}
+				else{
+					req.invitationToken = null;
+					req.account = null;
+					req.error = null;
+					next();
+				}
+			});
+		},
+		joinAccount:function(req,res){
+			//TODO: do something
+			//add user to the account and setup something
+			if(!req.invitationToken || !req.account){
+				if(req.error){
+					res.json(500,{error:req.error});
+				}
+				else{
+					res.send(404);
+				}
+				return;
+			}
+			var account = req.account;
+			account.users.push({id:req.user.id});
+			for(var i in account.invitations){
+				var invitation = account.invitations[i];
+				if(invitation.code == req.invitationToken){
+					account.invitations.remove(invitation);
+					break;
+				}
+			}
+			account.save(function(err){
+				if(err){
+					res.json(500,{error:err});
 				}else{
-					accounttModel.findOne({'invitations.code':req.body.token},function(err,account){
-						if(err){
-							res.json(500,{error:err});
-						}
-						else if(account){
-							//TODO: do something
-							//add user to the account and setup something
-							account.users.push({id:req.user._id});
-							for(var i in account.invitations){
-								var invitation = account.invitations[i];
-								if(invitation.code == req.body.token){
-									account.invitations.remove(invitation);
-									break;
-								}
-							}
-							account.save(function(err){
-								if(err){
-									res.json(500,{error:err});
-								}else{
-									var user = req.user;
-									user.roles.push("cubi-account-access");
-									req.user = user;
-									user.save(function(error){
-										if(error){
-											res.json({error:err},500);
-										}
-										else{
-											res.json(200,account);
-										}
-									});
-								}
-							});
+					var user = req.user;
+					user.roles.push("cubi-account-access");
+					req.user = user;
+					user.save(function(error){
+						if(error){
+							res.json({error:err},500);
 						}
 						else{
-							res.send(404);
+							res.json(200,account);
 						}
 					});
 				}
 			});
-
 		},
 		checkInvitationToken:function(req,res){
-			var accounttModel = app.getModel.call(app,'Account');
-			accounttModel.findOne({'invitations.code':req.body.token},function(err,account){
-				if(err){
-					res.json(200,false);
+			if(!req.invitationToken || !req.account || req.error){
+				res.json(200,false);
+				return;
+			}
+			var account = req.account;
+			var currentInvitation;
+			for(var i in account.invitations){
+				var invitation = account.invitations[i];
+				if(invitation.code == req.body.token){
+					currentInvitation = invitation;
 				}
-				else if(account){
-					var currentInvitation;
-					for(var i in account.invitations){
-						var invitation = account.invitations[i];
-						if(invitation.code == req.body.token){
-							currentInvitation = invitation;
-						}
-					}
-					var date = parseInt(new Date().getTime());
-					if(date < parseInt(currentInvitation.expiredDate.getTime())){//未过期.返回 过期.删除
-						res.json(200,true);
-					}
-					else{
-						account.invitations.remove(currentInvitation);
-						account.save(function(err){
-							console.log(err);
-						});
-						res.json(200,false);
-					}
-				}
-				else{
-					res.json(200,false);
-				}
-			});
+			}
+			if(!currentInvitation){
+				res.json(200,false);
+				return;
+			}
+			var date = parseInt(new Date().getTime());
+			if(date < parseInt(currentInvitation.expiredDate.getTime())){//未过期.返回 过期.删除
+				res.json(200,true);
+			}
+			else{
+				res.json(200,false);
+			}
 		},
 		createInvitationToken:function(req,res){
 			var accounttModel = app.getModel.call(app,'Account');
 			accounttModel.createInvitationToken(function(err,token){
-				//TODO: 加入数据库
-
 				if(err){
 					res.json(500,{error:err});
 				}
 				else{
-					accounttModel.findOne({'creator.id':req.user._id},function(err,account){
+					accounttModel.findOne({'creator.id':req.user.id},function(err,account){
 						if(err){
 							res.json(500,{error:err});
 						}
