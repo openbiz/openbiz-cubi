@@ -140,6 +140,9 @@ define({
                         passwordNotMatch:'The password is not matched',
                         emailDuplicated: 'The email address has been registered by other user'
                     }
+                },
+                userPermissionView:{
+
                 }
             }
         },

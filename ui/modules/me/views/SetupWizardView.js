@@ -139,7 +139,8 @@ define(['text!templates/me/setupWizardView.html',
                         var template = _.template(templateData);
                         panelBody.off('hidden.bs.modal');
                         panelBody.on('hidden.bs.modal',function(){
-                            var $modal = $(template({}));
+                            self.locale.userPermissionView.user = $(self.el).data('newUserData');
+                            var $modal = $(template(self.locale.userPermissionView));
                             $modal.modal();
                             openbiz.ui.update(panelBody);
                         });
