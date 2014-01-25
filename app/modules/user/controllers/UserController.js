@@ -4,17 +4,17 @@ module.exports = function(app){
         return app.getController(require('path').basename(module.filename,'.js')); 
     };
     return app.openbiz.ModelController.extend({     
-        model:app.getModel('User'),
         create:function(req,res)
         {            
-            var user = new self().model();
+            var userModel = app.getModel.call(app,'User');
+            var user = new userModel();
             var contactModel = app.getModel.call(app,'Contact');
             var contact = new contactModel(req.body.contact);
 
             contact.creator.id = user.id;
             user.creator.id = user.id;
             user.username = req.body.username;
-            user.password = self().model.encryptPassword(req.body.password);
+            user.password = app.getModel.call(app,'User').encryptPassword(req.body.password);
             user.contact = contact.id;
             user.roles.push('cubi-user');
 
@@ -39,7 +39,7 @@ module.exports = function(app){
             if(req.body.username == ""){
                 res.send(406);
             }else{
-                self().model.findOne({username:req.body.username},"username",function(err,user){
+                app.getModel.call(app,'User').findOne({username:req.body.username},"username",function(err,user){
                     if(user){
                         res.json(200,false);
                     }else{

@@ -14,6 +14,7 @@ define(['text!templates/me/setupWizardView.html',
                 "click .btn-test-join"      :   "showAccountDetailView",
                 "click .btn-test-create"    :   "showAppSelectorView",
                 "click .btn-test-invite"    :   "showUserInvitationView",
+                "click .btn-invite-users"   :   "showUserInvitationView",
                 "click .btn-add-user"       :   "showAddUserView",
                 "click .btn-done"           :   "gotoDashboard",
                 "ifChecked .choose-mode"    :   "showJoinCompanyForm"
@@ -193,9 +194,9 @@ define(['text!templates/me/setupWizardView.html',
                 });
             },
             showAppSelectorView:function(event){
-                event.preventDefault();
+                if(event) event.preventDefault();
                 var self = this;
-                var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
+                var  btn=$(this.el).find(".btn-next"), panelBody=btn.closest(".panel"),
                     overlay = openbiz.ui.loader
                 btn.removeClass("btn-panel-reload").addClass("disabled")
                 panelBody.append(overlay);
@@ -209,7 +210,7 @@ define(['text!templates/me/setupWizardView.html',
                                    btn.removeClass("disabled").addClass("btn-panel-reload") ;
                                    var template = _.template(templateData);
                                    panelBody.hide();
-                                   self.locale.apps = apps.toJSON();
+                                   self.locale.apps = apps.toJSON();                                   
                                    panelBody.replaceWith(template(self.locale));
                                    openbiz.ui.update(panelBody);
                                    panelBody.fadeIn(function(){
@@ -223,23 +224,31 @@ define(['text!templates/me/setupWizardView.html',
             },
             showUserInvitationView:function(event){
                 var self = this;
-                event.preventDefault();
-                var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
-                    overlay = openbiz.ui.loader
-                btn.removeClass("btn-panel-reload").addClass("disabled")
-                panelBody.append(overlay);
-                overlay.css('opacity',1).fadeIn();
-                this.app.require(["text!templates/me/setupWizardUserInvitationForm.html"],function(templateData){
-                    setTimeout(function(){
-                        btn.removeClass("disabled").addClass("btn-panel-reload") ;
-                        var template = _.template(templateData);
-                        panelBody.hide();
-                        panelBody.replaceWith(template({}));
-                        openbiz.ui.update(panelBody);
-                        panelBody.fadeIn(function(){
-                            panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
-                        });
-                    },500);
+                if(event) event.preventDefault();
+                var selectedApps = [];
+                $(this.el).find('.app-selection input[name="app"]').each(function(){                    
+                    if($(this).is(":checked")){
+                        selectedApps.push($(this).val());
+                    }
+                });
+                this.model.installApps(selectedApps,function(isSuccessed){
+                    var  btn=$(self.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
+                        overlay = openbiz.ui.loader
+                    btn.removeClass("btn-panel-reload").addClass("disabled")
+                    panelBody.append(overlay);
+                    overlay.css('opacity',1).fadeIn();
+                    self.app.require(["text!templates/me/setupWizardUserInvitationForm.html"],function(templateData){
+                        setTimeout(function(){
+                            btn.removeClass("disabled").addClass("btn-panel-reload") ;
+                            var template = _.template(templateData);
+                            panelBody.hide();
+                            panelBody.replaceWith(template({}));
+                            openbiz.ui.update(panelBody);
+                            panelBody.fadeIn(function(){
+                                panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
+                            });
+                        },500);
+                    });
                 });
             },
             setupForm:function(){
@@ -253,7 +262,7 @@ define(['text!templates/me/setupWizardView.html',
                     onFormValidate:function(isValid,event,ParsleyForm)
                     {   
                         if(isValid){
-                            event.preventDefault();
+                          //  event.preventDefault();
                             self.onJoinAccount.call(self,event);
                         }
                     }
@@ -262,7 +271,7 @@ define(['text!templates/me/setupWizardView.html',
                     onFormValidate:function(isValid,event,ParsleyForm)
                     {   
                         if(isValid){
-                            event.preventDefault();
+                          //  event.preventDefault();
                             self.onCreateAccount.call(self,event);
                         }
                     }
@@ -279,10 +288,11 @@ define(['text!templates/me/setupWizardView.html',
             },
             onJoinAccount:function(event){
                 var token = $(this.el).find('input[name="token"]').val().toUpperCase();
+                var self = this;
                 this.model.joinAccount(token,function(isSuccessed){
                     if(isSuccessed == true)
                     {
-
+                        self.showAccountDetailView(event);
                     }
                 });
             },
@@ -305,11 +315,11 @@ define(['text!templates/me/setupWizardView.html',
                         }
                     }
                 };
+                var self = this;
                 this.model.createAccount(account,function(isSuccessed){
-	                console.log(isSuccessed);
                     if(isSuccessed == true)
                     {
-
+                        self.showAppSelectorView(event);
                     }
                 });
             }

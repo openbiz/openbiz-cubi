@@ -88,6 +88,17 @@ module.exports = function(app){
 				}
 			});
 		},
+		installApps:function(req,res)
+		{		
+			// sample payload data	
+			// ['dss','openbiz-cubi']
+			for(var i in req.body){
+				req.user.account.apps.push({_id:req.body[i]});
+			}			 
+			req.user.account.save(function(err){
+				res.send(201);
+			});
+		},
 		createUser:function(req,res){
 			// sample payload data
 			// {

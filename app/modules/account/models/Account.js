@@ -24,6 +24,13 @@ module.exports = function(app)
                 number:     Number
             }
         },
+        apps:[{
+        	_id: {
+        		type: String,
+        		required: true
+        	},
+        	setting: {},
+        }],
         users:[{
         	_id:{
                 type: mongoose.Schema.Types.ObjectId,

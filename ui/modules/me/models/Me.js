@@ -28,18 +28,42 @@ define(function(templateData){
 				}
 			});
 		},
-		onJoinAccount:function(token,callback){
+		joinAccount:function(token,callback){
 			$.ajax({
 				type 		: "POST",
 				dataType 	: "json",
 				contentType : "application/json",
 				url  		: this.url+'/join-account',
-				data 		: {"token":token},
+				data 		: JSON.stringify({"token":token}),
 				complete 	: function(jqXHR,textStatus){
 					switch(jqXHR.status){
 						case 200:
-							callback(true);
+							openbiz.session.accountInvitationToken = jqXHR.responseJSON;
+							callback(true);							
 							break;
+						case 403:
+							callback(false);
+							break;
+						default:
+							callback(false);
+							break;
+					}
+				}
+			});
+		},
+		installApps:function(apps,callback){
+			$.ajax({
+				type 		: "POST",
+				dataType 	: "json",
+				contentType : "application/json",
+				url  		: this.url+'/account/apps',
+				data 		: JSON.stringify(apps),
+				complete 	: function(jqXHR,textStatus){
+					switch(jqXHR.status){
+						case 201:
+							openbiz.session.me.fetch();
+							callback(true);							
+							break;						
 						default:
 							callback(false);
 							break;

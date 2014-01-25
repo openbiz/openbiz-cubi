@@ -16,6 +16,11 @@ module.exports = function(app){
 													    app.getPolicy("ensureInvitationTokenValid")(app),
 													    app.getController("MeController").joinAccount ],
 
+		"post /me/account/apps"                     : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+														app.getPolicy("ensureUserIsAccountAdministrator"),
+														app.getController("MeController").installApps ],
+
+
 		"post /me/account/create-user"  			: [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 														app.getPolicy("ensureUserIsAccountAdministrator"),
 														app.getController("MeController").createUser ],
