@@ -33,6 +33,17 @@ module.exports = function(app)
         lastLogin:{
             timestamp: Date,
             ip: String
+        },
+        creator:{
+            id:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'cubi.user.User', 
+                required : true               
+            },
+            timestamp: {
+                type: Date,
+                default: Date.now
+            }
         }
     },{
         versionKey: false,
@@ -56,10 +67,15 @@ module.exports = function(app)
     };
 
     schema.methods.getOutput = function(){
-       var result = this.toJSON();
-       delete result.password;
-       delete result.contact.creator;
-       return result;
+        var result = this.toJSON();
+        delete result.password;
+        if(result.contact){
+            delete result.contact.creator;
+        }
+        if(result.account){
+            delete result.account.invitations;
+        }
+        return result;
     }
 
     schema.methods.recordLoginAction = function(ip){
@@ -68,10 +84,21 @@ module.exports = function(app)
         this.save();
     }
 
+    schema.methods.getRoleInAccount = function(){
+        if( typeof this.account == 'undefined'){
+            return false;
+        }        
+        this.populate('account'); 
+        return this.account.users.id(this._id).role;
+    }
+
     schema.statics.encryptPassword = function(password) 
     {
-        return require('crypto').createHmac('sha512', app.openbiz.context.get('crypto-key')).update(password).digest('hex');
+        if(password){
+            return require('crypto').createHmac('sha512', app.openbiz.context.get('crypto-key')).update(password).digest('hex');
+        }else{
+            return null;
+        }
     };
-
     return app.openbiz.db.model('cubi.user.User', schema);
 }

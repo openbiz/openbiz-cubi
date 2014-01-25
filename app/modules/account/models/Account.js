@@ -4,7 +4,11 @@ module.exports = function(app)
 	var async = require('async');
 	var mongoose = app.openbiz.mongoose;
     var schema = new mongoose.Schema({
-        name: String,
+        name: {
+        	type: String,
+        	required: true,
+        	unique: true
+        },
         info:{
 	        website: String,
             address:{            
@@ -21,7 +25,7 @@ module.exports = function(app)
             }
         },
         users:[{
-        	id:{
+        	_id:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'cubi.user.User'
             },
@@ -38,7 +42,8 @@ module.exports = function(app)
         creator:{
             id:{
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'cubi.user.User'
+                ref: 'cubi.user.User',
+                required: true
             },
             timestamp: {
                 type: Date,
@@ -46,19 +51,19 @@ module.exports = function(app)
             }
         },
 	    invitations:[{
-		    code:{
+		    _id:{
 			    type: String,
 			    required: true
 		    },
 		    expiredDate: Date,
-		    infomation:{}
+		    data:{}
 	    }]
     },{
         versionKey: false,
         collection: 'cubi_account'
     });
 
-	schema.statics.createInvitationToken = function(callback)
+	schema.statics.generateInvitationTokenCode = function(callback)
 	{
 		var self = this;
 		var randomString = function (length) {

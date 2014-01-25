@@ -12,6 +12,7 @@ module.exports = function(app){
             var contact = new contactModel(req.body.contact);
 
             contact.creator.id = user.id;
+            user.creator.id = user.id;
             user.username = req.body.username;
             user.password = self().model.encryptPassword(req.body.password);
             user.contact = contact.id;

@@ -1,10 +1,6 @@
 'use strict';
 module.exports = function(app){
-    var self = function(){
-        return app.getController(require('path').basename(module.filename,'.js'));
-    };
     return app.openbiz.ModelController.extend({
-        model:app.getModel('User'),
         getApps:function(req,res)
         {
             var installedApps = [];
