@@ -40,13 +40,13 @@ ol.breadcrumb
                             div(style="height:34px;margin-bottom:5px;")
                                 input.form-control.pull-left(name="address-country",parsley-mincheck="2",required,placeholder!="<%= addressCountry %>",value!="<%= addressDefaultCountry %>",style="width:32%;margin-right:1%;")
                                 input.form-control.pull-left(name="address-province",parsley-mincheck="2",required,placeholder!="<%= addressProvince %>",style="width:33%;margin-right:1%;")
-                                input.form-control.pull-left(name="address-city",parsley-mincheck="2",required,type="tel",placeholder!="<%= addressCity %>",style="width:33%")
+                                input.form-control.pull-left(name="address-city",parsley-mincheck="2",required,placeholder!="<%= addressCity %>",style="width:33%")
                             div(style="height:34px;")
                                 input.form-control.pull-left(name="address-street",parsley-mincheck="6",required,placeholder!="<%= addressStreet %>",style="width:74%;margin-right:1%;")
                                 input.form-control.pull-left(name="address-zipcode",required,parsley-type="digits",placeholder!="<%= addressZipcode %>",style="width:25%")
                         div.form-group
                             label Website
-                            input.form-control(name="website",required,type="url",placeholder="http://www.yourcompany.com")
+                            input.form-control(name="website",type="url",placeholder="http://www.yourcompany.com")
                         button.hidden(type="submit")
                     form.form-join-company(role="form",parsley-validate,novalidate="novalidate")
                         hr

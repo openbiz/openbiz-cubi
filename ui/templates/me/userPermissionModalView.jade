@@ -5,15 +5,15 @@
     form.modal-body.form-add-user(role="form",parsley-validate,novalidate="novalidate")
         section.select-mode
             div.row(style="height:60px;")
-                h4.col-xs-5(style="padding-top:10px") Jixian Wang
+                h4.col-xs-5(style="padding-top:10px") <%= user.contact.name.displayName %>
                 p.col-xs-7
                     span
                         i.fa.fa-envelope
-                        | &nbsp; jixian@openbiz.me
+                        | &nbsp; <%= user.contact.emails[0].email %>
                     br
                     span
                         i.fa.fa-phone-square
-                        | &nbsp; +86 13910154220
+                        | &nbsp; <%= user.contact.phones[0].countryCode %> <%= user.contact.phones[0].number %>
             hr(style="margin-top:0px;")
         section
             div

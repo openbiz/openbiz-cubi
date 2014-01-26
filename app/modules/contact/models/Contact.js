@@ -44,7 +44,8 @@ module.exports = function(app)
         creator:{
             id:{
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'cubi.user.User'
+                ref: 'cubi.user.User',
+                required: true
             },
             timestamp: {
                 type: Date,

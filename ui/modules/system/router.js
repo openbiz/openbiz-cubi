@@ -30,10 +30,10 @@ define(['../me/models/Me'], function(me){
                 });
             }
         },
-        renderLayout:function(next){
+        renderLayout:function(next){            
             var view = this.app.views.get("system.LayoutView");
-            if(view == null){
-                this.renderView("system.LayoutView",function(){
+            if(view == null){                          
+                this.renderView("system.LayoutView",function(){                    
                     next();
                 });
             }else{

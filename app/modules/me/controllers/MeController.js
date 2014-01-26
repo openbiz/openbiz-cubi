@@ -1,24 +1,33 @@
 'use strict';
 module.exports = function(app){
-	var self = function(){
-		return app.getController(require('path').basename(module.filename,'.js'));
-	};
 	return app.openbiz.ModelController.extend({
-		model:app.getModel('User'),
 		createAccount:function(req,res){
+			// Sample payload data
+			// {
+			//     "name": "Openbiz LLC",
+			//     "info": {
+			//             "website":"http://www.openbiz.me",
+			//             "phone":{
+			//                       "countryCode":"+86",
+			//                       "areaCode":"010",
+			//                       "number":"64955182"
+			//              }
+			//      }
+			// }			
 			var accounttModel = app.getModel.call(app,'Account');
 			var account = new accounttModel(req.body);
-			account.users.push({id:req.user.id,role:"administrator"});
+			account.users.push({_id:req.user.id,role:"administrator"});
 			account.contacts.push(req.user);
 			account.creator = {id:req.user.id};
 			account.save(function(err){
 				if(err){
 					res.json({error:err},500);
 				}else{
-					var user = req.user;
-					user.roles.push("cubi-account-manage");
-					req.user = user;
-					user.save(function(error){
+					req.user.account = account.id;
+					if(req.user.roles.indexOf("cubi-account-manager") === -1){
+						req.user.roles.push("cubi-account-manager");
+					}
+					req.user.save(function(error){
 						if(error){
 							res.json({error:err},500);
 						}
@@ -29,119 +38,158 @@ module.exports = function(app){
 
 				}
 			});
-		},
-		checkAccountNotExist:function(req,res,next){
-			var accounttModel = app.getModel.call(app,'Account');
-			accounttModel.findOne({'users.id':req.user.id},function(err,account){
-				if(err){
-					res.json(500,{error:err});
-				}
-				else if (account){
-					res.send(405);
-				}
-				else{
-					next();
-				}
-			});
-		},
-		ensureInvitationToken:function(req,res,next){
-			var accounttModel = app.getModel.call(app,'Account');
-			accounttModel.findOne({'invitations.code':req.body.token},function(err,account){
-				if(err){
-					req.invitationToken = null;
-					req.account = null;
-					req.error = err;
-					next();
-				}
-				else if(account){
-					req.invitationToken = req.body.token;
-					req.account = account;
-					req.error = null;
-					next();
-				}
-				else{
-					req.invitationToken = null;
-					req.account = null;
-					req.error = null;
-					next();
-				}
-			});
-		},
+		},		
 		joinAccount:function(req,res){
-			//TODO: do something
-			//add user to the account and setup something
-			if(!req.invitationToken || !req.account){
-				if(req.error){
-					res.json(500,{error:req.error});
-				}
-				else{
-					res.send(404);
-				}
+			// sample payload data
+			// {"token":"ACCT-6197-961027"}
+
+			//if username is not matched then refuse to use
+			if(req.user.username!=req.invitationToken.data.username){
+				res.json(403,{error:{message:'This token is valid, but it is not for you.'}});
 				return;
 			}
-			var account = req.account;
-			account.users.push({id:req.user.id});
-			for(var i in account.invitations){
-				var invitation = account.invitations[i];
-				if(invitation.code == req.invitationToken){
-					account.invitations.remove(invitation);
-					break;
-				}
+
+			var account = req.invitationToken.account;			
+			if(!account.users.id(req.user.id)){
+				account.users.push({_id:req.user.id});
 			}
+			account.invitations.id(req.invitationToken._id).remove();
 			account.save(function(err){
 				if(err){
 					res.json(500,{error:err});
 				}else{
 					var user = req.user;
-					user.roles.push("cubi-account-access");
-					req.user = user;
-					user.save(function(error){
-						if(error){
-							res.json({error:err},500);
+					//apply roles from token data
+					if(user.roles.indexOf("cubi-account-member")===-1){
+						user.roles.push("cubi-account-member");
+					}
+					for( var i in req.invitationToken.data.roles){
+						var roleName = req.invitationToken.data.roles[i];
+						if(user.roles.indexOf(roleName)===-1)
+						{
+							user.roles.push(roleName);
 						}
-						else{
-							res.json(200,account);
-						}
+					}
+					//update user contact info from token data
+					user.account 			= req.invitationToken.account.id;
+					user.contact.name 		= req.invitationToken.data.contact.name;
+					user.contact.title 		= req.invitationToken.data.contact.title;
+					user.contact.company 	= req.invitationToken.account.name;
+					user.contact.save(function(){
+						user.save(function(error){
+							if(error){
+								res.json({error:err},500);
+							}
+							else{
+								res.json(200,req.invitationToken);
+							}
+						});
 					});
 				}
 			});
 		},
-		checkInvitationToken:function(req,res){
-			if(!req.invitationToken || !req.account || req.error){
-				res.json(200,false);
-				return;
-			}
-			var account = req.account;
-			var currentInvitation;
-			for(var i in account.invitations){
-				var invitation = account.invitations[i];
-				if(invitation.code == req.body.token){
-					currentInvitation = invitation;
-				}
-			}
-			if(!currentInvitation){
-				res.json(200,false);
-				return;
-			}
-			var date = parseInt(new Date().getTime());
-			if(date < parseInt(currentInvitation.expiredDate.getTime())){//未过期.返回 过期.删除
-				res.json(200,true);
-			}
-			else{
-				res.json(200,false);
-			}
+		installApps:function(req,res)
+		{		
+			// sample payload data	
+			// ['dss','openbiz-cubi']
+			for(var i in req.body){
+				req.user.account.apps.push({_id:req.body[i]});
+			}			 
+			req.user.account.save(function(err){
+				res.send(201);
+			});
 		},
-		createInvitationToken:function(req,res){
+		createUser:function(req,res){
+			// sample payload data
+			// {
+			// 	"username":"jixian@123.com",
+			// 	"password":"jixian",
+			// 	"contact":{
+			// 		"name":{
+			// 			"firstName":"王",
+			// 			"lastName":"吉贤测试",
+			// 			"displayName":"王吉贤测试"
+			// 		},
+			// 		"title":"mr",
+			// 		"emails":{
+			// 			"category":"default",
+			// 			"email":"jixian@openbiz.me"
+			// 		}
+			// 	}
+			// }	
+            var userModel 	 = app.getModel.call(app,'User');
+            var contactModel = app.getModel.call(app,'Contact');
+            
+            var contact 	 = new contactModel(req.body.contact);
+            var user  		 = new userModel();
+
+            contact.creator.id = req.user.id;
+            contact.company = req.user.account.name;
+            user.username = req.body.username;
+            user.password = userModel.encryptPassword(req.body.password);
+            user.contact = contact.id;
+            user.account = req.user.account.id;
+            user.roles.push('cubi-user');
+            user.creator.id = req.user.id;
+
+            contact.save(function(err){
+                if(err){
+                    res.json(500,{error:err});
+                    return;
+                }else{
+                    user.save(function(err){
+                        if(err){
+                            res.json(500,{error:err});
+                            return;
+                        }else{
+                        	req.user.account.users.push({_id:user.id})
+                        	req.user.account.save(function(){
+                        		res.json(201,{id: user.id});	
+                        	});                            
+                        }
+                    });
+                }
+            });			
+		},
+		inviteUser:function(req,res){	
+			//sample payload	
+			// {
+			// 	"username":"jixian@123.com",
+			// 	"contact":{
+			// 		"name":{
+			// 			"firstName":"王",
+			// 			"lastName":"吉贤测试",
+			// 			"displayName":"王吉贤测试"
+			// 		},
+			// 		"title":"mr",
+			// 		"emails":{
+			// 			"category":"default",
+			// 			"email":"jixian@openbiz.me"
+			// 		}
+			// 	},
+			// 	"roles":[
+			// 		"cubi-user",
+			// 		"dss-normal-user"
+			// 	]
+			// }
 			var accounttModel = app.getModel.call(app,'Account');
-			accounttModel.createInvitationToken(function(err,token){
+			accounttModel.generateInvitationTokenCode(function(err,token){
 				if(err){
 					res.json(500,{error:err});
 				}
 				else{
-					accounttModel.findOne({'creator.id':req.user.id},function(err,account){
+					var dateTimestamp = parseInt(new Date().getTime()) + app.config.invitation.defaultExpiry;
+					var expiredDate = new Date(dateTimestamp);
+					req.user.account.invitations.push({
+						_id:token,
+						expiredDate:expiredDate,
+						data:req.body
+					});
+					req.user.account.save(function(err){
 						if(err){
 							res.json(500,{error:err});
 						}
+<<<<<<< HEAD
 						else if (account){
 							var dateTimestamp = parseInt(new Date().getTime()) + app.config.invitation.defaultExpiry;
 							var expiredDate = new Date(dateTimestamp);
@@ -155,15 +203,31 @@ module.exports = function(app){
 									res.json(201,{token:token});
 								}
 							});
+=======
+						else
+						{
+							res.json(201,{token:token});
+>>>>>>> 87ed1bb0e50810b8fe321a708d790f7b7e74a9b7
 						}
-						else{
-							res.send(405);//创建者不是公司管理员 无权创建 return 405 method not allowed
-						}
-					});
+					});					
 				}
 			});
 		},
-		checkAccountUnique:function(req,res){
+		getInvitationTokens:function(req,res){
+			res.json(200,req.user.account.invitations);
+		},
+		deleteInvitationToken:function(req,res)
+		{
+			if(req.user.account.invitations.id(req.params.token)){
+				req.user.account.invitations.id(req.params.token).remove()
+				req.user.account.save(function(){
+					res.send(204);
+				});
+			}else{
+				res.send(404);
+			}
+		},
+		checkAccountUnique:function(req,res){			
 			var accounttModel = app.getModel.call(app,'Account');
 			accounttModel.findOne({'name':req.body.name},function(err,account){
 				if(err){
@@ -177,13 +241,18 @@ module.exports = function(app){
 				}
 			});
 		},
+		checkInvitationToken:function(req,res){
+			//sample payload
+			//{"token":"ACCT-9541-658171"}
+
+			//if call this functions means its already passed token validation middleware
+			if(req.invitationToken){
+				res.json(200,true);
+			}
+		},
 		getMe: function(req, res)
 		{
 			res.json(200,req.user.getOutput());
-		},
-		getContacts: function(req, res)
-		{
-
 		}
 	});
 }

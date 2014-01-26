@@ -31,29 +31,16 @@ section.panel.corner-flip
                     h3 Applications
                     p Please select applications for your company
                 section.clearfix
-                ul.iCheck(data-color='red')
+                ul.app-selection.iCheck(data-color='red')
+                    <% _.forEach(apps,function(app){  %>
                     li(style="margin-bottom:10px;")
-                        input(name="app-dss",type="checkbox",checked="checked")
+                        input(name="app",value!="<%= app.name %>",type="checkbox",checked="checked")
                         label(style="color:#717171")
-                            h5 决策支撑系统
-                            p(style="margin-bottom:0px;")
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo convallis nibh tristique commodo.
-
-                    li(style="margin-bottom:10px;")
-                        input(name="app-crm",type="checkbox")
-                        label(style="color:#717171")
-                            h5 库存管理系统
-                            p(style="margin-bottom:0px;")
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo convallis nibh tristique commodo.
-                    li(style="margin-bottom:10px;")
-                        input(name="app-erp",type="checkbox")
-                        label(style="color:#717171")
-                            h5 日程管理系统
-                            p(style="margin-bottom:0px;")
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo convallis nibh tristique commodo.
-
+                            h5 <%= app.info.name %>
+                            p(style="margin-bottom:0px;font-weight:normal") <%= app.info.description %>
+                    <% }) %>
         footer.panel-footer
-            button.btn-next-select-users.btn.btn-theme(type="submit",style="margin-right:10px;") Invite Users &nbsp;
+            button.btn-invite-users.btn.btn-theme(type="submit",style="margin-right:10px;") Invite Users &nbsp;
                 i.fa.fa-angle-right
             button.btn-done.btn-save-selected-apps.btn.button
                 | &nbsp; Done &nbsp;

@@ -8,12 +8,12 @@ module.exports = function(app){
 
     passport.use(new LocalStrategy(
         function(username, password, done) {
-          self().model.findOne({username:username}).populate('contact').populate('account').exec(function(err,user){            
+         app.getModel.call(app,'User').findOne({username:username}).populate('contact').populate('account').exec(function(err,user){            
             if (err) { return done(err); }
             if (!user) {
               return done(null, false);
             }
-            if (user.password != self().model.encryptPassword(password)) {
+            if (user.password != app.getModel.call(app,'User').encryptPassword(password)) {
               return done(null, false);
             }            
             return done(null, user);
@@ -26,13 +26,12 @@ module.exports = function(app){
     });
 
     passport.deserializeUser(function(id, done) {
-      self().model.findOne({_id:id}).populate('contact').populate('account').exec(function(err,user){
+      app.getModel.call(app,'User').findOne({_id:id}).populate('contact').populate('account').exec(function(err,user){
         done(err, user);
       });
     });
-    
+        
     return app.openbiz.ModelController.extend({     
-        model:app.getModel('User'),        
         authenticate:function(req,res,next){
             passport.authenticate('local',function(err,user,info){
                 if (err) { return next(err); }
