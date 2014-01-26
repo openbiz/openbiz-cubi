@@ -1,19 +1,58 @@
 'use strict';
 module.exports = function(app){
     return {
-        "post /accounts" 		: [ app.openbiz.ensurePermission("cubi-account-manage"),
-                                    app.getController("AccountController").create],
+        // "post /accounts" 		: [ app.openbiz.ensurePermission("cubi-account-manage"),
+        //                             app.getController("AccountController").create],
 
-        "get /accounts/:id"		: [ app.openbiz.ensurePermission("cubi-account-manage"),
-                                    app.getController("AccountController").ensureExists,
-                                    app.getController("AccountController").findById],
+        // "get /accounts/:id"		: [ app.openbiz.ensurePermission("cubi-account-manage"),
+        //                             app.getController("AccountController").ensureExists,
+        //                             app.getController("AccountController").findById],
 
-        "put /accounts/:id"		: [ app.openbiz.ensurePermission("cubi-account-manage"),
-                                    app.getController("AccountController").ensureExists,
-                                    app.getController("AccountController").update],
+        // "put /accounts/:id"		: [ app.openbiz.ensurePermission("cubi-account-manage"),
+        //                             app.getController("AccountController").ensureExists,
+        //                             app.getController("AccountController").update],
 
-        "delete /accounts/:id"	: [ app.openbiz.ensurePermission("cubi-account-manage"),
-                                    app.getController("AccountController").ensureExists,
-                                    app.getController("AccountController").delete]
+        // "delete /accounts/:id"	: [ app.openbiz.ensurePermission("cubi-account-manage"),
+        //                             app.getController("AccountController").ensureExists,
+        //                             app.getController("AccountController").delete],
+        
+        //below routes for operate current users account
+        "post /account/apps"                        : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                                        app.getPolicy("ensureUserIsAccountAdministrator"),
+                                                        app.getController("AccountController").installApps ],
+
+
+        "post /account/create-user"                  : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                                        app.getPolicy("ensureUserIsAccountAdministrator"),
+                                                        app.getController("AccountController").createUser ],
+        
+        "post /account/invite-user"                  : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                                        app.getPolicy("ensureUserIsAccountAdministrator"),
+                                                        app.getController("AccountController").inviteUser ],    
+
+        //for account members
+        "get /account/users"                        : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                                        app.getPolicy("ensureUserIsAccountAdministrator"),
+                                                        app.getController("AccountController").getUsers ],
+
+        "delete /account/users/:id"                 : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                                        app.getPolicy("ensureUserIsAccountAdministrator"),
+                                                        app.getController("AccountController").removeUser ],
+
+        //for invitations
+        "get /account/invitations"                  : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                                        app.getPolicy("ensureUserIsAccountAdministrator"),
+                                                        app.getController("AccountController").getInvitationTokens ],
+
+        "delete /account/invitations/:token"        : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                                        app.getPolicy("ensureUserIsAccountAdministrator"),
+                                                        app.getController("AccountController").deleteInvitationToken ],
+
+        //methods for form validations
+        "post /account/check-invitation-token"      : [ app.getPolicy("ensureInvitationTokenValid")(app),
+                                                        app.getController("AccountController").checkInvitationToken ],
+
+        "post /account/check-unique"                : [ app.getController("AccountController").checkAccountUnique ]
+
     }
 }

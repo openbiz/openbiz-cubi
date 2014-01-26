@@ -1,6 +1,187 @@
 'use strict';
 module.exports = function(app){
 	return app.openbiz.ModelController.extend({
-		_model: app.getModel('Account')
+		installApps:function(req,res)
+		{		
+			// sample payload data	
+			// ['dss','openbiz-cubi']
+			for(var i in req.body){
+				if(!req.user.account.apps.id(req.body[i])){
+					req.user.account.apps.push({
+						_id 	: 	req.body[i],
+						setting : 	{}
+					});
+				}
+			}			 
+			req.user.account.save(function(err){
+				res.send(201);
+			});
+		},
+		createUser:function(req,res){
+			// sample payload data
+			// {
+			// 	"username":"jixian@123.com",
+			// 	"password":"jixian",
+			// 	"contact":{
+			// 		"name":{
+			// 			"firstName":"王",
+			// 			"lastName":"吉贤测试",
+			// 			"displayName":"王吉贤测试"
+			// 		},
+			// 		"title":"mr",
+			// 		"emails":{
+			// 			"category":"default",
+			// 			"email":"jixian@openbiz.me"
+			// 		}
+			// 	}
+			// }	
+            var userModel 	 = app.getModel.call(app,'User');
+            var contactModel = app.getModel.call(app,'Contact');
+            
+            var contact 	 = new contactModel(req.body.contact);
+            var user  		 = new userModel();
+
+            contact.creator.id = req.user.id;
+            contact.company = req.user.account.name;
+            user.username = req.body.username;
+            user.password = userModel.encryptPassword(req.body.password);
+            user.contact = contact.id;
+            user.account = req.user.account.id;
+            user.roles.push('cubi-user');
+            user.creator.id = req.user.id;
+
+            contact.save(function(err){
+                if(err){
+                    res.json(500,{error:err});
+                    return;
+                }else{
+                    user.save(function(err){
+                        if(err){
+                            res.json(500,{error:err});
+                            return;
+                        }else{
+                        	req.user.account.users.push({_id:user.id})
+                        	req.user.account.save(function(){
+                        		res.json(201,{id: user.id});	
+                        	});                            
+                        }
+                    });
+                }
+            });			
+		},
+		inviteUser:function(req,res){	
+			//sample payload	
+			// {
+			// 	"username":"jixian@123.com",
+			// 	"contact":{
+			// 		"name":{
+			// 			"firstName":"王",
+			// 			"lastName":"吉贤测试",
+			// 			"displayName":"王吉贤测试"
+			// 		},
+			// 		"title":"mr",
+			// 		"emails":{
+			// 			"category":"default",
+			// 			"email":"jixian@openbiz.me"
+			// 		}
+			// 	},
+			// 	"roles":[
+			// 		"cubi-user",
+			// 		"dss-normal-user"
+			// 	]
+			// }
+			var accountModel = app.getModel.call(app,'Account');
+			accountModel.generateInvitationTokenCode(function(err,token){
+				if(err){
+					res.json(500,{error:err});
+				}
+				else{
+					var dateTimestamp = parseInt(new Date().getTime()) + app.config.invitation.defaultExpiry;
+					var expiredDate = new Date(dateTimestamp);
+					req.user.account.invitations.push({
+						_id:token,
+						expiredDate:expiredDate,
+						data:req.body
+					});
+					req.user.account.save(function(err){
+						if(err){
+							res.json(500,{error:err});
+						}
+						else
+						{
+							res.json(201,{token:token});
+						}
+					});					
+				}
+			});
+		},
+		getInvitationTokens:function(req,res){
+			res.json(200,req.user.account.invitations);
+		},
+		deleteInvitationToken:function(req,res)
+		{
+			if(req.user.account.invitations.id(req.params.token)){
+				req.user.account.invitations.id(req.params.token).remove()
+				req.user.account.save(function(){
+					res.send(204);
+				});
+			}else{
+				res.send(404);
+			}
+		},
+		getUsers:function(req,res){
+			req.user.account.populate('users._id',function(err,account){
+				account.populate({path:'users._id.contact',model:'cubi.contact.Contact'},function(err,account){
+					var output = [];
+					for(var i = 0 ; i < account.users.length; i++){
+						var user = {
+							_id:account.users[i]._id._id,
+							user:account.users[i]._id.getOutput(),
+							role:account.users[i].role
+						};
+						output.push(user);					
+					}
+					res.json(200,output);	
+				})
+			});
+		},
+		removeUser:function(req,res)
+		{
+			if(req.params.id == req.user.id)
+			{
+				res.send(406,{error:{message:'You cannot delete yourself from account'}})
+			}
+			if(req.user.account.users.id(req.params.id)){
+				req.user.account.users.id(req.params.id).remove()
+				req.user.account.save(function(){
+					res.send(204);
+				});
+			}else{
+				res.send(404);
+			}
+		},
+		checkAccountUnique:function(req,res){			
+			var accountModel = app.getModel.call(app,'Account');
+			accountModel.findOne({'name':req.body.name},function(err,account){
+				if(err){
+					res.json(200,false);
+				}
+				else if(account){
+					res.json(200,false);
+				}
+				else{
+					res.json(200,true);
+				}
+			});
+		},
+		checkInvitationToken:function(req,res){
+			//sample payload
+			//{"token":"ACCT-9541-658171"}
+
+			//if call this functions means its already passed token validation middleware
+			if(req.invitationToken){
+				res.json(200,true);
+			}
+		}
 	});
 }

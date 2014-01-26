@@ -1,13 +1,33 @@
 "use strict";
 define(['text!templates/me/setupWizardView.html',
-    '../models/Me'],
-    function(templateData,model){
+        '../models/Me',
+        '../../account/models/Account',
+        '../../account/models/User',
+        '../../account/models/UserCollection',
+        '../../account/models/Invitation',
+        '../../account/models/InvitationCollection'
+        ],
+    function(templateData,
+            me,
+            account,
+            user,
+            userCollection,
+            invitation,
+            invitationCollection
+            ){
         return openbiz.View.extend({
             app: 'cubi',
             module:'me',
             name: 'setupWizardView',
-            el: '#main',
-            model:model,
+            el: '#main',                    
+            models:{
+                me                  : new me(),
+                account             : new account(),
+                user                : new user(),
+                userCollection      : new userCollection(),
+                invitation          : new invitation(),
+                invitationCollection: new invitationCollection()
+            },
             modals:{},
             events:{
                 "click .btn-next"           :   "onFormSubmit",
@@ -21,7 +41,7 @@ define(['text!templates/me/setupWizardView.html',
             },
             initialize:function(){
                 openbiz.View.prototype.initialize.call(this);
-                this.template = _.template(templateData);
+                this.template = _.template(templateData);                
             },
             render:function(){
                 $(this.el).html(this.template(this.locale));
@@ -224,6 +244,25 @@ define(['text!templates/me/setupWizardView.html',
             },
             showUserInvitationView:function(event){
                 var self = this;
+                self.models.userCollection.off('sync');
+                self.models.userCollection.on('sync',function(collection){                    
+                    var template = _.template($(self.el).find('#user-list-template').html());
+                    var data = {
+                        users: collection.toJSON(),
+                        locale:{}
+                    }                                      
+                    $(self.el).find("#user-list").html(template(data));
+                });
+                self.models.invitationCollection.off('sync');
+                self.models.invitationCollection.on('sync',function(collection){         
+                    var template = _.template($(self.el).find('#invitation-list-template').html());
+                    var data = {
+                        invitations: collection.toJSON(),
+                        locale:{}
+                    }
+                    $(self.el).find("#invitation-list").html(template(data));                    
+                });
+                
                 if(event) event.preventDefault();
                 var selectedApps = [];
                 $(this.el).find('.app-selection input[name="app"]').each(function(){                    
@@ -231,7 +270,7 @@ define(['text!templates/me/setupWizardView.html',
                         selectedApps.push($(this).val());
                     }
                 });
-                this.model.installApps(selectedApps,function(isSuccessed){
+                this.models.account.installApps(selectedApps,function(isSuccessed){
                     var  btn=$(self.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
                         overlay = openbiz.ui.loader
                     btn.removeClass("btn-panel-reload").addClass("disabled")
@@ -240,11 +279,16 @@ define(['text!templates/me/setupWizardView.html',
                     self.app.require(["text!templates/me/setupWizardUserInvitationForm.html"],function(templateData){
                         setTimeout(function(){
                             btn.removeClass("disabled").addClass("btn-panel-reload") ;
-                            var template = _.template(templateData);
-                            panelBody.hide();
-                            panelBody.replaceWith(template({}));
+                            panelBody.hide();                            
+                            var template = _.template($("<div>"+templateData+"</div>").find("#user-invitation-layout-template").html());
+                            var rendered = template({});                            
+                            rendered = $(rendered).append($("<div>"+templateData+"</div>").find("#user-list-template"));
+                            rendered = $(rendered).append($("<div>"+templateData+"</div>").find("#invitation-list-template"));
+                            panelBody.replaceWith(rendered);
                             openbiz.ui.update(panelBody);
                             panelBody.fadeIn(function(){
+                                self.models.invitationCollection.fetch();
+                                self.models.userCollection.fetch();
                                 panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
                             });
                         },500);
@@ -289,7 +333,7 @@ define(['text!templates/me/setupWizardView.html',
             onJoinAccount:function(event){
                 var token = $(this.el).find('input[name="token"]').val().toUpperCase();
                 var self = this;
-                this.model.joinAccount(token,function(isSuccessed){
+                this.models.me.joinAccount(token,function(isSuccessed){
                     if(isSuccessed == true)
                     {
                         self.showAccountDetailView(event);
@@ -316,7 +360,7 @@ define(['text!templates/me/setupWizardView.html',
                     }
                 };
                 var self = this;
-                this.model.createAccount(account,function(isSuccessed){
+                this.models.me.createAccount(account,function(isSuccessed){
                     if(isSuccessed == true)
                     {
                         self.showAppSelectorView(event);
