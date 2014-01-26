@@ -189,25 +189,9 @@ module.exports = function(app){
 						if(err){
 							res.json(500,{error:err});
 						}
-<<<<<<< HEAD
-						else if (account){
-							var dateTimestamp = parseInt(new Date().getTime()) + app.config.invitation.defaultExpiry;
-							var expiredDate = new Date(dateTimestamp);
-//							account.invitations.push({code:token,expiredDate:expiredDate,infomation:req.body});
-							account.invitations.push({code:token,expiredDate:expiredDate});
-							account.save(function(err){
-								if(err){
-									res.json(500,{error:err});
-								}else
-								{
-									res.json(201,{token:token});
-								}
-							});
-=======
 						else
 						{
 							res.json(201,{token:token});
->>>>>>> 87ed1bb0e50810b8fe321a708d790f7b7e74a9b7
 						}
 					});					
 				}
