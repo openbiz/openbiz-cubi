@@ -145,6 +145,7 @@ module.exports = function(app){
 						else if (account){
 							var dateTimestamp = parseInt(new Date().getTime()) + app.config.invitation.defaultExpiry;
 							var expiredDate = new Date(dateTimestamp);
+//							account.invitations.push({code:token,expiredDate:expiredDate,infomation:req.body});
 							account.invitations.push({code:token,expiredDate:expiredDate});
 							account.save(function(err){
 								if(err){
