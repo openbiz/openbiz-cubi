@@ -38,8 +38,7 @@ define(function(templateData){
 				complete 	: function(jqXHR,textStatus){
 					switch(jqXHR.status){
 						case 200:
-							openbiz.session.accountInvitationToken = jqXHR.responseJSON;
-							callback(true);							
+							callback(true,jqXHR.responseJSON);							
 							break;
 						case 403:
 							callback(false);

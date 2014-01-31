@@ -47,7 +47,14 @@ module.exports = function(app){
             user.password = userModel.encryptPassword(req.body.password);
             user.contact = contact.id;
             user.account = req.user.account.id;
-            user.roles.push('cubi-user');
+            if(req.body.roles.length>0){
+            	user.roles = req.body.roles;
+            }
+            var defaultRole = 'cubi-user';
+         	if(user.roles.indexOf(defaultRole) == -1){
+         		user.roles.push(defaultRole);            	
+         	}         	
+        	
             user.creator.id = req.user.id;
 
             contact.save(function(err){
@@ -154,7 +161,14 @@ module.exports = function(app){
 			if(req.user.account.users.id(req.params.id)){
 				req.user.account.users.id(req.params.id).remove()
 				req.user.account.save(function(){
-					res.send(204);
+					//delete that user unset its account setting
+					var userModel = app.getModel.call(app,'User');
+					userModel.findOne({'_id':req.params.id},function(err,user){
+						user.account =undefined;
+						user.save(function(){
+							res.send(204);
+						});
+					});					
 				});
 			}else{
 				res.send(404);

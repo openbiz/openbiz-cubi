@@ -31,7 +31,7 @@ define(['../system/views/LayoutView',
                 Backbone.history.navigate("#!/backend/me/setup", {trigger: true, replace: true});
                 return;
             }
-            var view = openbiz.views.get("system.LayoutView");
+            var view = this.app.views.get("system.LayoutView");
             if(view != null){
                 view.hideLoading();
             }

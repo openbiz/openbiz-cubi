@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(app){
 	return function(req,res,next){
-		var accountModel = app.getModel.call(app,'Account');		
+		var accountModel = app.getModel.call(app,'Account');	
 		accountModel.findOne({'invitations._id':req.body.token.toString()},function(err,account){
 			if(err){
 				res.json(406,{error:err})
@@ -20,7 +20,7 @@ module.exports = function(app){
 				}				
 			}
 			else{
-				res.json(406,{error:{message:"invitation token query not found"}})
+				res.json(406,{error:{message:"invitation token not found"}})
 			}
 		});
 	}

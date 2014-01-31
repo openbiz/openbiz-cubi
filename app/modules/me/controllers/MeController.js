@@ -81,6 +81,10 @@ module.exports = function(app){
 								res.json({error:err},500);
 							}
 							else{
+								req.invitationToken.account = {
+									info: account.info,
+									name: account.name
+								};
 								res.json(200,req.invitationToken);
 							}
 						});

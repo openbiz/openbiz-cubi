@@ -89,8 +89,9 @@ define(['text!templates/me/setupWizardView.html',
                     $modal.find('.form-add-user').parsley();
                     $modal.find('.form-add-user').parsley('addListener', {
                         onFormValidate: function ( isFormValid, event, ParsleyForm ) {
-                            event.preventDefault();
+                            if(event)event.preventDefault();
                             if(isFormValid){
+                                debugger;
                                 if(self.locale.addUserView.nameFormat[0]=='firstName'){
                                     var displayName = $('.form-add-user').find('#inputLastName').val() + $('.form-add-user').find('#inputFirstName').val();
                                 }else{
@@ -161,13 +162,59 @@ define(['text!templates/me/setupWizardView.html',
                         panelBody.off('hidden.bs.modal');
                         panelBody.on('hidden.bs.modal',function(){
                             self.locale.userPermissionView.user = $(self.el).data('newUserData');
+                            self.locale.userPermissionView.apps = self.selectedApps;
                             var $modal = $(template(self.locale.userPermissionView));
                             $modal.modal();
+                            $modal.find(".btn-add-permission-done").off("click");
+                            $modal.find(".btn-add-permission-done").on("click",function(event){self.addUserSubmit.call(self,event,$modal)});
                             openbiz.ui.update(panelBody);
                         });
                         panelBody.modal('hide');
                     },500);
                 });
+            },
+            addUserSubmit:function(event, modal){
+                var self = this;
+                event.preventDefault();
+                var selectedRoles = [];
+                $('.role-selection input[name="role"]').each(function(){                    
+                    if($(this).is(":checked")){
+                        selectedRoles.push($(this).val());
+                    }
+                });
+                var data = $(self.el).data('newUserData');
+                data.roles = selectedRoles;
+                var toggleButtons = function(){
+                    $(self.el).find(".btn-add-user").removeClass("btn-theme");
+                    $(self.el).find(".btn-done").addClass("btn-theme").removeAttr("disabled");
+                }
+
+                var  btn=$(".form-add-user button[type='submit']"), panelBody=btn.closest(".modal"),
+                    overlay = openbiz.ui.loader
+                btn.removeClass("btn-panel-reload").addClass("disabled")
+                panelBody.append(overlay);
+                overlay.css('opacity',1).fadeIn();
+                setTimeout(function(){
+                    switch(data.mode){
+                        case "invite-user":
+                            self.models.invitationCollection.create(data,{success:function(){
+                                self.models.invitationCollection.fetch({success:function(){
+                                    modal.modal('hide');
+                                    toggleButtons();
+                                }});                            
+                            }});                        
+                            break;
+                        case "create-user":
+                            self.models.userCollection.create(data,{success:function(){
+                                self.models.userCollection.fetch({success:function(){
+                                    modal.modal('hide');
+                                    toggleButtons();
+                                }});                            
+                            }});   
+                            break;
+                    }
+                },500);
+                
             },
             localizeAddUserForm:function(){
                 var nameElems = {
@@ -192,10 +239,10 @@ define(['text!templates/me/setupWizardView.html',
             },
             //* 处理用户添加逻辑的表单 结束 *//
 
-            showAccountDetailView:function(event){
+            showAccountDetailView:function(event,data){
                 var self = this;
-                event.preventDefault();
-                var  btn=$(this.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
+                if(event) event.preventDefault();
+                var  btn=$(this.el).find("button.btn-next"), panelBody=btn.closest(".panel"),
                     overlay = openbiz.ui.loader
                 btn.removeClass("btn-panel-reload").addClass("disabled")
                 panelBody.append(overlay);
@@ -230,7 +277,8 @@ define(['text!templates/me/setupWizardView.html',
                                    btn.removeClass("disabled").addClass("btn-panel-reload") ;
                                    var template = _.template(templateData);
                                    panelBody.hide();
-                                   self.locale.apps = apps.toJSON();                                   
+                                   self.locale.apps = apps.toJSON();    
+                                   self.systemApps = apps.toJSON();                               
                                    panelBody.replaceWith(template(self.locale));
                                    openbiz.ui.update(panelBody);
                                    panelBody.fadeIn(function(){
@@ -244,14 +292,37 @@ define(['text!templates/me/setupWizardView.html',
             },
             showUserInvitationView:function(event){
                 var self = this;
+                var toggleButtons = function(){
+                    if( self.models.userCollection.models.length>1 || 
+                        self.models.invitationCollection.models.length>0
+                        ){
+                        //enable DONE button
+                        $(self.el).find(".btn-add-user").removeClass("btn-theme");
+                        $(self.el).find(".btn-done").addClass("btn-theme").removeAttr("disabled");
+                    }else{
+                        //disable DONE button
+                        $(self.el).find(".btn-add-user").addClass("btn-theme");
+                        $(self.el).find(".btn-done").removeClass("btn-theme").attr("disabled","disabled");
+                    }
+                }
                 self.models.userCollection.off('sync');
                 self.models.userCollection.on('sync',function(collection){                    
                     var template = _.template($(self.el).find('#user-list-template').html());
                     var data = {
+                        me: openbiz.session.me.toJSON(),
                         users: collection.toJSON(),
                         locale:{}
                     }                                      
+                    toggleButtons();
                     $(self.el).find("#user-list").html(template(data));
+                    $(self.el).find("#user-list .btn-delete-record").off("click");
+                    $(self.el).find("#user-list .btn-delete-record").on("click",function(event){
+                        event.preventDefault();
+                        var recordId = $(this).attr("recordId");                       
+                        self.models.userCollection.get(recordId).destroy({success:function(){
+                            self.models.userCollection.fetch();
+                        }});                        
+                    });
                 });
                 self.models.invitationCollection.off('sync');
                 self.models.invitationCollection.on('sync',function(collection){         
@@ -260,14 +331,30 @@ define(['text!templates/me/setupWizardView.html',
                         invitations: collection.toJSON(),
                         locale:{}
                     }
+                    toggleButtons();
                     $(self.el).find("#invitation-list").html(template(data));                    
+                    $(self.el).find("#invitation-list .btn-delete-record").off("click");
+                    $(self.el).find("#invitation-list .btn-delete-record").on("click",function(event){
+                        event.preventDefault();
+                        var recordId = $(this).attr("recordId");                       
+                        self.models.invitationCollection.get(recordId).destroy({success:function(){
+                            self.models.invitationCollection.fetch();
+                        }});                        
+                    });
                 });
                 
                 if(event) event.preventDefault();
                 var selectedApps = [];
+                self.selectedApps =[];
                 $(this.el).find('.app-selection input[name="app"]').each(function(){                    
                     if($(this).is(":checked")){
                         selectedApps.push($(this).val());
+                        for(var i in self.systemApps){
+                            if (self.systemApps[i].name == $(this).val()){
+                                self.selectedApps.push(self.systemApps[i]);
+                                break;
+                            }
+                        }                                                
                     }
                 });
                 this.models.account.installApps(selectedApps,function(isSuccessed){
@@ -300,7 +387,7 @@ define(['text!templates/me/setupWizardView.html',
                 $(this.el).find('button[type="submit"]')
                     .attr('disabled','disabled')
                     .removeClass('btn-theme');
-                $(this.el).find('.form-join-company input[name="token"]').attr("parsley-remote",this.app.appUrl+'/me/account/check-invitation-token');
+                $(this.el).find('.form-join-company input[name="token"]').attr("parsley-remote",this.app.appUrl+'/account/check-invitation-token');
                 $(this.el).find('.form-create-company input[name="name"]').val(openbiz.session.me.get('contact').company).attr("parsley-remote",this.app.appUrl+'/me/account/check-unique');
                 $(this.el).find('.form-join-company').slideUp(0).parsley('addListener',{
                     onFormValidate:function(isValid,event,ParsleyForm)
@@ -333,7 +420,9 @@ define(['text!templates/me/setupWizardView.html',
             onJoinAccount:function(event){
                 var token = $(this.el).find('input[name="token"]').val().toUpperCase();
                 var self = this;
-                this.models.me.joinAccount(token,function(isSuccessed){
+                this.models.me.joinAccount(token,function(isSuccessed,data){
+                    console.log(isSuccessed);
+                    console.log(data);
                     if(isSuccessed == true)
                     {
                         self.showAccountDetailView(event);

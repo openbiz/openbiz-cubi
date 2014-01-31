@@ -5,8 +5,10 @@ define({
         name:'Openbiz Cubi 应用平台',
         description:"Openbiz 的基础应用平台，提供用户管理，企业账户等通用功能",
         roles:{
-            "cubi-admin":"Cubi 系统管理员",
-            "cubi-user":"Cubi 普通用户"
+            "cubi-admin"            :"Cubi 系统管理员",
+            "cubi-user"             :"Cubi 普通用户",
+            "cubi-account-manager"  :"Cubi 账户管理员",
+            "cubi-account-member"   :"Cubi 账户成员"
         }
     },
     user:{

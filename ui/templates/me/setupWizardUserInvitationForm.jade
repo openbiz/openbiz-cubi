@@ -33,21 +33,23 @@ script#user-list-template(type="text/template")
                 th Email
                 th.hidden-xs Role
                 th Action
-        <% _.forEach(users,function(user){ %>
-        tbody
+        tbody        
+            <% _.forEach(users,function(user){ %>        
             tr
                 td.hidden-xs <%= user.user.contact.name.displayName %>
                 td <%= user.user.username %>
                 td.hidden-xs <%= user.role %>
                 td
                     div.tooltip-area
-                        a.btn.btn-default.btn-sm(href="#")
+                        <% if(user._id != me._id){ %>
+                        a.btn.btn-default.btn-sm.btn-delete-record(href="#",recordId!='<%= user._id %>')
                             span.hidden-xs
                                 i.fa.fa-trash-o
                                 |&nbsp; Remove &nbsp;
                             span.visible-xs
                                 i.fa.fa-trash-o
-        <% }) %>
+                        <% } %>
+            <% }) %>
 
 script#invitation-list-template(type="text/template")
     table.table.table-striped.table-bordered.text-center
@@ -58,15 +60,15 @@ script#invitation-list-template(type="text/template")
                 th.hidden-xs Invitation Code
                 th Action
         tbody
-            <% if(invitations.lenght>0){ %> 
-            <%      _.forEach(invitations,function(user){ %>                
+            <% if(invitations.length>0){ %> 
+            <%      _.forEach(invitations,function(invitation){ %>                
             tr
-                td.hidden-xs Wang Jixian
-                td jixian@openbiz.me
-                td.hidden-xs ACCT-XSDF-123123
+                td.hidden-xs <%= invitation.data.contact.name.displayName %>
+                td <%= invitation.data.username %>
+                td.hidden-xs <%= invitation._id %>
                 td
                     div.tooltip-area
-                        a.btn.btn-default.btn-sm(href="#")
+                        a.btn.btn-default.btn-sm.btn-delete-record(href="#",recordId!='<%= invitation._id %>')
                             span.hidden-xs
                                 i.fa.fa-trash-o
                                 |&nbsp; Delete &nbsp;

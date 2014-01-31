@@ -25,9 +25,15 @@ define(['./models/Me' ],
             this.renderView("me.SetupWizardView");
         },
 		logout:function(){
+			var self = this;
 			Backbone.history.trigger('dismissBackendUI',function(){
-                openbiz.session.me.on('destroy',function(){
+                openbiz.session.me.on('destroy',function(){                	
                     location.href="#!/user/login";
+                    setTimeout(function(){
+	                    _.each(openbiz.apps,function(app){
+	                		app.views.reset();
+	                	});
+                	},1000)
                 });
                 openbiz.session.me.destroy();
             })

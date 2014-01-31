@@ -15,25 +15,24 @@
                         i.fa.fa-phone-square
                         | &nbsp; <%= user.contact.phones[0].countryCode %> <%= user.contact.phones[0].number %>
             hr(style="margin-top:0px;")
-        section
+        section.role-selection
             div
-                h4(style="margin-bottom:5px") 决策支持系统
-                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo convallis nibh tristique commodo.
+                <% _.forEach(apps,function(app){  %>
+                h4(style="margin-bottom:5px") <%= app.info.name %>
+                p <%= app.info.description %>
                 ul.iCheck.row(data-color='red',style="margin-left:5px;margin-right:5px;")
+                    <% _.forEach(app.roles,function(role){  %>
                     li.col-md-4(style="margin-bottom:10px;")
-                        input(name="app-dss",type="checkbox",checked="checked")
-                        label(style="color:#717171") 普通用户
-                    li.col-md-4(style="margin-bottom:10px;")
-                        input(name="app-dss",type="checkbox")
-                        label(style="color:#717171") 产品研发总监
-                    li.col-md-4(style="margin-bottom:10px;")
-                        input(name="app-dss",type="checkbox")
-                        label(style="color:#717171") 产品研发助理
-                    li.col-md-4(style="margin-bottom:10px;")
-                        input(name="app-dss",type="checkbox")
-                        label(style="color:#717171") 产品研发助理
-        section
-            hr(style="margin-top:0px;")
+                        <% if(role.isDefault ==true){ %>
+                        input(name="role",value!="<%= role.id %>",type="checkbox",checked="checked")
+                        <% }else{ %>
+                        input(name="role",value!="<%= role.id %>",type="checkbox")
+                        <% } %>        
+                        label(style="color:#717171") <%= role.name %>
+                    <% }) %>
+                hr(style="margin-top:0px;")
+                <% }) %>
+        section        
             button.btn-add-permission-done.btn.button.btn-theme(style="margin-right:10px;",type="submit")
                 i.fa.fa-check
                 | &nbsp; Done &nbsp;

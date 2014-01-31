@@ -53,14 +53,14 @@ module.exports = function(app)
     schema.methods.hasPermission = function(permission,openbiz)
     {
         if(this.roles.length)
-        {
-            for(var i in this.roles)
+        {            
+            for(var i=0 ; i<this.roles.length; i++)
             {
-                var roleName = this.roles[i];
+                var roleName = this.roles[i];    
                 if(openbiz.getRole(roleName).indexOf(permission) != -1)
                 {
                     return true;                
-                }
+                }                
             }
         }
         return false;

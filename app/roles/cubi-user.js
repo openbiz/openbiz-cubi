@@ -1,6 +1,8 @@
 'use strict';
-module.exports = 
-[
-	"cubi-myaccount-manage",
-	"cubi-user-sign"
-];
+module.exports = {
+	permissions:[
+		"cubi-user-sign",
+		"cubi-myaccount-manage"
+	],
+	isDefault: true
+}

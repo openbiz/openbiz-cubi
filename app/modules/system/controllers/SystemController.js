@@ -9,7 +9,13 @@ module.exports = function(app){
                 if(app.openbiz.apps[appName].uiUrl!=null){
                     var roles = [];
                     for( var roleName in app.openbiz.apps[appName].roles){
-                        roles.push({id:roleName, name:roleName});
+                        var role = {id:roleName, name:roleName};
+                        if(app.openbiz.apps[appName].defaultRoles.indexOf(roleName)!=-1){
+                            role.isDefault=true;
+                        }else{
+                            role.isDefault=false;
+                        }
+                        roles.push(role);
                     }
                     installedApps.push({
                         name:   appName,
