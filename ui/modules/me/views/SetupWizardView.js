@@ -84,14 +84,13 @@ define(['text!templates/me/setupWizardView.html',
                     openbiz.ui.update($modal);
                     $modal.find('.form-add-user section.login').slideDown(0);
                     $modal.find('.form-add-user .user-add-mode').off('ifChecked');
-                    $modal.find('.form-add-user .user-add-mode').on('ifChecked', self.switchUserAddMode);
+                    $modal.find('.form-add-user .user-add-mode').on('ifChecked', function(event){self.switchUserAddMode.call(self,event)});
                     $modal.find('.form-add-user').find('#inputEmail').attr("parsley-remote",self.app.appUrl+'/users/check-unique');
                     $modal.find('.form-add-user').parsley();
                     $modal.find('.form-add-user').parsley('addListener', {
                         onFormValidate: function ( isFormValid, event, ParsleyForm ) {
                             if(event)event.preventDefault();
                             if(isFormValid){
-                                debugger;
                                 if(self.locale.addUserView.nameFormat[0]=='firstName'){
                                     var displayName = $('.form-add-user').find('#inputLastName').val() + $('.form-add-user').find('#inputFirstName').val();
                                 }else{
@@ -141,10 +140,16 @@ define(['text!templates/me/setupWizardView.html',
                     $('.form-add-user section.login').slideUp();
                     $('.form-add-user').parsley( 'removeItem', '#inputPassword' );
                     $('.form-add-user').parsley( 'removeItem', '#inputRepeatPassword' );
+                    $('.form-add-user').find('#inputEmail').parsley('updateConstraint',{
+                        remote:self.app.appUrl+'/users/check-invitable'                                                
+                    },self.locale.addUserView.validation.emailNotInvitable);
                 }else{
                     $('.form-add-user section.login').slideDown();
                     $('.form-add-user').parsley( 'addItem', '#inputPassword' );
                     $('.form-add-user').parsley( 'addItem', '#inputRepeatPassword' );
+                    $('.form-add-user').find('#inputEmail').parsley('updateConstraint',{
+                        remote: self.app.appUrl+'/users/check-unique'                        
+                    },self.locale.addUserView.validation.emailDuplicated);
                 }
             },
             showAddUserPermissionView:function(event){
@@ -239,7 +244,7 @@ define(['text!templates/me/setupWizardView.html',
             },
             //* 处理用户添加逻辑的表单 结束 *//
 
-            showAccountDetailView:function(event,data){
+            showAccountDetailView:function(event,data){              
                 var self = this;
                 if(event) event.preventDefault();
                 var  btn=$(this.el).find("button.btn-next"), panelBody=btn.closest(".panel"),
@@ -247,18 +252,26 @@ define(['text!templates/me/setupWizardView.html',
                 btn.removeClass("btn-panel-reload").addClass("disabled")
                 panelBody.append(overlay);
                 overlay.css('opacity',1).fadeIn();
-                this.app.require(["text!templates/me/setupWizardAccountDetailForm.html"],function(templateData){
-                    setTimeout(function(){
-                        btn.removeClass("disabled").addClass("btn-panel-reload") ;
-                        var template = _.template(templateData);
-                        panelBody.hide();
-                        panelBody.replaceWith(template({}));
-                        openbiz.ui.update(panelBody);
-                        panelBody.fadeIn(function(){
-                            panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
-                        });
-                    },500);
-                });
+                this.app.require(['modules/system/models/AppCollection'],function(AppCollection){
+                    var apps = new AppCollection();
+                    apps.fetch({
+                        success:function(){
+                            self.app.require(["text!templates/me/setupWizardAccountDetailForm.html"],function(templateData){
+                                setTimeout(function(){
+                                    btn.removeClass("disabled").addClass("btn-panel-reload") ;
+                                    var template = _.template(templateData);
+                                    panelBody.hide();
+                                    data.installedApps = apps.toJSON();                                    
+                                    panelBody.replaceWith(template({data:data}));
+                                    openbiz.ui.update(panelBody);
+                                    panelBody.fadeIn(function(){
+                                        panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
+                                    });
+                                },500);
+                            });
+                        }
+                    });
+                })
             },
             showAppSelectorView:function(event){
                 if(event) event.preventDefault();

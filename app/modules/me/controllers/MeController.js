@@ -81,11 +81,14 @@ module.exports = function(app){
 								res.json({error:err},500);
 							}
 							else{
-								req.invitationToken.account = {
+								var output=req.invitationToken.toJSON();
+								output.account = {
 									info: account.info,
-									name: account.name
+									name: account.name,
+									role: 'member',
+									apps: account.apps
 								};
-								res.json(200,req.invitationToken);
+								res.json(200,output);
 							}
 						});
 					});

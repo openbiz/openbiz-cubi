@@ -34,6 +34,23 @@ module.exports = function(app){
                 }
             });
         },
+        checkUserInvitable:function(req,res){
+            if(req.body.username == ""){
+                res.send(406);
+            }else{
+                app.getModel.call(app,'User').findOne({username:req.body.username},{"username":true,"account":true},function(err,user){
+                    if(user){                        
+                        if(typeof user.account == "undefined"){
+                            res.json(200,true);
+                        }else{
+                            res.json(200,false);
+                        }                        
+                    }else{
+                        res.json(200,true);
+                    }
+                });
+            }
+        },
         checkUsernameUnique:function(req,res)
         {            
             if(req.body.username == ""){

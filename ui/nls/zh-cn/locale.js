@@ -115,7 +115,8 @@ define({
                 validation:{
                     needAgreement: '您需要同意本协议才可以继续',
                     passwordNotMatch:'两次密码输入不一致',
-                    emailDuplicated: '该邮件地址已经被其他用户注册'
+                    emailDuplicated: '该邮件地址已经被其他用户注册',
+                    emailNotInvitable: '该邮件地址已关联，不能重复邀请'
                 }
             }
         }

@@ -138,7 +138,8 @@ define({
                     validation:{
                         needAgreement: 'You need to check this agreement before continue',
                         passwordNotMatch:'The password is not matched',
-                        emailDuplicated: 'The email address has been registered by other user'
+                        emailDuplicated: 'The email address has been registered by other user',
+                        emailNotInvitable: 'The email address is already assicated with account'
                     }
                 },
                 userPermissionView:{

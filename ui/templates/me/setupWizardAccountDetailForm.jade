@@ -8,34 +8,29 @@ section.panel.corner-flip
                 div.divider
                     h3 Company
                 strong Name
-                p Openbiz LLC
+                p <%= data.account.name %>
                 strong Your Role
-                p Member
+                p <%= data.account.role %>
                 strong Phone
-                p +86 10 64955182
+                p <%= data.account.info.phone.countryCode %> <%= data.account.info.phone.areaCode %> <%= data.account.info.phone.number %>
                 strong Website
-                p http://www.openbiz.me
+                p 
+                    a(href!="<%= data.account.info.website %>", target="_blank") <%= data.account.info.website %>
             div.col-sm-7
                 hr.visible-xs
                 div.divider
                     h3 Applications
                 ul
                     li.rounded-list
-                        strong 决策支撑系统
+                        <% _.forEach(data.installedApps,function(app){  %>
+                        strong <%= app.info.name %>
                         p(style="margin-top:5px")
-                            span.glyphicon.glyphicon-user(style="margin-right:5px")
-                            | 设计总监
-                    li
-                        strong 库存管理系统
-                        p(style="margin-top:5px")
-                            span.glyphicon.glyphicon-user(style="margin-right:5px")
-                            | 仓库主管
-                    li
-                        strong 日程管理系统
-                        p(style="margin-top:5px")
-                            span.glyphicon.glyphicon-user(style="margin-right:5px")
-                            | 普通用户
-
+                            <% _.forEach(app.roles,function(role){ if(data.data.roles.indexOf(role.id)!=-1){ %>
+                            div(style="margin-bottom:5px")
+                                span.glyphicon.glyphicon-user(style="margin-right:5px") 
+                                span <%= role.name %>    
+                            <% }}) %>               
+                        <% }) %>
         footer.panel-footer
             button.btn-done.btn.btn-theme
                 i.fa.fa-check
