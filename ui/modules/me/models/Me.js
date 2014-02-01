@@ -50,7 +50,7 @@ define(function(templateData){
 				}
 			});
 		},		
-		constructor:function(){
+		constructor:function(){			
 			this.url = openbiz.apps.cubi.appUrl+'/me';
 			Backbone.Model.apply(this, arguments);
 			this.on('sync',function(model,resp,options){				

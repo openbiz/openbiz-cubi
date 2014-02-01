@@ -31,14 +31,51 @@ module.exports = function(grunt) {
       }
     },
     requirejs: {
-      openbiz: {
+      cubi: {
         options: {
-          baseUrl: "./ui/javascript/openbiz",
+          baseUrl: "./ui",
           useStrict: true,          
-          name: "openbiz",
-          out: "ui/javascript/built/openbiz.min.js",
+          name: "main",
+          out: "ui/main.min.js",
           paths:{
-            openbiz:'./main'
+            'i18n'    : 'vendor/require/plugins/i18n',
+            'text'    : 'vendor/require/plugins/text'            
+          },
+          shim:{
+            'modules/account/main':{
+              deps: [ 
+                      //models
+                      'modules/account/models/User', 
+                      'modules/account/models/UserCollection',
+                      'modules/account/models/Account',
+                      'modules/account/models/Invitation',
+                      'modules/account/models/InvitationCollection'
+                    ]
+            },
+            'modules/system/main':{
+              deps: [ 
+                      //models
+                      'modules/system/models/App', 
+                      'modules/system/models/AppCollection',
+                      //views
+                      'modules/system/views/LayoutView',
+                      'modules/system/views/ContactRightView',
+                      'modules/system/views/MenuView',
+                      'modules/system/views/NavView',
+                      'modules/system/views/HeaderView',
+                    ]
+            },
+            'modules/user/main':{
+              deps: [ 
+                      //models
+                      'modules/user/models/User',         
+                      //views              
+                      'modules/user/views/DashboardView',
+                      'modules/user/views/ForgetPasswordView',
+                      'modules/user/views/LoginView',
+                      'modules/user/views/RegisterView'
+                    ]
+            }
           }
         }
       }
