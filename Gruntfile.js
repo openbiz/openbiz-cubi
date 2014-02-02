@@ -33,6 +33,7 @@ module.exports = function(grunt) {
     requirejs: {
       cubi: {
         options: {
+          preserveLicenseComments:false,
           baseUrl: "./ui",
           useStrict: true,          
           name: "main",
@@ -75,6 +76,14 @@ module.exports = function(grunt) {
                       'modules/user/views/LoginView',
                       'modules/user/views/RegisterView'
                     ]
+            },
+            'modules/me/main':{
+              deps: [ 
+                      //models
+                      'modules/me/models/Me',         
+                      //views              
+                      'modules/me/views/SetupWizardView'                      
+                    ]            
             }
           }
         }
