@@ -3,9 +3,11 @@ define(['i18n!./nls/locale',
 		'./modules/system/main',
 		'./modules/user/main',
 		'./modules/me/main', 
-		'./modules/account/main' ],
+		'./modules/account/main',
+		'./menu/main',
+		 ],
 	function(locale, system,
-			user, me, account){
+			user, me, account, menu){
 	return openbiz.Application.extend({
 		name 	: 'cubi',
 		appUrl 	: REPLACE_APPURL,
@@ -21,6 +23,7 @@ define(['i18n!./nls/locale',
 				this.modules[i].init();				
 			}			
 		},
-		locale: locale
+		locale: locale,
+		menu: menu
 	});
 });

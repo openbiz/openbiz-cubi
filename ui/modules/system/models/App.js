@@ -25,6 +25,12 @@ define(function(){
                     resp.roles = newRoles;
                 }
             }
+            if(resp.hasOwnProperty('require')){
+                this.require = resp.require ;
+            }
+            if(resp.hasOwnProperty('menu')){
+                this.menu = resp.menu ;
+            }
             return resp;
         },
         constructor:function(){

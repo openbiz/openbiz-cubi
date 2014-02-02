@@ -24,14 +24,22 @@ define(['./App'],function(App){
                                         }
                                     }
                                 });
+                                app.require = appRequire;
                                 appRequire(['i18n!./nls/locale'],function(locale){
                                     if(locale.hasOwnProperty('app')){
                                         app.locale = locale.app;
                                     }
-                                    loadedLocales.push(app);
-                                    if(loadedLocales.length == data.length){
-                                        success(loadedLocales,status,xhr);
-                                    }
+                                    //load apps menu scripts
+                                    var callback = function(){
+                                        loadedLocales.push(app);
+                                        if(loadedLocales.length == data.length){
+                                            success(loadedLocales,status,xhr);
+                                        }
+                                    }                                    
+                                    appRequire(['./menu/main'],function(menu){
+                                        app.menu = new menu();
+                                        callback();
+                                    },callback);                                     
                                 });
                             })
                         }

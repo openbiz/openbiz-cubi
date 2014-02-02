@@ -10,9 +10,22 @@ define(['text!templates/system/menuView.html'],
                 openbiz.View.prototype.initialize.call(this);
                 this.template = _.template(templateData);
             },
+            loadAppsMenu:function(){
+                this.app.require(['modules/system/models/AppCollection'],function(AppCollection){  
+                    var apps = new AppCollection();                  
+                    apps.fetch({success:function(){
+                        _.each(apps.models,function(app){
+                            if(app.hasOwnProperty('menu')){
+                                app.menu.render();
+                            }                            
+                        });
+                    }});
+                });
+            },
             render:function(){
                 $(this.el).html(this.template(this.app.locale.headerView));
                 if(!this.app.views.isRenderred("system.MenuView")){
+                    $(document).data('menu',$('nav#menu').html());
                     $('nav#menu').mmenu({
                         searchfield   :  true,
                         slidingSubmenus	: true
@@ -20,7 +33,6 @@ define(['text!templates/system/menuView.html'],
                     {
                         pageSelector:'div#wrapper'
                     }).on( "closing.mm", function(){
-
                         var highest=$(this).find("ul.mm-highest");
                         highest.find(".mm-subclose").trigger('click');
                         setTimeout(function () { closeSub() }, 200);
@@ -51,7 +63,7 @@ define(['text!templates/system/menuView.html'],
                         e.preventDefault();
                         $('nav#menu').trigger( 'open.mm' );
                     });
-
+                    this.loadAppsMenu();
                 }
                 openbiz.ui.update($(this.el));
                 return this;
