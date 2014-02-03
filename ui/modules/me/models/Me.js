@@ -49,7 +49,17 @@ define(function(templateData){
 					}
 				}
 			});
-		},		
+		},	
+		hasPermission:function(permission){
+			for(var role in this.get('roles')){
+				for(var perm in this.get('roles')[role]){
+					if(this.get('roles')[role][perm] === permission){
+						return true;
+					}
+				}
+			}
+			return false;
+		},
 		constructor:function(){			
 			this.url = openbiz.apps.cubi.appUrl+'/me';
 			Backbone.Model.apply(this, arguments);

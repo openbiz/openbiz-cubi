@@ -75,6 +75,18 @@ module.exports = function(app)
         if(result.account){
             delete result.account.invitations;
         }
+        var perms = {};
+        for(var i in result.roles){
+            for(var appName in app.openbiz.apps){
+                if(app.openbiz.apps.hasOwnProperty(appName)){
+                    if(app.openbiz.apps[appName].roles.hasOwnProperty(result.roles[i])){
+                        perms[result.roles[i]]  = app.openbiz.apps[appName].roles[result.roles[i]];
+                        break;
+                    }
+                }
+            }
+        }
+        result.roles = perms;
         return result;
     }
 
