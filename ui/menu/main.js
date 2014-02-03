@@ -12,8 +12,10 @@ define(['text!templates/menu/accountMenuView.html'],
             },
             render:function(){
                 var self = this;
-                var menuHtml = this.template(this.locale);                
-                this.updateMenu(menuHtml);
+                if(openbiz.session.me.hasPermission('cubi-account-manage')){
+                    var menuHtml = this.template(this.locale);                
+                    this.updateMenu(menuHtml);
+                }
                 return this;
             }
         });
