@@ -4,8 +4,9 @@ module.exports = function(app){
         getApps:function(req,res)
         {
             var installedApps = [];
-            for(var appName in app.openbiz.apps)
+            for(var i in app.openbiz.loadedAppUIs)
             {
+                var appName = app.openbiz.loadedAppUIs[i];
                 if(app.openbiz.apps[appName].uiUrl!=null){
                     var roles = [];
                     for( var roleName in app.openbiz.apps[appName].roles){

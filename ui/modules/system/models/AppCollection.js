@@ -9,7 +9,7 @@ define(['./App'],function(App){
                     var success = options.success;
                     options.success = function(data,status,xhr){
                         if(_.isArray( data ) && data.length){
-                            var loadedLocales = [];
+                            var loadedLocales = {},loadedLocalesCounter=0;
                             data.forEach(function(app){
                                 var appRequire = require.config({
                                     baseUrl:app.baseUrl,
@@ -31,9 +31,14 @@ define(['./App'],function(App){
                                     }
                                     //load apps menu scripts
                                     var callback = function(){
-                                        loadedLocales.push(app);
-                                        if(loadedLocales.length == data.length){
-                                            success(loadedLocales,status,xhr);
+                                        loadedLocales[app.name]=app;
+                                        loadedLocalesCounter++;
+                                        if(loadedLocalesCounter == data.length){
+                                            var returnData=[];
+                                            for(var i in data){
+                                                returnData[i]=loadedLocales[data[i].name];
+                                            }                 
+                                            success(returnData,status,xhr);
                                         }
                                     }                                    
                                     appRequire(['./menu/main'],function(menu){

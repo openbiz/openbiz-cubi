@@ -13,12 +13,13 @@ define(['text!templates/system/menuView.html'],
             loadAppsMenu:function(){
                 this.app.require(['modules/system/models/AppCollection'],function(AppCollection){  
                     var apps = new AppCollection();                  
-                    apps.fetch({success:function(){
-                        _.each(apps.models,function(app){
-                            if(app.hasOwnProperty('menu')){
+                    apps.fetch({success:function(){                        
+                        for(var i in apps.models){
+                            var app = apps.models[i];
+                            if(app.hasOwnProperty('menu')){                                
                                 app.menu.render();
-                            }                            
-                        });
+                            }
+                        }
                     }});
                 });
             },
