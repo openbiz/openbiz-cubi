@@ -7,24 +7,31 @@ define(function(){
 		routes:{
 			"!/backend/account/applications" 	: "showApplications",
             "!/backend/account/members"       	: "showMembers",
+            "!/backend/account/invitations"     : "showInvitations",
+            "!/backend/account/invitations/:id" : "showInvitationDetail",
             "!/backend/account/profile"         : "showProfile",
             "!/backend/account/billing"         : "showBilling"
 		},		
 		initialize:function(){			
 			openbiz.Router.prototype.initialize.call(this);
-			this.me = new me();
 		},		
         showApplications:function(){
-            this.renderView("account.ApplicationsView");
+            this.renderView("account.ApplicationsListView");
+        },
+        showInvitations:function(){
+            this.renderView("account.InvitationsListView");
+        },
+        showInvitationDetail:function(id){                        
+            this.renderView("account.InvitationsDetailView",arguments);
         },
         showMembers:function(){
-            this.renderView("account.MembersView");
+            this.renderView("account.MembersListView");
         },
         showProfile:function(){
-            this.renderView("account.ProfileView");
+            this.renderView("account.ProfileListView");
         },
         showBilling:function(){
-            this.renderView("account.BillingView");
+            this.renderView("account.BillingListView");
         }
 	});
 });

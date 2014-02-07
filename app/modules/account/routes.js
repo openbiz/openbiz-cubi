@@ -39,7 +39,10 @@ module.exports = function(app){
         "get /account/invitations"                  : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
                                                         app.getPolicy("ensureUserIsAccountAdministrator"),
                                                         app.getController("AccountController").getInvitationTokens ],
-
+        
+        "get /account/invitations/:id"              : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                                        app.getPolicy("ensureUserIsAccountAdministrator"),
+                                                        app.getController("AccountController").getInvitationToken ],
         
         "post /account/invitations"                  : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
                                                         app.getPolicy("ensureUserIsAccountAdministrator"),

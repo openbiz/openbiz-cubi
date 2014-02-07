@@ -125,6 +125,9 @@ module.exports = function(app){
 		getInvitationTokens:function(req,res){
 			res.json(200,req.user.account.invitations);
 		},
+		getInvitationToken:function(req,res){
+			res.json(200,req.user.account.invitations.id(req.params.id.toUpperCase()));
+		},
 		deleteInvitationToken:function(req,res)
 		{
 			if(req.user.account.invitations.id(req.params.token)){

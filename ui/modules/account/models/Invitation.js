@@ -6,6 +6,11 @@ define(function(templateData){
 		defualts:{
 			expiredDate:null,
 			data:{}
+		},
+		getDisplayExpiryDate:function(){
+			var date = new Date(this.get('expiredDate'));
+			return  date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' +
+					date.getHours() + ':' + date.getMinutes();
 		}
 	});
 });

@@ -50,7 +50,13 @@ module.exports = function(grunt) {
                       'modules/account/models/UserCollection',
                       'modules/account/models/Account',
                       'modules/account/models/Invitation',
-                      'modules/account/models/InvitationCollection'
+                      'modules/account/models/InvitationCollection',
+                      //views
+                      'modules/account/views/ApplicationsView',
+                      'modules/account/views/MembersView',
+                      'modules/account/views/InvitationsView',
+                      'modules/account/views/ProfileView',
+                      'modules/account/views/BillingView'
                     ]
             },
             'modules/system/main':{
