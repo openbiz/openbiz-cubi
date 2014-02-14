@@ -401,7 +401,7 @@ define(['text!templates/me/setupWizardView.html',
                     .attr('disabled','disabled')
                     .removeClass('btn-theme');
                 $(this.el).find('.form-join-company input[name="token"]').attr("parsley-remote",this.app.appUrl+'/account/check-invitation-token');
-                $(this.el).find('.form-create-company input[name="name"]').val(openbiz.session.me.get('contact').company).attr("parsley-remote",this.app.appUrl+'/me/account/check-unique');
+                $(this.el).find('.form-create-company input[name="name"]').val(openbiz.session.me.get('contact').company).attr("parsley-remote",this.app.appUrl+'/account/check-unique');
                 $(this.el).find('.form-join-company').slideUp(0).parsley('addListener',{
                     onFormValidate:function(isValid,event,ParsleyForm)
                     {   
