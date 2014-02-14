@@ -330,11 +330,21 @@ define(['text!templates/me/setupWizardView.html',
                     $(self.el).find("#user-list").html(template(data));
                     $(self.el).find("#user-list .btn-delete-record").off("click");
                     $(self.el).find("#user-list .btn-delete-record").on("click",function(event){
-                        event.preventDefault();
-                        var recordId = $(this).attr("recordId");                       
-                        self.models.userCollection.get(recordId).destroy({success:function(){
-                            self.models.userCollection.fetch();
-                        }});                        
+                        event.preventDefault();                        
+                        var recordId = $(this).attr("record-id"); 
+                        bootbox.confirm({
+                            title:"User delete confirmation",
+                            message:"<h2>"+self.models.userCollection.get(recordId).get('user').username +"</h2> <br/> \
+                                    You are about to delete this user: <br/> \
+                                    Are you sure?",
+                            callback:function(result){
+                                if(result){
+                                    self.models.userCollection.get(recordId).destroy({success:function(){
+                                        self.models.userCollection.fetch();
+                                    }});          
+                                }
+                            }
+                        });                     
                     });
                 });
                 self.models.invitationCollection.off('sync');
@@ -348,11 +358,21 @@ define(['text!templates/me/setupWizardView.html',
                     $(self.el).find("#invitation-list").html(template(data));                    
                     $(self.el).find("#invitation-list .btn-delete-record").off("click");
                     $(self.el).find("#invitation-list .btn-delete-record").on("click",function(event){
-                        event.preventDefault();
-                        var recordId = $(this).attr("recordId");                       
-                        self.models.invitationCollection.get(recordId).destroy({success:function(){
-                            self.models.invitationCollection.fetch();
-                        }});                        
+                        event.preventDefault();                        
+                        var recordId = $(this).attr("record-id");               
+                        bootbox.confirm({
+                            title:"Invitation delete confirmation",
+                            message:"<h2>"+recordId +"</h2> <br/> \
+                                    You are about to delete this Invitation: <br/> \
+                                    Are you sure?",
+                            callback:function(result){
+                                if(result){
+                                    self.models.invitationCollection.get(recordId).destroy({success:function(){
+                                        self.models.invitationCollection.fetch();
+                                    }});          
+                                }
+                            }
+                        });                 
                     });
                 });
                 

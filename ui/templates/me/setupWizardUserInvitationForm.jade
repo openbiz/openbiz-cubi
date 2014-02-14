@@ -42,7 +42,7 @@ script#user-list-template(type="text/template")
                 td
                     div.tooltip-area
                         <% if(user._id != me._id){ %>
-                        a.btn.btn-default.btn-sm.btn-delete-record(href="#",recordId!='<%= user._id %>')
+                        a.btn.btn-default.btn-sm.btn-delete-record(href="#",record-id!='<%= user._id %>')
                             span.hidden-xs
                                 i.fa.fa-trash-o
                                 |&nbsp; Remove &nbsp;
@@ -68,7 +68,7 @@ script#invitation-list-template(type="text/template")
                 td.hidden-xs <%= invitation._id %>
                 td
                     div.tooltip-area
-                        a.btn.btn-default.btn-sm.btn-delete-record(href="#",recordId!='<%= invitation._id %>')
+                        a.btn.btn-default.btn-sm.btn-delete-record(href="#",record-id!='<%= invitation._id %>')
                             span.hidden-xs
                                 i.fa.fa-trash-o
                                 |&nbsp; Delete &nbsp;
