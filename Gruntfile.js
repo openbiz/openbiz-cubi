@@ -54,7 +54,9 @@ module.exports = function(grunt) {
                       //views
                       'modules/account/views/ApplicationsView',
                       'modules/account/views/MembersView',
-                      'modules/account/views/InvitationsView',
+                      'modules/account/views/InvitationsListView',
+                      'modules/account/views/InvitationsNewView',
+                      'modules/account/views/InvitationsDetailView',
                       'modules/account/views/ProfileView',
                       'modules/account/views/BillingView'
                     ]
