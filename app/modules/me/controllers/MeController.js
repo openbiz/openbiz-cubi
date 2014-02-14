@@ -29,7 +29,7 @@ module.exports = function(app){
 					}
 					req.user.save(function(error){
 						if(error){
-							res.json({error:err},500);
+							res.json({error:error},500);
 						}
 						else{
 							res.send(201,{id:account._id});
