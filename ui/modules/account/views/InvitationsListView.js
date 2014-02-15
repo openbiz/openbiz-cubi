@@ -10,6 +10,7 @@ define(['text!templates/account/invitationsListView.html',
 		collection: dataCollection,
 		events:{
 			"click .btn-record-delete" 	: "showRecordDeleteConfirm" ,
+			"click .btn-record-add" 	: "showRecordAddView"
 		},			
 		initialize:function(){			
 			var self = this;
@@ -28,6 +29,10 @@ define(['text!templates/account/invitationsListView.html',
         	this.collection.fetch();
  	        return this;
 	    },
+	    showRecordAddView:function(event){
+	    	event.preventDefault();	 
+	    	this.popupView('account.InvitationsNewView');
+	    },	    
 	    showRecordDeleteConfirm:function(event){	    	
 	    	event.preventDefault();	   
 	    	var self = this; 

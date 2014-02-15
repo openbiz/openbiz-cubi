@@ -1,0 +1,34 @@
+#user-add-model.modal.fade(tabindex='-1')
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h3 Add a New User
+    form.modal-body.form-add-user(role="form",parsley-validate,novalidate="novalidate")        
+        section.profile
+            div.form-group
+                label.pull-left(style="display:block;margin-right:20px;padding-top:5px;") Title
+                div(style="border:none;height:30px")
+                    ul.iCheck.pull-left(data-color='green',style="width:200px;")
+                        li.pull-left.col-xs-6(style="padding-bottom:0px")
+                            input(type="radio",id="title-mr",name="title",value="Mr", parsley-trigger="ifClicked ifChanged",parsley-required="true",parsley-group="title")
+                            label(style="margin-bottom:0px;") <%= titleMr %>
+                        li.pull-left.col-xs-6(style="padding-bottom:0px")
+                            input(type="radio",id="title-ms",name="title",value="Ms", parsley-trigger="ifClicked ifChanged",parsley-group="title")
+                            label(style="margin-bottom:0px") <%= titleMs %>
+            div.form-group
+                label Name
+                div(style="height:34px;")
+                    input.form-control.pull-left#inputFirstName(name="firstName",parsley-trigger="change",required,type="text",placeholder!="<%= firstName %>",style="width:49%;margin-right:2%")
+                    input.form-control.pull-left#inputLastName(name="lastName",parsley-trigger="change",required,type="text",placeholder!="<%= lastName %>",style="width:49%;0px;")
+            div.form-group
+                label Mobile
+                div(style="height:34px;")
+                    input.form-control.pull-left#inputMobileCountryCode(name="mobileCountryCode",required,placeholder!="<%= phoneCountryCode %>",value!="<%= phoneDefaultCountryCode %>",style="width:25%;padding-right:0px;margin-right:2%")
+                    input.form-control.pull-left#inputMobileNumber(name="mobileNumber",required,type="tel",placeholder!="<%= mobileNumber %>",style="width:73%")
+
+            div.form-group
+                label Email
+                input#inputEmail.form-control(required,type="email", parsley-type="email", name='username', placeholder!='<%= email %>',parsley-remote-method="POST",parsley-remote-message!="<%= validation.emailDuplicated %>")
+        section
+            hr
+            button.btn-add-user-done.btn.button.btn-theme(style="margin-right:10px;",type="submit") &nbsp; Next &nbsp;
+                i.fa.fa-angle-right
