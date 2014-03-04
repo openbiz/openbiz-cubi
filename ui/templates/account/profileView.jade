@@ -12,7 +12,7 @@ ol.breadcrumb
             header.panel-heading
                 h2 <%= viewTitle %>
             div.panel-body
-                form.form-create-company(role="form",parsley-validate,novalidate="novalidate")
+                form.form-profile(role="form",parsley-validate,novalidate="novalidate")
                     div.form-group
                         label Company Name
                         input.form-control(name="name",required,parsley-mincheck="3",type="text",placeholder="Company Name",value!="<%= account.get('name') %>",parsley-remote-method="POST",parsley-remote-message!="<%= validation.companyNotUnique %>")
@@ -37,6 +37,6 @@ ol.breadcrumb
                     button.hidden(type="submit")
                 
             footer.panel-footer
-                button.btn-next.btn.btn-theme(type="submit")
+                button.btn-save.btn.btn-theme(type="submit")
                     i.fa.fa-check
                         | &nbsp; Save &nbsp;

@@ -28,7 +28,6 @@ define(['text!templates/account/invitationsDetailView.html',
 			        			var output = self.locale;        			
 			        			output.data = self.model;
 			        			output.installedApps = apps.models;
-			        			console.log(output);
 			        			$(self.el).html(self.template(output));
 				        		openbiz.ui.update($(self.el));
 		        			}
@@ -49,9 +48,9 @@ define(['text!templates/account/invitationsDetailView.html',
 	    				Are you sure?",
 				callback:function(result){
 		    		if(result){
-		    			self.collection.get(recordId).destroy({success:function(){
+		    			self.model.destroy({success:function(){
                             // self.collection.fetch();
-                            // Backbone.history.navigate..
+                            Backbone.history.navigate("#!/backend/account/invitations", {trigger: true, replace: true});
                         }});          
 		    		}
 		    	}

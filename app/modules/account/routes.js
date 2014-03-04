@@ -18,7 +18,7 @@ module.exports = function(app){
         
         "get /account"            :  [app.getController("AccountController").getCurrentAccount],
 
-        "post /account"            : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+        "put /account"            : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
                                         app.getPolicy("ensureUserIsAccountAdministrator"),                                     
                                         app.getController("AccountController").updateCurrentAccount],
 
