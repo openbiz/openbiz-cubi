@@ -27,6 +27,7 @@ define(['text!templates/account/profileView.html',
 	    },
 	    saveRecord:function(){
 	    	if(!this._validateForm()) return;
+	    	var self = this;
 	    	var account = {
                 name: $(this.el).find('input[name="name"]').val(),
                 info: {
@@ -44,12 +45,17 @@ define(['text!templates/account/profileView.html',
                         number:         $(this.el).find('input[name="phone-number"]').val()
                     }
                 }
-            };
-            this.model.set('name', account.name );
-            this.model.set('info', account.info );
-            this.model.save({success:function(){
-            	console.log('data saved');
-            }});
+            };     
+            this.model.save(account,{
+            	success:function(){
+            		bootbox.alert({
+			    		title:"Data notification",
+			    		message:"<h2>Data has been saved</h2>"						
+			    	});
+			    	//update UI company name
+			    	self.app.views.get('system.NavView').updateAccountNameDisplay(account.name);
+            	}
+        	});
 	    },
 	    _validateForm:function(){
 			return $(this.el).find('.form-profile').parsley('validate');

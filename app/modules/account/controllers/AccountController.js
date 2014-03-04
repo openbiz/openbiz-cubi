@@ -10,7 +10,7 @@ module.exports = function(app){
 			if(typeof req.body.name!='undefined')req.user.account.name = req.body.name;
 			if(typeof req.body.info!='undefined')req.user.account.info = req.body.info;
 			req.user.account.save(function(err){
-				res.send(200)
+				res.send(204);
 			});
 		},
 		installApps:function(req,res)

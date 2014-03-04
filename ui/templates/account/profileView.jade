@@ -33,7 +33,7 @@ ol.breadcrumb
                             input.form-control.pull-left(name="address-zipcode",required,parsley-type="digits",placeholder!="<%= addressZipcode %>",value!="<%= account.get('info').address.zipcode %>",style="width:25%")
                     div.form-group
                         label Website
-                        input.form-control(name="website",type="url",placeholder="http://www.yourcompany.com")
+                        input.form-control(name="website",type="url",placeholder="http://www.yourcompany.com",value!="<%= account.get('info').website %>")
                     button.hidden(type="submit")
                 
             footer.panel-footer

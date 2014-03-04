@@ -10,6 +10,12 @@ define(['text!templates/system/navView.html'],
                 openbiz.View.prototype.initialize.call(this);
                 this.template = _.template(templateData);
             },
+            updateAccountNameDisplay:function(name){
+                $(this.el).find('span.account-name').html(name);
+            },
+            updateDisplayName:function(name){
+                $(this.el).find('span.display-name').html(name);
+            },
             render:function(){
                 var self = this;
                 this.locale.me = openbiz.session.me.toJSON();

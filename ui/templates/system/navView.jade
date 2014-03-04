@@ -7,11 +7,13 @@
     .avatar-detail
       p
         strong <%= hi %>
-        | , <%= me.contact.name.displayName %>
+        | , 
+        span.display-name <%= me.contact.name.displayName %>
       p
-        a(href='#do-nothing') @ <%= me.contact.company %>
-      span 12,110 Sales
-      span 106 Follower
+        a(href='#do-nothing') @ 
+          span.account-name <%= me.account.name ? me.account.name : me.contact.company %>
+      span.span 12,110 Sales
+      span.span 106 Follower
     // //avatar-detail
     .avatar-link.btn-group.btn-group-justified(data-color='theme')
       a.btn(href='profile.html', title='Portfolio')
