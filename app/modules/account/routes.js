@@ -16,6 +16,13 @@ module.exports = function(app){
         //                             app.getController("AccountController").ensureExists,
         //                             app.getController("AccountController").delete],
         
+        "get /account"            :  [app.getController("AccountController").getCurrentAccount],
+
+        "post /account"            : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+                                        app.getPolicy("ensureUserIsAccountAdministrator"),                                     
+                                        app.getController("AccountController").updateCurrentAccount],
+
+
         //below routes for operate current users account
         "post /account/apps"                        : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
                                                         app.getPolicy("ensureUserIsAccountAdministrator"),

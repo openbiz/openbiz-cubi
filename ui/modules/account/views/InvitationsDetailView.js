@@ -50,7 +50,8 @@ define(['text!templates/account/invitationsDetailView.html',
 				callback:function(result){
 		    		if(result){
 		    			self.collection.get(recordId).destroy({success:function(){
-                            self.collection.fetch();
+                            // self.collection.fetch();
+                            // Backbone.history.navigate..
                         }});          
 		    		}
 		    	}

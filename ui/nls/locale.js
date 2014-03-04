@@ -46,6 +46,26 @@ define({
                     emailNotInvitable: 'The email address is already assicated with account'
                 }
             },
+            profileView:{
+                viewTitle: '<span>Company</span> Profile',
+                viewDescription: 'Openbiz Cubi Application Platform 4.0',
+                phoneDefaultCountryCode: '+1',
+                phoneCountryCode: 'Country Code',
+                phoneAreaCode: 'Area Code',
+                phoneNumber: 'Phone Number',
+                addressCountry: 'Country',
+                addressDefaultCountry: 'USA',
+                addressProvince: 'Province',
+                addressCity: 'City',
+                addressStreet: 'Street',
+                addressZipcode: 'Zipcode',
+                validation:{
+                    needAgreement: 'You need to check this agreement before continue',
+                    passwordNotMatch:'The password is not matched',
+                    emailDuplicated: 'The email address has been registered by other user',
+                    emailNotInvitable: 'The email address is already assicated with account'
+                }
+            }
         },
         user:{
             loginView:{

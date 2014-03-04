@@ -8,3 +8,35 @@ ol.breadcrumb
 #content
   .row
     .col-lg-12    
+        section.panel.wizard-form.corner-flip(role="form",parsley-validate,novalidate="novalidate")
+            header.panel-heading
+                h2 <%= viewTitle %>
+            div.panel-body
+                form.form-create-company(role="form",parsley-validate,novalidate="novalidate")
+                    div.form-group
+                        label Company Name
+                        input.form-control(name="name",required,parsley-mincheck="3",type="text",placeholder="Company Name",value!="<%= account.get('name') %>",parsley-remote-method="POST",parsley-remote-message!="<%= validation.companyNotUnique %>")
+                    div.form-group
+                        label Phone Number
+                        div(style="height:34px;")
+                            input.form-control.pull-left(name="phone-country-code",required,placeholder!="<%= phoneCountryCode %>",value!="<%= account.get('info').phone.countryCode %>",style="width:19%;margin-right:1%;")
+                            input.form-control.pull-left(name="phone-area-code",required,placeholder!="<%= phoneAreaCode %>",value!="<%= account.get('info').phone.areaCode %>",style="width:24%;margin-right:1%;")
+                            input.form-control.pull-left(name="phone-number",required,type="tel",placeholder!="<%= phoneNumber %>",value!="<%= account.get('info').phone.number %>",style="width:55%")
+                    div.form-group
+                        label Address
+                        div(style="height:34px;margin-bottom:5px;")
+                            input.form-control.pull-left(name="address-country",parsley-mincheck="2",required,placeholder!="<%= addressCountry %>",value!="<%= account.get('info').address.country %>",style="width:32%;margin-right:1%;")
+                            input.form-control.pull-left(name="address-province",parsley-mincheck="2",required,placeholder!="<%= addressProvince %>",value!="<%= account.get('info').address.province %>",style="width:33%;margin-right:1%;")
+                            input.form-control.pull-left(name="address-city",parsley-mincheck="2",required,placeholder!="<%= addressCity %>",value!="<%= account.get('info').address.city %>",style="width:33%")
+                        div(style="height:34px;")
+                            input.form-control.pull-left(name="address-street",parsley-mincheck="6",required,placeholder!="<%= addressStreet %>",value!="<%= account.get('info').address.street %>",style="width:74%;margin-right:1%;")
+                            input.form-control.pull-left(name="address-zipcode",required,parsley-type="digits",placeholder!="<%= addressZipcode %>",value!="<%= account.get('info').address.zipcode %>",style="width:25%")
+                    div.form-group
+                        label Website
+                        input.form-control(name="website",type="url",placeholder="http://www.yourcompany.com")
+                    button.hidden(type="submit")
+                
+            footer.panel-footer
+                button.btn-next.btn.btn-theme(type="submit")
+                    i.fa.fa-check
+                        | &nbsp; Save &nbsp;

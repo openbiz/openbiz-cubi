@@ -1,6 +1,14 @@
 'use strict';
 module.exports = function(app){
 	return app.openbiz.ModelController.extend({
+		getCurrentAccount:function(req,res){
+			var output = req.user.account.toJSON();
+			delete output.invitations;			
+			res.send(200, output);
+		},
+		updateCurrentAccount:function(req,res){
+
+		},
 		installApps:function(req,res)
 		{		
 			// sample payload data	

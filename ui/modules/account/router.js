@@ -28,7 +28,7 @@ define(function(){
             this.renderView("account.MembersListView");
         },
         showProfile:function(){
-            this.renderView("account.ProfileListView");
+            this.renderView("account.ProfileView");
         },
         showBilling:function(){
             this.renderView("account.BillingListView");
