@@ -29,7 +29,7 @@ module.exports = function(app)
         		type: String,
         		required: true
         	},
-        	setting: {},
+        	setting: {}
         }],
         users:[{
         	_id:{

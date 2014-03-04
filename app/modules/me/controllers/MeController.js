@@ -14,8 +14,8 @@ module.exports = function(app){
 			//              }
 			//      }
 			// }			
-			var accounttModel = app.getModel.call(app,'Account');
-			var account = new accounttModel(req.body);
+			var accountModel = app.getModel.call(app,'Account');
+			var account = new accountModel(req.body);
 			account.users.push({_id:req.user.id,role:"administrator"});
 			account.contacts.push(req.user);
 			account.creator = {id:req.user.id};
@@ -98,6 +98,113 @@ module.exports = function(app){
 		getMe: function(req, res)
 		{
 			res.json(200,req.user.getOutput());
+		},
+		updateContact: function(req, res){
+			var input = req.body;
+			if(input.name){
+				req.user.contact.name = input.name;
+			}
+			if(input.birthday){
+				req.user.contact.birthday = input.birthday;
+			}
+			if(input.avator){
+				req.user.contact.avator = input.avator;
+			}
+			req.user.contact.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}else{
+					res.send(200);
+				}
+			});
+		},
+		getMyPhones: function(req, res){
+			res.json(200,req.user.contact.phones);
+		},
+		createMyPhone: function(req, res){
+			req.user.contact.phones.push(req.body);
+			req.user.contact.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}else{
+					res.send(201);
+				}
+			});
+		},
+		updateMyPhone: function(req, res){
+			var phone = req.user.contact.phones.id(req.params.id);
+			var input = req.body;
+			phone.type = input.type;
+			phone.category = input.category;
+			phone.countryCode = input.countryCode;
+			phone.number = input.number;
+			req.user.contact.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}else{
+					res.send(200);
+				}
+			});
+		},
+		deleteMyPhone: function(req, res){
+			var phone = req.user.contact.phones.id(req.params.id);
+			if(phone == null){
+				res.send(304);
+			}else{
+				req.user.contact.phones.remove(phone);
+				req.user.contact.save(function(err){
+					if(err){
+						res.json(500,{error:err});
+					}else{
+						res.send(200);
+					}
+				});
+			}
+		},
+		createMyAddress: function(req, res){
+			req.user.contact.address.push(req.body);
+			req.user.contact.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}else{
+					res.send(201);
+				}
+			});
+		},
+		getMyAddresses: function(req, res){
+			res.json(200,req.user.contact.addresses);
+		},
+		updateMyAddress: function(req, res){
+			var address = req.user.contact.addresses.id(req.params.id);
+			var input = req.body;
+			address.category = input.category;
+			address.country = input.country;
+			address.state = input.state;
+			address.city = input.city;
+			address.street = input.street;
+			address.zipcode = input.zipcode;
+			req.user.contact.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}else{
+					res.send(200);
+				}
+			});
+		},
+		deleteMyAddress: function(req, res){
+			var phone = req.user.contact.addresses.id(req.params.id);
+			if(phone == null){
+				res.send(304);
+			}else{
+				req.user.contact.addresses.remove(phone);
+				req.user.contact.save(function(err){
+					if(err){
+						res.json(500,{error:err});
+					}else{
+						res.send(200);
+					}
+				});
+			}
 		}
 	});
 }
