@@ -11,7 +11,7 @@
         span.display-name <%= me.contact.name.displayName %>
       p
         a(href='#do-nothing') @ 
-          span.account-name <%= me.account.name ? me.account.name : me.contact.company %>
+          span.account-name <%= ( typeof me.account!= 'undefined' && me.account.name ) ? me.account.name : me.contact.company %>
       span.span 12,110 Sales
       span.span 106 Follower
     // //avatar-detail
