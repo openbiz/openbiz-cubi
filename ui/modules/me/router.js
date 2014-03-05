@@ -9,7 +9,7 @@ define(['./models/Me' ],
 		routes:{
 			"do-nothing"			     : "doNothing",
 			"!/backend/me/logout" 	     : "logout",
-            "!/backend/me/profile"       : "logout",
+            "!/backend/me/profile"       : "setupProfile",
             "!/backend/me/setup"         : "setupWizard"
 		},		
 		initialize:function(){			
@@ -17,6 +17,9 @@ define(['./models/Me' ],
 			// or this.__proto__.initialize it's even wired
 			openbiz.Router.prototype.initialize.call(this);
 			this.me = new me();
+		},
+		setupProfile:function(){
+			this.renderView("me.UserProfileView");
 		},
 		doNothing:function(){
 

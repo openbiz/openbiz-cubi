@@ -1,13 +1,11 @@
 "use strict";
 define(function(templateData){
 	return Backbone.Model.extend({
-		url:openbiz.apps.cubi.appUrl+'/me/profile',
+		url:openbiz.apps.cubi.appUrl+'/me/email',
 		idAttribute: "_id",
 		defaults:{
-			name:null,
-			birthday:null,
-			avator:null,
-			title:null
+			category:null,
+			email:null
 		}
 	});
 })

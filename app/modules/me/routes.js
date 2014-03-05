@@ -16,8 +16,11 @@ module.exports = function(app){
 													    app.getPolicy("ensureInvitationTokenValid")(app),
 													    app.getController("MeController").joinAccount ],
 
-		"put /me"                                   : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"put /me/profile"                           : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 													    app.getController("MeController").updateContact],
+
+		"get /me/profile"                           : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+			                                            app.getController("MeController").getContact],
 
 		"get /me/phones"                            : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 													    app.getController("MeController").getMyPhones],
@@ -41,6 +44,18 @@ module.exports = function(app){
 														app.getController("MeController").updateMyAddress],
 
 		"delete /me/address/:id"                    : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
-														app.getController("MeController").deleteMyAddress]
+														app.getController("MeController").deleteMyAddress],
+
+		"get /me/emails"                            : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+														app.getController("MeController").getMyEmails],
+
+		"post /me/email"                            : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+												    	app.getController("MeController").createMyEmail],
+
+		"put /me/email/:id"                         : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+														app.getController("MeController").updateMyEmail],
+
+		"delete /me/email/:id"                      : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+						                                app.getController("MeController").deleteMyEmail]
 	}
 }
