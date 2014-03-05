@@ -1,8 +1,8 @@
-#user-add-model.modal.fade(tabindex='-1')
+#user-add-modal.modal.fade(tabindex='-1')
     .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
         h3 Add a New Invitation
-    form.modal-body.form-add-user(role="form",parsley-validate,novalidate="novalidate")        
+    form.modal-body.form-add-record(role="form",parsley-validate,novalidate="novalidate")        
         section.profile
             div.form-group
                 label.pull-left(style="display:block;margin-right:20px;padding-top:5px;") Title
@@ -30,5 +30,5 @@
                 input#inputEmail.form-control(required,type="email", parsley-type="email", name='username', placeholder!='<%= email %>',parsley-remote-method="POST",parsley-remote-message!="<%= validation.emailDuplicated %>")
         section
             hr
-            button.btn-add-user-done.btn.button.btn-theme(style="margin-right:10px;",type="submit") &nbsp; Next &nbsp;
+            button.btn-save-record.btn.button.btn-theme(style="margin-right:10px;",type="submit") &nbsp; Next &nbsp;
                 i.fa.fa-angle-right
