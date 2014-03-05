@@ -11,37 +11,36 @@ define(['text!templates/me/userProfileView.html',
 			name: 'userProfileView',
 			el: '#main',
 			models:{
-				addressCollection: new addressCollection(),
-				emailCollection: new emailCollection(),
-				phoneCollection: new phoneCollection(),
-				contact: new contact()
+				addressCollection: new addressCollection(openbiz.session.me.get('contact').addresses),
+				emailCollection: new emailCollection(openbiz.session.me.get('contact').emails),
+				phoneCollection: new phoneCollection(openbiz.session.me.get('contact').phones),
+				contact: new contact(openbiz.session.me.get('contact'))
 			},
 			events:{
 				'click .btn-save':'saveRecord',
 				"click .btn-phone-delete" 	: "showPhoneDeleteConfirm"
-
 			},
 			initialize:function(){
 				var self = this;
 				openbiz.View.prototype.initialize.call(this);
 				this.template = _.template(templateData);
-				this.models.phoneCollection.on('sync',function(){
-					self._updateCollection("phone");
+				openbiz.session.me.on('sync',function(){
+					$(self.el).html(self.template(self.locale));
+					openbiz.ui.update($(self.el))
+//					self._updateCollection("phone");
+//					self._updateCollection("email");
+//					self._updateCollection("address");
 				});
-				this.models.emailCollection.on('sync',function(){
-					self._updateCollection("email");
-				})
 			},
 			render:function(){
-				var self = this;
-				$(window).off('resize');
-				this.models.contact.fetch({success:function(){
-						self.locale.contact = self.models.contact;
-						$(self.el).html(self.template(self.locale));
-						openbiz.ui.update($(self.el));
-				}});
-				this.models.phoneCollection.fetch();
-				this.models.emailCollection.fetch();
+ 				$(window).off('resize');
+				this.locale.contact = this.models.contact;
+				this.locale.phones = this.models.phoneCollection.models;
+				this.locale.emails = this.models.emailCollection.models;
+				this.locale.addresses = this.models.addressCollection.models;
+
+				$(this.el).html(this.template(this.locale));
+				openbiz.ui.update($(this.el));
 
 			},
 			_updateCollection:function(collectionName){
@@ -105,7 +104,8 @@ define(['text!templates/me/userProfileView.html',
 					callback:function(result){
 						if(result){
 							self.models.phoneCollection.get(phoneId).destroy({success:function(){
-								self._updateCollection("phone");
+								//self._updateCollection("phone"); 如果涉及多客户端登陆 那么要重新
+								openbiz.session.me.fetch();
 							}});
 						}
 					}
