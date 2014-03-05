@@ -1,7 +1,7 @@
 "use strict";
 define(function(templateData){
 	return Backbone.Model.extend({
-		url:openbiz.apps.cubi.appUrl+'/me/phone',
+		urlRoot:openbiz.apps.cubi.appUrl+'/me/phones',
 		idAttribute: "_id",
 		defaults:{
 			type:null,

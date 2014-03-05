@@ -159,7 +159,7 @@ module.exports = function(app){
 					if(err){
 						res.json(500,{error:err});
 					}else{
-						res.send(200);
+						res.send(204);
 					}
 				});
 			}
@@ -204,7 +204,7 @@ module.exports = function(app){
 					if(err){
 						res.json(500,{error:err});
 					}else{
-						res.send(200);
+						res.send(204);
 					}
 				});
 			}
@@ -245,7 +245,7 @@ module.exports = function(app){
 					if(err){
 						res.json(500,{error:err});
 					}else{
-						res.send(200);
+						res.send(204);
 					}
 				});
 			}

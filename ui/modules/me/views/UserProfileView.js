@@ -17,30 +17,61 @@ define(['text!templates/me/userProfileView.html',
 				contact: new contact()
 			},
 			events:{
-				'click .btn-save':'saveRecord'
+				'click .btn-save':'saveRecord',
+				"click .btn-phone-delete" 	: "showPhoneDeleteConfirm"
+
 			},
 			initialize:function(){
 				var self = this;
 				openbiz.View.prototype.initialize.call(this);
 				this.template = _.template(templateData);
 				this.models.phoneCollection.on('sync',function(){
-					var output = self.locale;
-					output.phones = self.models.phoneCollection.models;
-					$(self.el).html(self.template(output));
-					openbiz.ui.update($(self.el));
+					self._updateCollection("phone");
+				});
+				this.models.emailCollection.on('sync',function(){
+					self._updateCollection("email");
 				})
 			},
 			render:function(){
 				var self = this;
+				$(window).off('resize');
 				this.models.contact.fetch({success:function(){
-					self.locale.contact = self.models.contact;
-					$(self.el).html(self.template(self.locale));
-					$(window).off('resize');
-					openbiz.ui.update($(self.el));
+						self.locale.contact = self.models.contact;
+						$(self.el).html(self.template(self.locale));
+						openbiz.ui.update($(self.el));
 				}});
 				this.models.phoneCollection.fetch();
+				this.models.emailCollection.fetch();
+
 			},
-			saveRecord:function(){
+			_updateCollection:function(collectionName){
+				var self = this;
+				switch (collectionName){
+					case "phone":
+					{
+						self.locale.phones = self.models.phoneCollection.models;
+						$(self.el).html(self.template(self.locale));
+						openbiz.ui.update($(self.el))
+						break;
+					}
+					case "email":
+					{
+						self.locale.emails = self.models.emailCollection.models;
+						$(self.el).html(self.template(self.locale));
+						openbiz.ui.update($(self.el))
+						break;
+					}
+					case "address":
+					{
+						self.locale.emails = self.models.addressCollection.models;
+						$(self.el).html(self.template(self.locale));
+						openbiz.ui.update($(self.el))
+						break;
+					}
+				}
+			},
+			saveRecord:function(event){
+				event.preventDefault();
 				if(!this._validateForm()) return;
 				var self = this;
 				var contact = {
@@ -57,7 +88,26 @@ define(['text!templates/me/userProfileView.html',
 							title:"Data notification",
 							message:"<h2>Data has been saved</h2>"
 						});
-						//update UI display name
+						self.app.views.get('system.NavView').updateDisplayName(contact.name.displayName);
+						self.app.views.get('system.HeaderView').updateDisplayName(contact.name.displayName);
+					}
+				});
+			},
+			showPhoneDeleteConfirm:function(event){
+				event.preventDefault();
+				var self = this;
+				var phoneId = $(event.currentTarget).attr('phone-id');
+				var phoneNumber = self.models.phoneCollection.get(phoneId).get("number");
+				bootbox.confirm({
+					title:"Data delete confirmation",
+					message:"You are about to delete this phone number: <h2>"+phoneNumber +"</h2> <br/> \
+	    				    Are you sure?",
+					callback:function(result){
+						if(result){
+							self.models.phoneCollection.get(phoneId).destroy({success:function(){
+								self._updateCollection("phone");
+							}});
+						}
 					}
 				});
 			},

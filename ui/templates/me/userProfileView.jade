@@ -35,7 +35,6 @@ ol.breadcrumb
 		table.table.table-striped.table-bordered.text-center
 			thead
 				tr
-					th.hidden-xs ID
 					th CountryCode
 					th Number
 					th.hidden-xs Type
@@ -44,19 +43,18 @@ ol.breadcrumb
 				<% if(phones.length){ %>
 				<% _.forEach(phones,function(phone){ %>
 				tr
-					td.hidden-xs <%= phone.id %>
 					td <%= phone.get("countryCode") %>
 					td <%= phone.get("number") %>
 					td.hidden-xs <%= phone.get("type") %>
 					td
 						div.tooltip-area
-							a.btn.btn-default.btn-sm.btn-record-detail(style="margin-right:5px;")
+							a.btn.btn-default.btn-sm.btn-phone-detail(style="margin-right:5px;")
 								span.hidden-xs
 									i.fa.fa-file-text-o
-									|&nbsp; Detail &nbsp;
+									|&nbsp; Edit &nbsp;
 								span.visible-xs
 									i.fa.fa-file-text-o
-							a.btn.btn-default.btn-sm.btn-record-delete(phone-id!='<%= phone.id %>')
+							a.btn.btn-default.btn-sm.btn-phone-delete(phone-id!='<%= phone.id %>')
 								span.hidden-xs
 									i.fa.fa-trash-o
 									|&nbsp; Delete &nbsp;
@@ -64,7 +62,31 @@ ol.breadcrumb
 									i.fa.fa-trash-o
 				<% }) %>
 				<% }else{ %>
-				//tr
-				//	td(colspan="5") Please click "Invite User" button to start invite your colleagues.
+
 				<% } %>
 
+	div.panel-body
+		table.table.table-striped.table-bordered.text-center
+			thead
+				tr
+					th Email
+					th Category
+					th Action
+			tbody
+				<% if(emails.length){ %>
+				<% _.forEach(emails,function(email){ %>
+				tr
+					td <%= email.get("email") %>
+					td <%= email.get("category") %>
+					td
+						div.tooltip-area
+							a.btn.btn-default.btn-sm.btn-phone-delete(email-id!='<%= email.id %>')
+								span.hidden-xs
+									i.fa.fa-trash-o
+									|&nbsp; Delete &nbsp;
+								span.visible-xs
+									i.fa.fa-trash-o
+				<% }) %>
+				<% }else{ %>
+
+				<% } %>

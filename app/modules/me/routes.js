@@ -28,34 +28,34 @@ module.exports = function(app){
 		"post /me/phones"                           : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 											     	   	app.getController("MeController").createMyPhone],
 
-		"put /me/phone/:id"                         : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"put /me/phones/:id"                        : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 													    app.getController("MeController").updateMyPhone],
 
-		"delete /me/phone/:id"                      : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"delete /me/phones/:id"                     : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 													    app.getController("MeController").deleteMyPhone],
 
 		"get /me/addresses"                         : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 												        app.getController("MeController").getMyAddresses],
 
-		"post /me/addresses"                         : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"post /me/addresses"                        : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 												   	    app.getController("MeController").createMyAddress],
 
-		"put /me/address/:id"                       : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"put /me/addresses/:id"                     : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 														app.getController("MeController").updateMyAddress],
 
-		"delete /me/address/:id"                    : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"delete /me/addresses/:id"                  : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 														app.getController("MeController").deleteMyAddress],
 
 		"get /me/emails"                            : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 														app.getController("MeController").getMyEmails],
 
-		"post /me/email"                            : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"post /me/emails"                           : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 												    	app.getController("MeController").createMyEmail],
 
-		"put /me/email/:id"                         : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"put /me/emails/:id"                        : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 														app.getController("MeController").updateMyEmail],
 
-		"delete /me/email/:id"                      : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		"delete /me/emails/:id"                     : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
 						                                app.getController("MeController").deleteMyEmail]
 	}
 }
