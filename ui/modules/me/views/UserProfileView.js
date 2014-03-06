@@ -11,25 +11,26 @@ define(['text!templates/me/userProfileView.html',
 			name: 'userProfileView',
 			el: '#main',
 			models:{
-				addressCollection: new addressCollection(openbiz.session.me.get('contact').addresses),
-				emailCollection: new emailCollection(openbiz.session.me.get('contact').emails),
-				phoneCollection: new phoneCollection(openbiz.session.me.get('contact').phones),
-				contact: new contact(openbiz.session.me.get('contact'))
+				addressCollection: null,
+				emailCollection: null,
+				phoneCollection: null,
+				contact: null
 			},
 			events:{
 				'click .btn-save':'saveRecord',
 				"click .btn-phone-delete" 	: "showPhoneDeleteConfirm"
 			},
 			initialize:function(){
-				var self = this;
 				openbiz.View.prototype.initialize.call(this);
+				var self = this;
+				this.models.addressCollection = new addressCollection(openbiz.session.me.get('contact').addresses);
+				this.models.emailCollection = new emailCollection(openbiz.session.me.get('contact').emails);
+				this.models.phoneCollection = new phoneCollection(openbiz.session.me.get('contact').phones);
+				this.models.contact = new contact(openbiz.session.me.get('contact'));
 				this.template = _.template(templateData);
 				openbiz.session.me.on('sync',function(){
 					$(self.el).html(self.template(self.locale));
 					openbiz.ui.update($(self.el))
-//					self._updateCollection("phone");
-//					self._updateCollection("email");
-//					self._updateCollection("address");
 				});
 			},
 			render:function(){
@@ -38,37 +39,35 @@ define(['text!templates/me/userProfileView.html',
 				this.locale.phones = this.models.phoneCollection.models;
 				this.locale.emails = this.models.emailCollection.models;
 				this.locale.addresses = this.models.addressCollection.models;
-
 				$(this.el).html(this.template(this.locale));
 				openbiz.ui.update($(this.el));
-
 			},
-			_updateCollection:function(collectionName){
-				var self = this;
-				switch (collectionName){
-					case "phone":
-					{
-						self.locale.phones = self.models.phoneCollection.models;
-						$(self.el).html(self.template(self.locale));
-						openbiz.ui.update($(self.el))
-						break;
-					}
-					case "email":
-					{
-						self.locale.emails = self.models.emailCollection.models;
-						$(self.el).html(self.template(self.locale));
-						openbiz.ui.update($(self.el))
-						break;
-					}
-					case "address":
-					{
-						self.locale.emails = self.models.addressCollection.models;
-						$(self.el).html(self.template(self.locale));
-						openbiz.ui.update($(self.el))
-						break;
-					}
-				}
-			},
+//			_updateCollection:function(collectionName){
+//				var self = this;
+//				switch (collectionName){
+//					case "phone":
+//					{
+//						self.locale.phones = self.models.phoneCollection.models;
+//						$(self.el).html(self.template(self.locale));
+//						openbiz.ui.update($(self.el))
+//						break;
+//					}
+//					case "email":
+//					{
+//						self.locale.emails = self.models.emailCollection.models;
+//						$(self.el).html(self.template(self.locale));
+//						openbiz.ui.update($(self.el))
+//						break;
+//					}
+//					case "address":
+//					{
+//						self.locale.emails = self.models.addressCollection.models;
+//						$(self.el).html(self.template(self.locale));
+//						openbiz.ui.update($(self.el))
+//						break;
+//					}
+//				}
+//			},
 			saveRecord:function(event){
 				event.preventDefault();
 				if(!this._validateForm()) return;

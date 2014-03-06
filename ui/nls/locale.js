@@ -151,7 +151,9 @@ define({
 		        firstName:'First Name',
 		        lastName:'Last Name',
 		        titleMr: 	'Mr.',
-		        titleMs: 	'Ms.'
+		        titleMs: 	'Ms.',
+		        company: 'Company',
+		        department:'Department'
 	        },
             setupWizardView:{
                 viewName:'Setup Wizard',

@@ -7,7 +7,9 @@ define(function(templateData){
 			name:null,
 			birthday:null,
 			avator:null,
-			title:null
+			title:null,
+			department:null,
+			company:null
 		}
 	});
 })
