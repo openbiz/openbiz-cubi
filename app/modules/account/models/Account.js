@@ -86,10 +86,11 @@ module.exports = function(app)
 		}
 		var checkTokenExist = function(){
 			var token = "ACCT-"+randomString(4)+"-"+randomString(6);
-			self.findOne({'invitations.code':token},function(err,account){
+			self.findOne({'invitations._id':token},function(err,account){
 				if(err){
 					callback(err,null);
 				}else if(account){
+					console.log("ACCT-0620-960082 exits");
 					return checkTokenExist();
 				}
 				else{
