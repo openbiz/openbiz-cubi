@@ -25,6 +25,9 @@ define(['text!templates/system/headerView.html'],
                 });
                 return this;
             },
+	        updateDisplayName:function(name){
+		        $(this.el).find('span.display-name').html(name);
+	        },
             logout:function(event){
                 event.preventDefault();
                 Backbone.history.trigger('dismissBackendUI',function(){

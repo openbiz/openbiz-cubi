@@ -1,49 +1,50 @@
 .logo-area.clearfix
-  a.logo(href='#do-nothing')
+	a.logo(href='#do-nothing')
 .tools-bar
-  ul.nav.navbar-nav.nav-main-xs
-    li
-      a.icon-toolsbar(href='#menu')
-        i.fa.fa-bars
-  ul.nav.navbar-nav.navbar-right.tooltip-area
-    li
-      a(href='#contact-right', data-toggle='tooltip', title='Find Contact', data-container='body', data-placement='left')
-        i.fa.fa-search
-    li.hidden-xs.hidden-sm
-      a.h-seperate(href='#do-nothing') <%= help %>
-    li
-      a.nav-collapse.avatar-header(href='#')
-        img.circle(alt='', src!='<%= baseUrl %>/images/avatar.png')
-        span.badge 3
-    li.dropdown
-      a.dropdown-toggle(href='#', data-toggle='dropdown', data-hover='dropdown')
-        em
-          strong <%= hi %>
-          | , <%= me.contact.name.displayName %>
-        i.dropdown-icon.fa.fa-angle-down
-      ul.dropdown-menu.pull-right.icon-right.arrow
-        li
-          a(href='#me/profile')
-            i.fa.fa-user
-            | Profile
-        li
-          a(href='#do-nothing')
-            i.fa.fa-cog
-            | Setting
-        li
-          a(href='#do-nothing')
-            i.fa.fa-bookmark
-            | Bookmarks
-        li
-          a(href='#do-nothing')
-            i.fa.fa-money
-            | Make a Deposit
-        li.divider
-        li
-          a.btn-logout(href='#!/backend/me/logout')
-            i.fa.fa-sign-out
-            | Signout
-      // //dropdown-menu
-    li.visible-lg
-      a.h-seperate.fullscreen(href='#', data-toggle='tooltip', title='Full Screen', data-container='body', data-placement='left')
-        i.fa.fa-expand
+	ul.nav.navbar-nav.nav-main-xs
+		li
+			a.icon-toolsbar(href='#menu')
+				i.fa.fa-bars
+	ul.nav.navbar-nav.navbar-right.tooltip-area
+		li
+			a(href='#contact-right', data-toggle='tooltip', title='Find Contact', data-container='body', data-placement='left')
+				i.fa.fa-search
+		li.hidden-xs.hidden-sm
+			a.h-seperate(href='#do-nothing') <%= help %>
+		li
+			a.nav-collapse.avatar-header(href='#')
+				img.circle(alt='', src!='<%= baseUrl %>/images/avatar.png')
+				span.badge 3
+		li.dropdown
+			a.dropdown-toggle(href='#', data-toggle='dropdown', data-hover='dropdown')
+				em
+					strong <%= hi %>
+						| ,
+					span.display-name <%= me.contact.name.displayName %>
+				i.dropdown-icon.fa.fa-angle-down
+			ul.dropdown-menu.pull-right.icon-right.arrow
+				li
+					a(href='#!/backend/me/profile')
+						i.fa.fa-user
+						| Profile
+				li
+					a(href='#do-nothing')
+						i.fa.fa-cog
+						| Setting
+				li
+					a(href='#do-nothing')
+						i.fa.fa-bookmark
+						| Bookmarks
+				li
+					a(href='#do-nothing')
+						i.fa.fa-money
+						| Make a Deposit
+				li.divider
+				li
+					a.btn-logout(href='#!/backend/me/logout')
+						i.fa.fa-sign-out
+						| Signout
+			// //dropdown-menu
+		li.visible-lg
+			a.h-seperate.fullscreen(href='#', data-toggle='tooltip', title='Full Screen', data-container='body', data-placement='left')
+				i.fa.fa-expand

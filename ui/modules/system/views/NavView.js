@@ -14,7 +14,7 @@ define(['text!templates/system/navView.html'],
                 $(this.el).find('span.account-name').html(name);
             },
             updateDisplayName:function(name){
-                $(this.el).find('span.display-name').html(name);
+	            $(this.el).find('span.display-name').html(name);
             },
             render:function(){
                 var self = this;

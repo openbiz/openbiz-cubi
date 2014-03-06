@@ -146,6 +146,13 @@ define({
             }
         },
         me:{
+	        userProfileView:{
+				viewTitle:'<strong>Me</strong> Profile',
+		        firstName:'First Name',
+		        lastName:'Last Name',
+		        titleMr: 	'Mr.',
+		        titleMs: 	'Ms.'
+	        },
             setupWizardView:{
                 viewName:'Setup Wizard',
                 viewTitle: '<strong>Account</strong> Setup Wizard',

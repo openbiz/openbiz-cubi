@@ -90,8 +90,10 @@ module.exports = function(grunt) {
                       //models
                       'modules/me/models/Me',         
                       //views              
-                      'modules/me/views/SetupWizardView'                      
-                    ]            
+                      'modules/me/views/SetupWizardView',
+	                  'modules/me/views/UserProfileView'
+
+              ]
             }
           }
         }

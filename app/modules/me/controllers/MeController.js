@@ -99,6 +99,9 @@ module.exports = function(app){
 		{
 			res.json(200,req.user.getOutput());
 		},
+		getContact: function(req, res){
+			res.json(200,req.user.contact);
+		},
 		updateContact: function(req, res){
 			var input = req.body;
 			if(input.name){
@@ -114,7 +117,7 @@ module.exports = function(app){
 				if(err){
 					res.json(500,{error:err});
 				}else{
-					res.send(200);
+					res.send(204);
 				}
 			});
 		},
@@ -142,7 +145,7 @@ module.exports = function(app){
 				if(err){
 					res.json(500,{error:err});
 				}else{
-					res.send(200);
+					res.send(204);
 				}
 			});
 		},
@@ -156,7 +159,7 @@ module.exports = function(app){
 					if(err){
 						res.json(500,{error:err});
 					}else{
-						res.send(200);
+						res.send(204);
 					}
 				});
 			}
@@ -187,21 +190,62 @@ module.exports = function(app){
 				if(err){
 					res.json(500,{error:err});
 				}else{
-					res.send(200);
+					res.send(204);
 				}
 			});
 		},
 		deleteMyAddress: function(req, res){
-			var phone = req.user.contact.addresses.id(req.params.id);
-			if(phone == null){
+			var address = req.user.contact.addresses.id(req.params.id);
+			if(address == null){
 				res.send(304);
 			}else{
-				req.user.contact.addresses.remove(phone);
+				req.user.contact.addresses.remove(address);
 				req.user.contact.save(function(err){
 					if(err){
 						res.json(500,{error:err});
 					}else{
-						res.send(200);
+						res.send(204);
+					}
+				});
+			}
+		},
+		getMyEmails: function(req, res){
+			res.json(200,req.user.contact.emails);
+		},
+		createMyEmail: function(req, res){
+			req.user.contact.emails.push(req.body);
+			req.user.contact.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}else{
+					res.send(201);
+				}
+			});
+		},
+		updateMyEmail: function(req, res){
+			var email = req.user.contact.emails.id(req.params.id);
+			var input = req.body;
+			email.category = input.category;
+			email.email = input.email;
+			req.user.contact.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}else{
+					res.send(204);
+				}
+			});
+		},
+		deleteMyEmail: function(req, res){
+			var email = req.user.contact.emails.id(req.params.id);
+			if(email == null){
+				res.send(304);
+			}else{
+				req.user.contact.emails.remove(email);
+				req.user.contact.save(function(err){
+					if(err){
+						res.json(500,{error:err});
+					}else{
+						res.send(204);
 					}
 				});
 			}
