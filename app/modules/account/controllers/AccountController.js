@@ -137,7 +137,8 @@ module.exports = function(app){
 			});
 		},
 		getInvitationTokens:function(req,res){
-			res.json(200,req.user.account.invitations);
+			var results = app.openbiz.services.ArrayPaginator(req.user.account.invitations,req.query);
+			res.json(200,results);
 		},
 		getInvitationToken:function(req,res){
 			res.json(200,req.user.account.invitations.id(req.params.id.toUpperCase()));
