@@ -90,7 +90,6 @@ module.exports = function(app)
 				if(err){
 					callback(err,null);
 				}else if(account){
-					console.log("ACCT-0620-960082 exits");
 					return checkTokenExist();
 				}
 				else{

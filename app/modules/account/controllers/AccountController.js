@@ -19,6 +19,8 @@ module.exports = function(app){
 			// ['dss','openbiz-cubi']
 			for(var i in req.body){
 				if(!req.user.account.apps.id(req.body[i])){
+					console.log("install : ");
+					console.log(req.body[i]);
 					req.user.account.apps.push({
 						_id 	: 	req.body[i],
 						setting : 	{}
