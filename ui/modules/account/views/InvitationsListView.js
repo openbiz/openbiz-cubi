@@ -8,8 +8,6 @@ define(['text!templates/account/invitationsListView.html',
 		name: 'invitationsListView',
 		el: '#main',
 		collection: dataCollection,
-		grid: null,
-		paginator:null,
 		events:{
 			"click .btn-record-delete" 	: "showRecordDeleteConfirm" ,
 			"click .btn-record-add" 	: "showRecordAddView"
@@ -19,55 +17,99 @@ define(['text!templates/account/invitationsListView.html',
 			openbiz.View.prototype.initialize.call(this); 			
 	        this.template = _.template(templateData);
 	        this.collection = new dataCollection();
-	        // this.collection.on('sync',function(){
-	        // 	var output = self.locale;
-	        // 	output.invitations = self.collection.models;
-	        // 	$(self.el).html(self.template(output));
-	        // 	$(self.el).find('.pagination').bootstrapPaginator({
-         //    		currentPage: 3,
-         //    		totalPages: 10
-        	// 	});	        	
-	        // 	openbiz.ui.update($(self.el));
-	        // })
     	},
     	renderDataGrid:function(){
     		var columns = [
 	    		{
 	    			name: "_id",
 	    			label: "Token",
-	    			cell: "String"
+	    			cell: Backgrid.UriCell.extend({				      
+				      render: function () {
+					    this.$el.empty();
+					    var rawValue = this.model.get(this.column.get("name"));
+					    var formattedValue = this.formatter.fromRaw(rawValue, this.model);
+					    this.$el.append($("<a>", {
+					      tabIndex: -1,
+					      href: "#!/backend/account/invitations/"+rawValue,
+					      title: this.title || formattedValue
+					    }).text(formattedValue));
+					    this.delegateEvents();
+					    return this;
+					  }
+				    }),	    			
+	    			editable: false,
+	    			sortable: false
 	    		},
 				{
 	    			name: "data.contact.name.displayName",
 	    			label: "User",
-	    			cell: "String"
+	    			cell: "String",
+	    			className:'hidden-xs',
+	    			editable: false
 	    		},	
 				{
 	    			name: "data.username",
 	    			label: "Email",
-	    			cell: "String"
+	    			cell: "String",
+	    			editable: false
 	    		},	    		    
 				{
 	    			name: "expiredDate",
 	    			label: "Expiry Date",
-	    			cell: "Date"
+	    			cell: "Date",
+	    			className:'hidden-xs',
+	    			editable: false
 	    		},
+	    		{
+	    			name: "_id",
+	    			label: "Action",
+	    			cell: Backgrid.UriCell.extend({				      
+				      render: function () {
+						    this.$el.empty();    
+						    var model = this.model;						    
+						    var value = model.get(this.column.get("name"));
+						    this.$el.html( _.template(
+						    	$('#action-column-template').html(),
+						    	{id:value},
+						    	{interpolate: /\{\{(.+?)\}\}/g}) );
+						    this.delegateEvents();
+						    return this;
+					  }
+				    }),	
+	    			editable: false,
+	    			sortable: false
+	    		}
     		];
-    		this.grid = new Backgrid.Grid({
+
+    		//init the search bar
+			var filter = new Backgrid.Extension.ServerSideFilter({
+			  collection: this.collection,
+			  name: "query",
+			  placeholder: "ex: Search an invitation"
+			});
+			$(this.el).find('.data-grid').append(filter.render().el);
+
+    		//init the data grid
+    		var grid = new Backgrid.Grid({
     			columns:columns,
-    			collection: this.collection
+    			collection: this.collection,
+    			className: 'backgrid table table-striped table-bordered text-center',
+    			emptyText: 'Please click "Invite User" button to start invite your colleagues.'
     		})
-    		$(this.el).find('.data-grid').append(this.grid.render().el);
-			this.paginator = new Backgrid.Extension.Paginator({			  
+    		$(this.el).find('.data-grid').append(grid.render().el);
+
+    		//init the paginator
+			var paginator = new Backgrid.Extension.Paginator({			  
 				windowSize: 10, 
 				slideScale: 0.5, 
 				goBackFirstOnSort: true, 
 				collection: this.collection,
-				cssClass:'pagination'
+				className:'pagination'
 			});
-			$(this.el).find('.data-grid').append(this.paginator.render().el);
+			$(this.el).find('.data-grid').append(paginator.render().el);
+
+			//pull data from server now
     		this.collection.fetch();
-    		openbiz.ui.update($(this.el));
     	},
 		render:function(){	    			
 	        $(window).off('resize');
