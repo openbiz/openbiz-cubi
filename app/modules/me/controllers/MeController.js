@@ -130,7 +130,8 @@ module.exports = function(app){
 				if(err){
 					res.json(500,{error:err});
 				}else{
-					res.send(201);
+					res.send(201,req.body);
+//					res.send(204);
 				}
 			});
 		},
@@ -170,7 +171,7 @@ module.exports = function(app){
 				if(err){
 					res.json(500,{error:err});
 				}else{
-					res.send(201);
+					res.send(201,req.body);
 				}
 			});
 		},
@@ -218,7 +219,7 @@ module.exports = function(app){
 				if(err){
 					res.json(500,{error:err});
 				}else{
-					res.send(201);
+					res.send(201,req.body);
 				}
 			});
 		},

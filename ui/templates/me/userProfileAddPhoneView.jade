@@ -1,0 +1,16 @@
+#user-add-modal.modal.fade(tabindex='-1')
+	.modal-header
+		button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+		h3 Add a New Phone
+	form.modal-body.form-add-phone(role="form",parsley-validate,novalidate="novalidate")
+		section.profile
+			div.form-group
+				label Phone
+				div(style="height:34px;")
+					input.form-control.pull-left#inputMobileCountryCode(name="mobileCountryCode",required,placeholder!="<%= phoneCountryCode %>",value!="<%= phoneDefaultCountryCode %>",style="width:25%;padding-right:0px;margin-right:2%")
+					input.form-control.pull-left#inputMobileNumber(name="mobileNumber",required,type="tel",placeholder!="<%= mobileNumber %>",style="width:73%")
+		section
+			hr
+			button.btn-phone-save-record.btn.btn-theme(type="submit")
+				i.fa.fa-check
+					| &nbsp; Save &nbsp;

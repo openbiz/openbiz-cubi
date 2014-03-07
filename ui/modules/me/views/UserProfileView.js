@@ -18,7 +18,8 @@ define(['text!templates/me/userProfileView.html',
 			},
 			events:{
 				'click .btn-save':'saveRecord',
-				"click .btn-phone-delete" 	: "showPhoneDeleteConfirm"
+				"click .btn-phone-delete" 	: "showPhoneDeleteConfirm",
+				"click .btn-phone-add"      : "showPhoneAddView"
 			},
 			initialize:function(){
 				openbiz.View.prototype.initialize.call(this);
@@ -32,6 +33,12 @@ define(['text!templates/me/userProfileView.html',
 					$(self.el).html(self.template(self.locale));
 					openbiz.ui.update($(self.el))
 				});
+
+				this.models.phoneCollection.on('sync',function(){
+					self.locale.phones = self.models.phoneCollection.models;
+					$(self.el).html(self.template(self.locale));
+					openbiz.ui.update($(self.el));
+				})
 			},
 			render:function(){
  				$(window).off('resize');
@@ -42,32 +49,10 @@ define(['text!templates/me/userProfileView.html',
 				$(this.el).html(this.template(this.locale));
 				openbiz.ui.update($(this.el));
 			},
-//			_updateCollection:function(collectionName){
-//				var self = this;
-//				switch (collectionName){
-//					case "phone":
-//					{
-//						self.locale.phones = self.models.phoneCollection.models;
-//						$(self.el).html(self.template(self.locale));
-//						openbiz.ui.update($(self.el))
-//						break;
-//					}
-//					case "email":
-//					{
-//						self.locale.emails = self.models.emailCollection.models;
-//						$(self.el).html(self.template(self.locale));
-//						openbiz.ui.update($(self.el))
-//						break;
-//					}
-//					case "address":
-//					{
-//						self.locale.emails = self.models.addressCollection.models;
-//						$(self.el).html(self.template(self.locale));
-//						openbiz.ui.update($(self.el))
-//						break;
-//					}
-//				}
-//			},
+			showPhoneAddView:function(event){
+				event.preventDefault();
+				this.popupView('me.UserProfileAddPhoneView');
+			},
 			saveRecord:function(event){
 				event.preventDefault();
 				if(!this._validateForm()) return;
@@ -78,8 +63,10 @@ define(['text!templates/me/userProfileView.html',
 						firstName:$(this.el).find('input[name="contact-firstname"]').val(),
 						displayName:$(this.el).find('input[name="contact-lastname"]').val()+$(this.el).find('input[name="contact-firstname"]').val()
 					},
-					title:"Ms."
+					title:"Ms.",
+					birthday:new Date($(this.el).find('input[name="contact-birthday"]').val())
 				};
+				console.log(contact);
 				this.models.contact.save(contact,{
 					success:function(){
 						bootbox.alert({

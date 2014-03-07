@@ -146,6 +146,11 @@ define({
             }
         },
         me:{
+	        userProfileAddPhoneView:{
+		        mobileNumber: 'Mobile Number',
+		        phoneDefaultCountryCode: '+1',
+		        phoneCountryCode: 'Country Code',
+	        },
 	        userProfileView:{
 				viewTitle:'<strong>Me</strong> Profile',
 		        firstName:'First Name',
@@ -153,7 +158,8 @@ define({
 		        titleMr: 	'Mr.',
 		        titleMs: 	'Ms.',
 		        company: 'Company',
-		        department:'Department'
+		        department:'Department',
+		        birthday:'Birthday'
 	        },
             setupWizardView:{
                 viewName:'Setup Wizard',

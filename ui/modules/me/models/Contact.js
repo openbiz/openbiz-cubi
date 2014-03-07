@@ -10,6 +10,14 @@ define(function(templateData){
 			title:null,
 			department:null,
 			company:null
+		},
+		getBirthday:function(){
+			var date = new Date(this.get('birthday'));
+			console.log(date);
+			if(!date){
+				date = new Date();
+			}
+			return  date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
 		}
 	});
 })
