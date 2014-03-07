@@ -30,7 +30,7 @@ define(['./App'],function(App){
                                         app.locale = locale.app;
                                     }
                                     //load apps menu scripts
-                                    var callback = function(){
+                                    var callback = function(){                                        
                                         loadedLocales[app.name]=app;
                                         loadedLocalesCounter++;
                                         if(loadedLocalesCounter == data.length){
