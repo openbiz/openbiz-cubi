@@ -12,45 +12,26 @@ ol.breadcrumb
             header.panel-heading
                 h2 User Invitations
                 p You can invite your colleague to join this account  
-            div.panel-body
-                .data-grid
-                //- table.table.table-striped.table-bordered.text-center
-                //-     thead
-                //-         tr
-                //-             th Token
-                //-             th.hidden-xs Invited User
-                //-             th Email
-                //-             th.hidden-xs Expiry Date                            
-                //-             th Action
-                //-     tbody  
-                //-         <% if(invitations.length){ %>      
-                //-         <% _.forEach(invitations,function(invitation){ %>        
-                //-         tr
-                //-             td 
-                //-                 a(href!="#!/backend/account/invitations/<%= invitation.id %>") <%= invitation.id %>
-                //-             td.hidden-xs <%= invitation.get('data').contact.name.displayName %>
-                //-             td <%= invitation.get('data').username %>
-                //-             td.hidden-xs <%= invitation.getDisplayExpiryDate() %>                            
-                //-             td 
-                //-                 div.tooltip-area
-                //-                     a.btn.btn-default.btn-sm.btn-record-detail(href!="#!/backend/account/invitations/<%= invitation.id %>",style="margin-right:5px;")
-                //-                         span.hidden-xs
-                //-                             i.fa.fa-file-text-o
-                //-                             |&nbsp; Detail &nbsp;
-                //-                         span.visible-xs
-                //-                             i.fa.fa-file-text-o
-                //-                     a.btn.btn-default.btn-sm.btn-record-delete(href="#",record-id!='<%= invitation.id %>')
-                //-                         span.hidden-xs
-                //-                             i.fa.fa-trash-o
-                //-                             |&nbsp; Delete &nbsp;
-                //-                         span.visible-xs
-                //-                             i.fa.fa-trash-o
-                //-         <% }) %>
-                //-         <% }else{ %>
-                //-         tr
-                //-             td(colspan="5") Please click "Invite User" button to start invite your colleagues.
-                //-         <% } %>                
+            
+            div.panel-body.data-grid
+
             footer.panel-footer
                 button.btn-next.btn.btn-theme.btn-record-add(type="submit") 
                     i.fa.fa-plus
                     | &nbsp; Invite User &nbsp;                    
+
+//- Below template is only for action columns use
+script(type="text/template",id="action-column-template")
+    div.tooltip-area
+        a.btn.btn-default.btn-sm.btn-record-detail(href!="#!/backend/account/invitations/{{ id }}",style="margin-right:5px;")
+            span.hidden-xs
+                i.fa.fa-file-text-o
+                |&nbsp; Detail &nbsp;
+            span.visible-xs
+                i.fa.fa-file-text-o
+        a.btn.btn-default.btn-sm.btn-record-delete(href="#",record-id!='{{ id }}')
+            span.hidden-xs
+                i.fa.fa-trash-o
+                |&nbsp; Delete &nbsp;
+            span.visible-xs
+                i.fa.fa-trash-o 
