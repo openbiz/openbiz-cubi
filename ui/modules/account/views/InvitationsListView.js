@@ -108,11 +108,8 @@ define(['text!templates/account/invitationsListView.html',
 			});
 			$(this.el).find('.data-grid').append(paginator.render().el);
 
-			
-
 			//pull data from server now
     		this.collection.fetch();
-    		openbiz.ui.update($(this.el));
     	},
 		render:function(){	    			
 	        $(window).off('resize');
