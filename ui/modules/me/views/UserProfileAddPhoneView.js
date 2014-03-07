@@ -41,8 +41,8 @@ define(['text!templates/me/userProfileAddPhoneView.html',
 					self.$el.modal('hide');
 					},error: function(model, response) {
 						console.log(model);
-					console.log(response);
-				}
+						console.log(response);
+					}
 				});
 			},
 			_validateForm:function(){

@@ -122,7 +122,8 @@ module.exports = function(app){
 			});
 		},
 		getMyPhones: function(req, res){
-			res.json(200,req.user.contact.phones);
+			var results = app.openbiz.services.ArrayPaginator(req.user.contact.phones,req.query);
+			res.json(200,results);
 		},
 		createMyPhone: function(req, res){
 			req.user.contact.phones.push(req.body);

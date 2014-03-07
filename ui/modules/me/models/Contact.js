@@ -13,7 +13,6 @@ define(function(templateData){
 		},
 		getBirthday:function(){
 			var date = new Date(this.get('birthday'));
-			console.log(date);
 			if(!date){
 				date = new Date();
 			}

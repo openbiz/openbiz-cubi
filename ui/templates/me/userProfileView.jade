@@ -45,82 +45,21 @@ ol.breadcrumb
 			button.btn-save.btn.btn-theme(type="submit")
 				i.fa.fa-check
 					| &nbsp; Save &nbsp;
-		div.panel-body
-			table.table.table-striped.table-bordered.text-center
-				thead
-					tr
-						th CountryCode
-						th Number
-						th.hidden-xs Type
-						th Action
-				tbody
-					<% if(phones.length){ %>
-					<% _.forEach(phones,function(phone){ %>
-					tr
-						td <%= phone.get("countryCode") %>
-						td <%= phone.get("number") %>
-						td.hidden-xs <%= phone.get("type") %>
-						td
-							div.tooltip-area
-								a.btn.btn-default.btn-sm.btn-phone-delete(phone-id!='<%= phone.id %>')
-									span.hidden-xs
-										i.fa.fa-trash-o
-										| &nbsp; Delete &nbsp;
-									span.visible-xs
-										i.fa.fa-trash-o
-					<% }) %>
-					<% } %>
+		div.panel-body.data-grid-phone
+			//form.form-phone(role="form",parsley-validate,novalidate="novalidate")
+				.data-grid-phone
+
 		footer.panel-footer
 			button.btn-next.btn.btn-theme.btn-phone-add(type="submit")
 				i.fa.fa-plus
 				| &nbsp; Add Phone &nbsp;
-		div.panel-body
-			table.table.table-striped.table-bordered.text-center
-				thead
-					tr
-						th Email
-						th Category
-						th Action
-				tbody
-					<% if(emails.length){ %>
-					<% _.forEach(emails,function(email){ %>
-					tr
-						td <%= email.get("email") %>
-						td <%= email.get("category") %>
-						td
-							div.tooltip-area
-								a.btn.btn-default.btn-sm.btn-phone-delete(email-id!='<%= email.id %>')
-									span.hidden-xs
-										i.fa.fa-trash-o
-										| &nbsp; Delete &nbsp;
-									span.visible-xs
-										i.fa.fa-trash-o
-				<% }) %>
-				<% } %>
-		//div.panel-body
-			table.table.table-striped.table-bordered.text-center
-				thead
-					tr
-						th Email
-						th Category
-						th Action
-				tbody
-					<% if(emails.length){ %>
-					<% _.forEach(emails,function(email){ %>
-					tr
-						td <%= email.get("email") %>
-						td <%= email.get("category") %>
-						td
-							div.tooltip-area
-								a.btn.btn-default.btn-sm.btn-phone-delete(email-id!='<%= email.id %>')
-									span.hidden-xs
-										i.fa.fa-trash-o
-										| &nbsp; Delete &nbsp;
-									span.visible-xs
-										i.fa.fa-trash-o
-					<% }) %>
-					<% } %>
-		//footer.panel-footer
-			button.btn-next.btn.btn-theme.btn-address-add(type="submit")
-				i.fa.fa-plus
-				| &nbsp; Add Address &nbsp;
+		//div.panel-body.data-grid-email
+
+script(type="text/template",id="action-column-template-phone")
+	div.tooltip-area
+		a.btn.btn-default.btn-sm.btn-phone-delete(phone-id!='{{ id }}')
+			span.hidden-xs
+				i.fa.fa-trash-o
+				| &nbsp; Delete &nbsp;
+			span.visible-xs
+				i.fa.fa-trash-o
