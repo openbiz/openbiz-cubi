@@ -19,12 +19,15 @@ define(['text!templates/me/userProfileView.html',
 			events:{
 				'click .btn-save':'saveRecord',
 				"click .btn-phone-delete" 	: "showPhoneDeleteConfirm",
-				"click .btn-phone-add"      : "showPhoneAddView"
+				"click .btn-phone-add"      : "showPhoneAddView",
+				"click .btn-uploadPicture"  : "uploadPicture",
+				"click .btn-address-delete" 	: "showAddressDeleteConfirm",
+				"click .btn-address-add"      : "showAddressAddView"
 			},
 			initialize:function(){
 				openbiz.View.prototype.initialize.call(this);
 				var self = this;
-				this.models.addressCollection = new addressCollection(openbiz.session.me.get('contact').addresses);
+				this.models.addressCollection = new addressCollection();
 				this.models.emailCollection = new emailCollection(openbiz.session.me.get('contact').emails);
 				this.models.phoneCollection = new phoneCollection();
 				this.models.contact = new contact(openbiz.session.me.get('contact'));
@@ -47,7 +50,9 @@ define(['text!templates/me/userProfileView.html',
 					{
 						name:"number",
 						label:"Number",
-						cell:"string",
+						cell: Backgrid.IntegerCell.extend({
+							orderSeparator: ''
+						}),
 						editable:true,
 						sortable: false
 					},
@@ -72,8 +77,26 @@ define(['text!templates/me/userProfileView.html',
 					}
 				];
 
+				var editRow = Backgrid.Row.extend({
+					events: {
+						focusin: "rowFocused",
+						focusout: "rowLostFocus"
+					},
+					rowFocused: function(event) {
+						var number = this.model.get("number");
+						var countryCode = this.model.get("countryCode");
+						console.log(event.currentTarget.innerText);
+					},
+					rowLostFocus: function(event) {
+						console.log($(event.currentTarget).text());
+						console.log($(event.currentTarget).val());
+						console.log($(event.currentTarget).html());
+					}
+				});
+
 				//init data grid
 				var grid = new Backgrid.Grid({
+					row: editRow,
 					columns:columns,
 					collection:this.models.phoneCollection,
 					className: 'backgrid table table-striped table-bordered text-center',
@@ -92,6 +115,89 @@ define(['text!templates/me/userProfileView.html',
 				$(this.el).find('.data-grid-phone').append(paginator.render().el);
 				this.models.phoneCollection.fetch();
 			},
+			renderDataAddressGrid:function(){
+
+				//init columns
+				var columns = [
+					{
+						name:"country",
+						label:"Country",
+						cell:"string",
+						editable:false,
+						sortable: false
+					},
+					{
+						name:"state",
+						label:"Province",
+						cell:"string",
+						editable:false,
+						sortable: false
+					},
+					{
+						name:"city",
+						label:"City",
+						cell:"string",
+						editable:false,
+						sortable: false
+					},
+					{
+						name:"street",
+						label:"Street",
+						cell:"string",
+						editable:false,
+						sortable: false
+					},
+					{
+						name:"zipcode",
+						label:"Zipcode",
+						cell: Backgrid.IntegerCell.extend({
+							orderSeparator: ''
+						}),
+						editable:false,
+						sortable: false
+					},
+					{
+						name:"_id",
+						label:"Action",
+						cell:Backgrid.UriCell.extend({
+							render:function(){
+								this.$el.empty();
+								var value = this.model.get("_id");
+								this.$el.html(_.template(
+									$('#action-column-template-address').html(),
+									{id:value},
+									{interpolate: /\{\{(.+?)\}\}/g}
+								));
+								this.delegateEvents();
+								return this;
+							}
+						}),
+						editable:false,
+						sortable: false
+					}
+				];
+
+				//init data grid
+				var grid = new Backgrid.Grid({
+					columns:columns,
+					collection:this.models.addressCollection,
+					className: 'backgrid table table-striped table-bordered text-center',
+					emptyText: 'Please click "Add Address" button to add your new address.'
+				});
+				$(this.el).find('.data-grid-address').append(grid.render().el);
+
+				//init the paginator
+				var paginator = new Backgrid.Extension.Paginator({
+					windowSize: 2,
+					slideScale: 0.5,
+					goBackFirstOnSort: true,
+					collection: this.models.addressCollection,
+					className:'pagination'
+				});
+				$(this.el).find('.data-grid-address').append(paginator.render().el);
+				var self = this;
+				this.models.addressCollection.fetch();
+			},
 			render:function(){
  				$(window).off('resize');
 				this.locale.contact = this.models.contact;
@@ -101,6 +207,7 @@ define(['text!templates/me/userProfileView.html',
 				$(this.el).html(this.template(this.locale));
 				openbiz.ui.update($(this.el));
 				this.renderDataPhoneGrid();
+				this.renderDataAddressGrid();
 			},
 			showPhoneAddView:function(event){
 				event.preventDefault();
@@ -119,7 +226,7 @@ define(['text!templates/me/userProfileView.html',
 					title:"Ms.",
 					birthday:new Date($(this.el).find('input[name="contact-birthday"]').val())
 				};
-				console.log(contact);
+
 				this.models.contact.save(contact,{
 					success:function(){
 						bootbox.alert({
@@ -149,11 +256,49 @@ define(['text!templates/me/userProfileView.html',
 					}
 				});
 			},
+			showAddressAddView:function(event){
+				event.preventDefault();
+				this.popupView('me.UserProfileAddAddressView');
+			},
+			showAddressDeleteConfirm:function(event){
+				event.preventDefault();
+				var self = this;
+				var addressId = $(event.currentTarget).attr('address-id');
+				bootbox.confirm({
+					title:"Data delete confirmation",
+					message:"You are about to delete this address <br/> \
+	    				    Are you sure?",
+					callback:function(result){
+						if(result){
+							self.models.addressCollection.get(addressId).destroy({success:function(){
+								self.models.addressCollection.fetch();
+							}});
+						}
+					}
+				});
+			},
+			uploadPicture:function(event){
+				event.preventDefault();
+				var self = this;
+				$(this.el).find("#group-content-picture").ajaxSubmit({
+					complete: function(response)
+					{
+						if(response.status==201){
+							console.log(self.locale.baseUrl + response.responseJSON.location);
+							$("#avator").attr("src",self.locale.baseUrl + response.responseJSON.location);
+							$("#uploadFile").val("");
+						}else{
+
+						}
+					},
+					error: function()
+					{
+//						$(".file-upload-indicator").hide();
+					}
+				});
+			},
 			_validateForm:function(){
 				return $(this.el).find('.form-profile').parsley('validate');
 			}
-//			_validatePhone:function(){
-//				return $(this.el).find('.form-phone').parsley('validate');
-//			}
 		});
 	});

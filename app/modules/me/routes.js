@@ -56,6 +56,10 @@ module.exports = function(app){
 														app.getController("MeController").updateMyEmail],
 
 		"delete /me/emails/:id"                     : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
-						                                app.getController("MeController").deleteMyEmail]
+						                                app.getController("MeController").deleteMyEmail],
+
+		"post /me/upload"                            : [ require('connect-multiparty')({ uploadDir: require('path').join(__dirname,'public','upload','_tmp') }),
+														app.openbiz.ensurePermission("cubi-myaccount-manage"),
+														app.getController("MeController").onUpload]
 	}
 }
