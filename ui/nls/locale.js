@@ -149,7 +149,14 @@ define({
 	        userProfileAddPhoneView:{
 		        mobileNumber: 'Mobile Number',
 		        phoneDefaultCountryCode: '+1',
-		        phoneCountryCode: 'Country Code',
+		        phoneCountryCode: 'Country Code'
+	        },
+	        userProfileAddAddressView:{
+		        country: 'Country',
+		        state: 'Province',
+		        city: 'City',
+		        street: 'Street',
+		        zipcode: 'Zipcode'
 	        },
 	        userProfileView:{
 				viewTitle:'<strong>Me</strong> Profile',

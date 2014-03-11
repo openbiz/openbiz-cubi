@@ -4,12 +4,6 @@ define(function(templateData){
 		url:openbiz.apps.cubi.appUrl+'/me/profile',
 		idAttribute: "_id",
 		defaults:{
-			name:null,
-			birthday:null,
-			avator:null,
-			title:null,
-			department:null,
-			company:null
 		},
 		getBirthday:function(){
 			var date = new Date(this.get('birthday'));
