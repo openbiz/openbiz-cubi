@@ -1,8 +1,13 @@
 "use strict";
 define(['./App'],function(App){
-    return Backbone.Collection.extend({
+    return Backbone.PageableCollection.extend({
         model: App,
         url: openbiz.apps.cubi.appUrl ? openbiz.apps.cubi.appUrl+'/apps' : null,
+        state: {
+            pageSize: 3,
+            sortKey: "name",
+            order: 1
+        },
         sync:function(method,model,options){
             switch(method){
                 case 'read':

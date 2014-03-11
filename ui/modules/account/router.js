@@ -6,6 +6,7 @@ define(function(){
 		},
 		routes:{
 			"!/backend/account/applications" 	: "showApplications",
+            "!/backend/account/applications/:id" : "showApplicationDetail",
             "!/backend/account/members"       	: "showMembers",
             "!/backend/account/invitations"     : "showInvitations",
             "!/backend/account/invitations/:id" : "showInvitationDetail",
@@ -17,6 +18,9 @@ define(function(){
 		},		
         showApplications:function(){
             this.renderView("account.ApplicationsListView");
+        },
+        showApplicationDetail:function(id){
+            this.renderView("account.ApplicationsDetailView",arguments);
         },
         showInvitations:function(){
             this.renderView("account.InvitationsListView");

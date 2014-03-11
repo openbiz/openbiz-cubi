@@ -1,0 +1,41 @@
+ol.breadcrumb
+    li
+        a(href='#!/backend/dashboard') Home
+    li
+        a(href='#!/backend/account') Account
+    li.active Applications
+// //breadcrumb
+#content
+    .row
+        .col-lg-12
+            section.panel.wizard-form.corner-flip(role="form",parsley-validate,novalidate="novalidate")
+                header.panel-heading
+                    h2 User Applications
+                    p You can invite your colleague to join this account
+                        div.tabbable
+                            ul.nav.nav-tabs(data-provide='tabdrop')
+                                li.active
+                                    a(data-toggle='tab', href='#tab1') Install
+                                li
+                                    a(data-toggle='tab', href='#tab2') Uninstall
+                            div.tab-content
+                                div#tab1.tab-pane.fade.active.in
+                                    div.panel-body.install-grid
+                                div#tab2.tab-pane.fade
+                                    div.panel-body.uninstall-grid
+
+//- Below template is only for action columns use
+script(type="text/template",id="action-column-template")
+    div.tooltip-area
+        a.btn.btn-default.btn-sm.btn-record-detail(href!="#!/backend/account/invitations/{{ id }}",style="margin-right:5px;")
+            span.hidden-xs
+                i.fa.fa-file-text-o
+                |&nbsp; Detail &nbsp;
+            span.visible-xs
+                i.fa.fa-file-text-o
+        a.btn.btn-default.btn-sm.btn-record-delete(href="#",record-id!='{{ id }}')
+            span.hidden-xs
+                i.fa.fa-trash-o
+                |&nbsp; Install &nbsp;
+            span.visible-xs
+                i.fa.fa-trash-o
