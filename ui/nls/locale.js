@@ -65,7 +65,10 @@ define({
                     emailDuplicated: 'The email address has been registered by other user',
                     emailNotInvitable: 'The email address is already assicated with account'
                 }
-            }
+            },
+	        membersListView:{
+		        viewTitle:'Account members'
+	        }
         },
         user:{
             loginView:{
