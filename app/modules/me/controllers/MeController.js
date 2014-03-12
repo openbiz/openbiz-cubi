@@ -107,12 +107,6 @@ module.exports = function(app){
 			if(input.name){
 				req.user.contact.name = input.name;
 			}
-			if(input.birthday){
-				req.user.contact.birthday = input.birthday;
-			}
-			if(input.avator){
-				req.user.contact.avator = input.avator;
-			}
 			req.user.contact.save(function(err){
 				if(err){
 					res.json(500,{error:err});

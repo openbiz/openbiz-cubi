@@ -146,18 +146,6 @@ define({
             }
         },
         me:{
-	        userProfileAddPhoneView:{
-		        mobileNumber: 'Mobile Number',
-		        phoneDefaultCountryCode: '+1',
-		        phoneCountryCode: 'Country Code'
-	        },
-	        userProfileAddAddressView:{
-		        country: 'Country',
-		        state: 'Province',
-		        city: 'City',
-		        street: 'Street',
-		        zipcode: 'Zipcode'
-	        },
 	        userProfileView:{
 				viewTitle:'<strong>Me</strong> Profile',
 		        firstName:'First Name',
@@ -166,7 +154,12 @@ define({
 		        titleMs: 	'Ms.',
 		        company: 'Company',
 		        department:'Department',
-		        birthday:'Birthday'
+		        birthday:'Birthday',
+		        oldPassword:'Old Password',
+		        newPassword:'New Password',
+		        repetNewPassword:'Confirm New Password',
+		        passwordNotMatch:'The password is not matched',
+		        wrongPassword:"The password is wrong"
 	        },
             setupWizardView:{
                 viewName:'Setup Wizard',

@@ -17,19 +17,14 @@ define(['text!templates/me/userProfileView.html',
 				contact: null
 			},
 			events:{
-				'click .btn-save':'saveRecord',
-				"click .btn-phone-delete" 	: "showPhoneDeleteConfirm",
-				"click .btn-phone-add"      : "showPhoneAddView",
-				"click .btn-uploadPicture"  : "uploadPicture",
-				"click .btn-address-delete" 	: "showAddressDeleteConfirm",
-				"click .btn-address-add"      : "showAddressAddView"
+				"click .btn-update" : "saveRecord"
 			},
 			initialize:function(){
 				openbiz.View.prototype.initialize.call(this);
 				var self = this;
-				this.models.addressCollection = new addressCollection();
-				this.models.emailCollection = new emailCollection(openbiz.session.me.get('contact').emails);
-				this.models.phoneCollection = new phoneCollection();
+//				this.models.addressCollection = new addressCollection();
+//				this.models.emailCollection = new emailCollection(openbiz.session.me.get('contact').emails);
+//				this.models.phoneCollection = new phoneCollection();
 				this.models.contact = new contact(openbiz.session.me.get('contact'));
 				this.template = _.template(templateData);
 				openbiz.session.me.on('sync',function(){
@@ -199,15 +194,10 @@ define(['text!templates/me/userProfileView.html',
 				this.models.addressCollection.fetch();
 			},
 			render:function(){
- 				$(window).off('resize');
+				$(window).off('resize');
 				this.locale.contact = this.models.contact;
-				this.locale.phones = this.models.phoneCollection.models;
-				this.locale.emails = this.models.emailCollection.models;
-				this.locale.addresses = this.models.addressCollection.models;
 				$(this.el).html(this.template(this.locale));
 				openbiz.ui.update($(this.el));
-				this.renderDataPhoneGrid();
-				this.renderDataAddressGrid();
 			},
 			showPhoneAddView:function(event){
 				event.preventDefault();
@@ -217,26 +207,37 @@ define(['text!templates/me/userProfileView.html',
 				event.preventDefault();
 				if(!this._validateForm()) return;
 				var self = this;
-				var contact = {
-					name: {
-						lastName:$(this.el).find('input[name="contact-lastname"]').val(),
-						firstName:$(this.el).find('input[name="contact-firstname"]').val(),
-						displayName:$(this.el).find('input[name="contact-lastname"]').val()+$(this.el).find('input[name="contact-firstname"]').val()
-					},
-					title:"Ms.",
-					birthday:new Date($(this.el).find('input[name="contact-birthday"]').val())
-				};
+				if(this._needUpdateName()){
+					var contact = {
+						name: {
+							lastName:$(this.el).find("#contactLastname").val(),
+							firstName:$(this.el).find("#contactFirstname").val(),
+							displayName:$(this.el).find("#contactLastname").val()+$(this.el).find("#contactFirstname").val()
+						}
+					};
 
-				this.models.contact.save(contact,{
-					success:function(){
-						bootbox.alert({
-							title:"Data notification",
-							message:"<h2>Data has been saved</h2>"
-						});
-						self.app.views.get('system.NavView').updateDisplayName(contact.name.displayName);
-						self.app.views.get('system.HeaderView').updateDisplayName(contact.name.displayName);
-					}
-				});
+					this.models.contact.save(contact,{
+						success:function(){
+							bootbox.alert({
+								title:"Data notification",
+								message:"<h2>Data has been saved</h2>"
+							});
+							self.app.views.get('system.NavView').updateDisplayName(contact.name.displayName);
+							self.app.views.get('system.HeaderView').updateDisplayName(contact.name.displayName);
+						}
+					});
+				}
+				if(this._needUpdatePassword()){
+					this.models.contact.updatePassword($("#inputRepeatPassword").val(),function(finishd){
+						console.log("finishd :" +finishd);
+						if(finishd){
+							bootbox.alert({
+								title:"Data notification",
+								message:"<h2>Password has been reseted</h2>"
+							});
+						}
+					});
+				}
 			},
 			showPhoneDeleteConfirm:function(event){
 				event.preventDefault();
@@ -284,7 +285,7 @@ define(['text!templates/me/userProfileView.html',
 					complete: function(response)
 					{
 						if(response.status==201){
-							console.log(self.locale.baseUrl + response.responseJSON.location);
+//							console.log(self.locale.baseUrl + response.responseJSON.location);
 							$("#avator").attr("src",self.locale.baseUrl + response.responseJSON.location);
 							$("#uploadFile").val("");
 						}else{
@@ -298,7 +299,38 @@ define(['text!templates/me/userProfileView.html',
 				});
 			},
 			_validateForm:function(){
-				return $(this.el).find('.form-profile').parsley('validate');
+				var self = this;
+				var isPwdChange = true;
+				var isNameChange = true;
+				if(this._needUpdateName()){
+					isNameChange = $(this.el).find('.form-profile').parsley('validate');
+				}
+				if(this._needUpdatePassword()){
+					$(this.el).find('.form-password input[name="password"]').attr("parsley-remote",this.app.appUrl+'/users/check-password');
+					$(this.el).find('.form-password').parsley('addListener',{
+						onFormValidate:function(isValid,event,ParsleyForm)
+						{
+							if(isValid){
+//								self.onCreateAccount.call(self,event);
+							}
+						}
+					});
+					isPwdChange = $(this.el).find('.form-password').parsley('validate');
+				}
+				return (isPwdChange && isNameChange);
+			},
+
+			_needUpdateName:function(){
+				if($("#contactLastname").val() != this.models.contact.get("name").lastName || $("#contactFirstname").val() != this.models.contact.get("name").firstName){
+					return true;
+				}
+				return false;
+			},
+			_needUpdatePassword:function(){
+				if($("#oldPassword").val().length > 0 || $("#inputPassword").val().length > 0 || $("#inputRepeatPassword").val().length > 0){
+					return true;
+				}
+				return false;
 			}
 		});
 	});
