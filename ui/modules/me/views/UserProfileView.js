@@ -22,9 +22,6 @@ define(['text!templates/me/userProfileView.html',
 			initialize:function(){
 				openbiz.View.prototype.initialize.call(this);
 				var self = this;
-//				this.models.addressCollection = new addressCollection();
-//				this.models.emailCollection = new emailCollection(openbiz.session.me.get('contact').emails);
-//				this.models.phoneCollection = new phoneCollection();
 				this.models.contact = new contact(openbiz.session.me.get('contact'));
 				this.template = _.template(templateData);
 				openbiz.session.me.on('sync',function(){

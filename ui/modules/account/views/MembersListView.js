@@ -7,6 +7,7 @@ define(['text!templates/account/membersListView.html',
         module:'account',
 		name: 'membersListView',
 		el: '#main',
+		apps:null,
 		collection:null,
 		events:{
 			"click .btn-record-add" : "showRecordAddView",
@@ -94,12 +95,19 @@ define(['text!templates/account/membersListView.html',
 	    },
 		showRecordAddView:function(event){
 			event.preventDefault();
-
 		},
 		showRecordEidtView:function(event){
 			event.preventDefault();
 			var recordId = $(event.currentTarget).attr('record-id');
-			alert(recordId);
+			$("body").data('Members',this.collection.get(recordId));
+			var self = this;
+			this.app.require(['modules/system/models/AppCollection'],function(model){
+				var appCollection = new model();
+				appCollection.fetch({success:function(){
+					self.apps = appCollection;
+					self.popupView('account.membersEditView');
+				}})
+			});
 		},
 		showRecordDeleteConfirm:function(event){
 			event.preventDefault();

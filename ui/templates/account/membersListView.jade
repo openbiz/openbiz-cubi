@@ -12,7 +12,7 @@ ol.breadcrumb
 				header.panel-heading
 					h2 <%= viewTitle %>
 				div.panel-body.data-grid
-				footer.panel-footer
+				//footer.panel-footer
 					button.btn-next.btn.btn-theme.btn-record-add(type="submit")
 						i.fa.fa-plus
 						| &nbsp; Invite User &nbsp;
@@ -21,10 +21,10 @@ script(type="text/template",id="action-column-template")
 	div.tooltip-area
 		a.btn.btn-default.btn-sm.btn-record-detail(href!="#",record-id!='{{ id }}',style="margin-right:5px;")
 			span.hidden-xs
-				i.fa.fa-file-text-o
-				|&nbsp; Detail &nbsp;
+				i.fa.fa-edit
+				|&nbsp; Edit &nbsp;
 			span.visible-xs
-				i.fa.fa-file-text-o
+				i.fa.fa-edit
 		a.btn.btn-default.btn-sm.btn-record-delete(href="#",record-id!='{{ id }}')
 			span.hidden-xs
 				i.fa.fa-trash-o

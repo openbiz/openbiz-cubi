@@ -195,6 +195,18 @@ module.exports = function(app){
 				}
 			}
 		},
+		updateUserRoles:function(req,res)
+		{
+			req.user.roles = req.body.roles;
+			req.user.save(function(err,user){
+				if(err){
+					res.send(500,{error:err})
+				}
+				else{
+					res.send(204);
+				}
+			});
+		},
 		checkAccountUnique:function(req,res){			
 			var accountModel = app.getModel.call(app,'Account');
 			accountModel.findOne({'name':req.body.name},function(err,account){
