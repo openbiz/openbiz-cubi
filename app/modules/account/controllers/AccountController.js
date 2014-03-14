@@ -166,7 +166,8 @@ module.exports = function(app){
 						};
 						output.push(user);					
 					}
-					res.json(200,output);	
+					var results = app.openbiz.services.ArrayPaginator(output,req.query);
+					res.json(200,results);
 				})
 			});
 		},
@@ -176,21 +177,35 @@ module.exports = function(app){
 			{
 				res.send(406,{error:{message:'You cannot delete yourself from account'}})
 			}
-			if(req.user.account.users.id(req.params.id)){
-				req.user.account.users.id(req.params.id).remove()
-				req.user.account.save(function(){
-					//delete that user unset its account setting
-					var userModel = app.getModel.call(app,'User');
-					userModel.findOne({'_id':req.params.id},function(err,user){
-						user.account =undefined;
-						user.save(function(){
-							res.send(204);
+			else{
+				if(req.user.account.users.id(req.params.id)){
+					req.user.account.users.id(req.params.id).remove()
+					req.user.account.save(function(){
+						var userModel = app.getModel.call(app,'User');
+						userModel.findOne({'_id':req.params.id},function(err,user){
+							user.account =undefined;
+							user.save(function(){
+								res.send(204);
+							});						//delete that user unset its account setting
+
 						});
-					});					
-				});
-			}else{
-				res.send(404);
+					});
+				}else{
+					res.send(404);
+				}
 			}
+		},
+		updateUserRoles:function(req,res)
+		{
+			req.user.roles = req.body.roles;
+			req.user.save(function(err,user){
+				if(err){
+					res.send(500,{error:err})
+				}
+				else{
+					res.send(204);
+				}
+			});
 		},
 		checkAccountUnique:function(req,res){			
 			var accountModel = app.getModel.call(app,'Account');

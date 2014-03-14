@@ -1,0 +1,25 @@
+#user-add-modal.modal.fade(tabindex='-1')
+	.modal-header
+		button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+		h3 Add a New Address
+	form.modal-body.form-add-address(role="form",parsley-validate,novalidate="novalidate")
+		section.profile
+			.row
+				.col-md-4
+					input.form-control.pull-left#inputCountry(required,placeholder!="<%= country %>")
+				.col-md-4
+					input.form-control.pull-left#inputState(required,placeholder!="<%= state %>")
+				.col-md-4
+					input.form-control.pull-left#inputCity(required,placeholder!="<%= city %>")
+			.row
+				br
+			.row
+				.col-md-6
+					input.form-control.pull-left#inputStreet(required,placeholder!="<%= street %>")
+				.col-md-6
+					input.form-control.pull-left#inputZipcode(required,placeholder!="<%= zipcode %>")
+		section
+			br
+			button.btn-address-save-record.btn.btn-theme(type="submit")
+				i.fa.fa-check
+					| &nbsp; Save &nbsp;

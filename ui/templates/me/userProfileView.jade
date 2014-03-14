@@ -6,60 +6,29 @@ ol.breadcrumb
 	li.active Profile
 #content
 	.row
+		div.panel-heading
+			h2 <%= viewTitle %>
 		div.panel-body
-			header.panel-heading
-				h2 <%= viewTitle %>
-			.col-md-4.align-lg-center
-				img.circle(alt='', src!='<%= baseUrl %>/images/avatar.png')
+			.col-md-4.align-md-center
+				img.circle#avator(alt='', src!='<%= baseUrl %>/images/avatar.png')
 			.col-md-8
-				br
-				br
-				br
-				br
-				p <%= company %> : <%= contact.get('company') %>
-				p <%= department %> : <%= contact.get('department')%>
-		div.panel-body
-			form.form-profile(role="form",parsley-validate,novalidate="novalidate")
-				.form-group
-					input.form-control.pull-left(name="contact-lastname",required,type="text",placeholder!="<%= lastName %>",value!="<%= contact.get('name').lastName %>",style="width:44%;margin-right:1%;")
-					input.form-control.pull-left(name="contact-firstname",required,type="text",placeholder!="<%= firstName %>",value!="<%= contact.get('name').firstName %>",style="width:44%;margin-right:1%;")
-					br
-					br
-					label <%= birthday %>
-					div.input-group.date.form_datetime(data-date-format='yyyy-MM-dd', data-picker-position='bottom-left',style='width:180px')
-						input.form-control(type='text',value!="<%= contact.getBirthday() %>",style='width:200px',readonly='readonly',name="contact-birthday")
-						span.input-group-btn
-							button.btn.btn-default(type='button')
-								i.fa.fa-calendar
-				//.form-group
-					//ul.iCheck.form-control(data-color='green')
-						li.pull-left.col-xs-6(style="padding-bottom:0px")
-							input(type="radio",id="title-mr",name="title",value="Mr", parsley-trigger="ifClicked ifChanged",parsley-required="true",parsley-group="title")
-							label(style="margin-bottom:0px;") <%= titleMr %>
-						li.pull-left.col-xs-6(style="padding-bottom:0px")
-							input(type="radio",id="title-ms",name="title",value="Ms", parsley-trigger="ifClicked ifChanged",parsley-group="title")
-							label(style="margin-bottom:0px") <%= titleMs %>
-
-			button.hidden(type="submit")
-		footer.panel-footer
-			button.btn-save.btn.btn-theme(type="submit")
-				i.fa.fa-check
-					| &nbsp; Save &nbsp;
-		div.panel-body.data-grid-phone
-			//form.form-phone(role="form",parsley-validate,novalidate="novalidate")
-				.data-grid-phone
-
-		footer.panel-footer
-			button.btn-next.btn.btn-theme.btn-phone-add(type="submit")
-				i.fa.fa-plus
-				| &nbsp; Add Phone &nbsp;
-		//div.panel-body.data-grid-email
-
-script(type="text/template",id="action-column-template-phone")
-	div.tooltip-area
-		a.btn.btn-default.btn-sm.btn-phone-delete(phone-id!='{{ id }}')
-			span.hidden-xs
-				i.fa.fa-trash-o
-				| &nbsp; Delete &nbsp;
-			span.visible-xs
-				i.fa.fa-trash-o
+				form.form-profile(role="form",parsley-validate,novalidate="novalidate")
+					.form-group.row
+						.col-md-6
+							label.control-label <%= lastName %>
+							input#contactLastname.form-control(required,type="text",placeholder!="<%= lastName %>",value!="<%= contact.get('name').lastName %>")
+						.col-md-6
+							label.control-label <%= firstName %>
+							input#contactFirstname.form-control(required,type="text",placeholder!="<%= firstName %>",value!="<%= contact.get('name').firstName %>")
+				form.form-password(role="form",parsley-validate,novalidate="novalidate")
+					.form-group
+						label.control-label <%= oldPassword %>
+						input#oldPassword.form-control(required,type="password",name="password",placeholder!="<%= oldPassword %>",parsley-remote-method="POST",parsley-remote-message!="<%= wrongPassword %>",parsley-required="true")
+					.form-group
+						label.control-label <%= newPassword %>
+						input#inputPassword.form-control(required,type='password',parsley-mincheck="6", parsley-trigger="change", placeholder!='<%= newPassword %>')
+					.form-group
+						label.control-label <%= repetNewPassword %>
+						input#inputRepeatPassword.form-control(required,type='password',parsley-mincheck="6", parsley-trigger="change",name='password-repeat', placeholder!='<%= repetNewPassword %>',parsley-equalto="#inputPassword",parsley-equalto-message!="<%= passwordNotMatch %>")
+				.form-group.align-md-center
+						button.btn.btn-theme.btn-update(type='button')  Update

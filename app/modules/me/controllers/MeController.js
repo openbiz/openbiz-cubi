@@ -13,7 +13,7 @@ module.exports = function(app){
 			//                       "number":"64955182"
 			//              }
 			//      }
-			// }			
+			// }
 			var accountModel = app.getModel.call(app,'Account');
 			var account = new accountModel(req.body);
 			account.users.push({_id:req.user.id,role:"administrator"});
@@ -38,7 +38,7 @@ module.exports = function(app){
 
 				}
 			});
-		},		
+		},
 		joinAccount:function(req,res){
 			// sample payload data
 			// {"token":"ACCT-6197-961027"}
@@ -49,7 +49,7 @@ module.exports = function(app){
 				return;
 			}
 
-			var account = req.invitationToken.account;			
+			var account = req.invitationToken.account;
 			if(!account.users.id(req.user.id)){
 				account.users.push({_id:req.user.id});
 			}
@@ -94,7 +94,7 @@ module.exports = function(app){
 					});
 				}
 			});
-		},		
+		},
 		getMe: function(req, res)
 		{
 			res.json(200,req.user.getOutput());
@@ -106,12 +106,6 @@ module.exports = function(app){
 			var input = req.body;
 			if(input.name){
 				req.user.contact.name = input.name;
-			}
-			if(input.birthday){
-				req.user.contact.birthday = input.birthday;
-			}
-			if(input.avator){
-				req.user.contact.avator = input.avator;
 			}
 			req.user.contact.save(function(err){
 				if(err){
@@ -132,7 +126,6 @@ module.exports = function(app){
 					res.json(500,{error:err});
 				}else{
 					res.send(201,req.body);
-//					res.send(204);
 				}
 			});
 		},
@@ -167,7 +160,7 @@ module.exports = function(app){
 			}
 		},
 		createMyAddress: function(req, res){
-			req.user.contact.address.push(req.body);
+			req.user.contact.addresses.push(req.body);
 			req.user.contact.save(function(err){
 				if(err){
 					res.json(500,{error:err});
@@ -177,7 +170,8 @@ module.exports = function(app){
 			});
 		},
 		getMyAddresses: function(req, res){
-			res.json(200,req.user.contact.addresses);
+			var results = app.openbiz.services.ArrayPaginator(req.user.contact.addresses,req.query);
+			res.json(200,results);
 		},
 		updateMyAddress: function(req, res){
 			var address = req.user.contact.addresses.id(req.params.id);
@@ -251,6 +245,44 @@ module.exports = function(app){
 					}
 				});
 			}
+		},
+		onUpload:function(req,res)
+		{
+			var path = require('path');
+			var fs = require('fs');
+			var mkdir = function (path, root) {
+				var dirs = path.split('/'), dir = dirs.shift(), root = (root||'')+dir+'/';
+				if(!fs.existsSync(root))
+					fs.mkdirSync(root);
+				return !dirs.length||mkdir(dirs.join('/'), root);
+			}
+
+			var timestamp = new Date();
+			console.log("files " +req.files);
+
+			var file = req.files.picture;
+			var uploadPath =  path.join(__dirname, 'public','upload');
+			var	url = '/upload';
+
+			var newFilePath = path.join(uploadPath,'picture', String(timestamp.getFullYear()), String(timestamp.getMonth()),String(timestamp.getDay()));
+			var locationRoot = path.join(url,'picture', String(timestamp.getFullYear()), String(timestamp.getMonth()),String(timestamp.getDay()));
+			if(file.type.split('/')[0].toLowerCase()!='image'){
+				res.send(406);
+			}
+
+			var newFileName = String(timestamp.getTime())+path.extname(file.name);
+
+			//test if the folder exists
+			if(!fs.existsSync(newFilePath))
+			{
+				mkdir(newFilePath);
+			}
+			fs.renameSync(file.path,path.join(newFilePath,newFileName));
+			var location = locationRoot+"/"+newFileName;
+
+			res.send({
+				location:location
+			},201);
 		}
 	});
 }
