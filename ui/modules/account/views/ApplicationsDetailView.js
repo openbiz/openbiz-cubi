@@ -1,6 +1,6 @@
 "use strict";
 define(['text!templates/account/applicationsDetailView.html',
-		'modules/system/models/AppCollection'],
+		'modules/system/models/App'],
 	function(templateData,model){
 	return openbiz.View.extend({
 		app: 'cubi',
@@ -18,23 +18,12 @@ define(['text!templates/account/applicationsDetailView.html',
 		render:function(id){	      
 			var self = this;  
 	        $(window).off('resize');    	
-			this.model = new model({_id:id});	  
-        	this.model.fetch({
-        		success:function(){
-        			self.app.require(['modules/system/models/AppCollection'],function(AppCollection){
-	                    var apps = new AppCollection();
-	                    apps.fetch({
-	                        success:function(){
-			        			var output = self.locale;        			
-			        			output.data = self.model;
-			        			output.installedApps = apps.models;
-			        			$(self.el).html(self.template(output));
-				        		openbiz.ui.update($(self.el));
-		        			}
-		        		})
-	        		})
-        		}
-        	});
+			this.model = new model({_id:id});
+            var output = self.locale;
+            output.data = self.model;
+            debugger;
+            $(self.el).html(self.template(output));
+            openbiz.ui.update($(self.el));
  	        return this;
 	    },
 	    showRecordDeleteConfirm:function(event){	    	
