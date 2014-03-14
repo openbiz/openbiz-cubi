@@ -31,7 +31,7 @@ module.exports = function(app){
       });
     });
         
-    return app.openbiz.ModelController.extend({     
+    return app.openbiz.Controller.extend({     
         authenticate:function(req,res,next){
             passport.authenticate('local',function(err,user,info){
                 if (err) { return next(err); }

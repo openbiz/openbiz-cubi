@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app){
-	return app.openbiz.ModelController.extend({
+	return app.openbiz.Controller.extend({
 		createAccount:function(req,res){
 			// Sample payload data
 			// {
@@ -106,12 +106,6 @@ module.exports = function(app){
 			var input = req.body;
 			if(input.name){
 				req.user.contact.name = input.name;
-			}
-			if(input.birthday){
-				req.user.contact.birthday = input.birthday;
-			}
-			if(input.avator){
-				req.user.contact.avator = input.avator;
 			}
 			req.user.contact.save(function(err){
 				if(err){

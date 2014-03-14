@@ -3,7 +3,7 @@ module.exports = function(app){
     var self = function(){
         return app.getController(require('path').basename(module.filename,'.js')); 
     };
-    return app.openbiz.ModelController.extend({     
+    return app.openbiz.Controller.extend({     
         create:function(req,res)
         {            
             var userModel = app.getModel.call(app,'User');
@@ -51,6 +51,13 @@ module.exports = function(app){
                 });
             }
         },
+	    checkPassword:function(req, res){
+		    if (req.user.password != app.getModel.call(app,'User').encryptPassword(req.body.password)) {
+			    res.json(200,false);
+		    }else{
+			    res.json(200,true);
+		    }
+	    },
         checkUsernameUnique:function(req,res)
         {            
             if(req.body.username == ""){
@@ -71,7 +78,18 @@ module.exports = function(app){
         },
         responseResetPassword:function(req,res)
         {
-
+			if(req.user.password == req.body.password){
+				res.send(200);
+			}else{
+				req.user.password = app.getModel.call(app,'User').encryptPassword(req.body.password);
+				req.user.save(function(err){
+					if(err){
+						res.json(500,{error:err});
+					}else{
+						res.send(200);
+					}
+				})
+			}
         }
     });    
 }

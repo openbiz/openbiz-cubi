@@ -42,6 +42,10 @@ module.exports = function(app){
                                                         app.getPolicy("ensureUserIsAccountAdministrator"),
                                                         app.getController("AccountController").removeUser ],
 
+	    "put /account/users/:id"                    : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
+		                                                app.getPolicy("ensureUserIsAccountAdministrator"),
+		                                                app.getController("AccountController").updateUserRoles ],
+
         //for invitations
         "get /account/invitations"                  : [ app.openbiz.ensurePermission("cubi-myaccount-manage"),
                                                         app.getPolicy("ensureUserIsAccountAdministrator"),

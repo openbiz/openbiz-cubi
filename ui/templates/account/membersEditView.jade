@@ -1,0 +1,38 @@
+#user-permission-modal.modal.fade(tabindex='-1')
+	.modal-header
+		button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+		h3 Update permission for user
+	form.modal-body.form-add-user(role="form",parsley-validate,novalidate="novalidate")
+		section.select-mode
+			div.row(style="height:60px;")
+				h4.col-xs-5(style="padding-top:10px") <%= user.get("user").contact.name.displayName %>
+				p.col-xs-7
+					span
+						i.fa.fa-envelope
+						| &nbsp; <%= user.get("user").contact.emails[0].email %>
+					br
+					span
+						i.fa.fa-info-circle
+						| &nbsp; <%= user.get("user").contact.name.displayName %>
+			hr(style="margin-top:0px;")
+		section.role-selection
+			div
+				<% _.forEach(apps,function(app){  %>
+				h4(style="margin-bottom:5px") <%= app.info.name %>
+				p <%= app.info.description %>
+				ul.iCheck.row(data-color='red',style="margin-left:5px;margin-right:5px;")
+					<% _.forEach(app.roles,function(role){  %>
+					li.col-md-4(style="margin-bottom:10px;")
+						<% if(user.hasRole(role.id) == true){ %>
+						input(name="role",value!="<%= role.id %>",type="checkbox",checked="checked")
+						<% }else{ %>
+						input(name="role",value!="<%= role.id %>",type="checkbox")
+						<% } %>
+						label(style="color:#717171") <%= role.name %>
+					<% }) %>
+				hr(style="margin-top:0px;")
+				<% }) %>
+		section
+			button.btn-save-record.btn.button.btn-theme(style="margin-right:10px;",type="submit")
+				i.fa.fa-check
+				| &nbsp; Update &nbsp;
