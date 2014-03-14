@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app){
-	return app.openbiz.ModelController.extend({
+	return app.openbiz.Controller.extend({
 		createAccount:function(req,res){
 			// Sample payload data
 			// {

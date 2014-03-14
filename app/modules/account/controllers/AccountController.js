@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app){
-	return app.openbiz.ModelController.extend({
+	return app.openbiz.Controller.extend({
 		getCurrentAccount:function(req,res){
 			var output = req.user.account.toJSON();
 			delete output.invitations;			

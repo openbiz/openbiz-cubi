@@ -3,7 +3,7 @@ module.exports = function(app){
     var self = function(){
         return app.getController(require('path').basename(module.filename,'.js')); 
     };
-    return app.openbiz.ModelController.extend({     
+    return app.openbiz.Controller.extend({     
         create:function(req,res)
         {            
             var userModel = app.getModel.call(app,'User');
