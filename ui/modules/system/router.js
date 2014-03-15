@@ -234,6 +234,9 @@ define(['../me/models/Me'], function(me){
                     $(view).attr('renderred','false');
                     $(view).animate({'top':'-'+$(view).height()+'px'},function(){
                         $(view).hide();
+                        $("body nav").remove();
+                        $("#mm-blocker").remove();
+                        self.app.views.reset();
                         self.trigger('headerViewDismissed');
                     })
                 };
@@ -271,15 +274,15 @@ define(['../me/models/Me'], function(me){
                     $(view).attr('renderred','false');
                     if($(view).css("visibility")=='visible'){
                         $("div#wrapper").animate({'margin-left':'0px'},function(){
-                            $(view).fadeOut(function(){
+                            $(view).fadeOut(function(){                                
                                 self.trigger('menuViewDismissed');
                             });
                         })
-                    }else{
+                    }else{                        
                         self.trigger('menuViewDismissed');
                     }
                 };
-                if(!self.app.views.isRenderred("system.MenuView")){
+                if(!self.app.views.isRenderred("system.MenuView")){                    
                     self.trigger('menuViewDismissed');
                 }else{
                     done(self.app.views.get("system.MenuView").undelegateEvents().$el);

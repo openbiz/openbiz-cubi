@@ -68,6 +68,23 @@ define(['text!templates/system/menuView.html'],
                 }
                 openbiz.ui.update($(this.el));
                 return this;
+            },
+            updateMenu:function(){
+                var self = this;
+                openbiz.session.me.fetch({success:function(){
+                    self.app.require(['modules/system/models/AppCollection'],function(AppCollection){
+                            var apps = new AppCollection();
+                            openbiz.session.apps = apps;
+                            apps.fetch({success:function(){
+                                for(var app in openbiz.apps){                                    
+                                    openbiz.apps[app].require(['./menu/main'],function(menu){
+                                        var menu = new menu();
+                                        menu.render();
+                                    })
+                                }
+                            }});
+                        });
+                    }});
             }
         });
     }

@@ -40,7 +40,7 @@ define(['./App'],function(App){
                                             }                 
                                             success(returnData,status,xhr);
                                         }
-                                    }                                    
+                                    } 
                                     appRequire(['./menu/main'],function(menu){
                                         app.menu = new menu();
                                         callback();
