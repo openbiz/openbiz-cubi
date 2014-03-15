@@ -26,12 +26,14 @@ define(['text!templates/account/applicationsListView.html',
                     cell: Backgrid.UriCell.extend({
                         render: function () {
                             this.$el.empty();
+                            debugger;
                             var rawValue = this.model.get(this.column.get("name"));
+                            var formattedValue = this.formatter.fromRaw(rawValue, this.model);
                             this.$el.append($("<a>", {
                                 tabIndex: -1,
                                 href: "#!/backend/account/applications/"+rawValue,
                                 title: this.title || rawValue
-                            }).text(rawValue));
+                            }).text(formattedValue));
                             this.delegateEvents();
                             return this;
                         }
@@ -60,6 +62,7 @@ define(['text!templates/account/applicationsListView.html',
                             this.$el.empty();
                             var model = this.model;
                             var value = model.get(this.column.get("name"));
+                            console.log(value);
                             this.$el.html( _.template(
                                 $('#action-column-template').html(),
                                 {id:value},
@@ -101,11 +104,7 @@ define(['text!templates/account/applicationsListView.html',
 			$(this.el).find('.uninstall-grid').append(paginator.render().el);
 
 			//pull data from server now
-    		this.collection.fetch({
-                success:function(collection,response){
-                    console.log(collection.toJSON());
-                }
-            });
+    		this.collection.fetch();
     	},
 		render:function(){	    			
 	        $(window).off('resize');
