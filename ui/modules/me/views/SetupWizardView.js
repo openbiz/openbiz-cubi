@@ -413,7 +413,7 @@ define(['text!templates/me/setupWizardView.html',
                                 self.models.userCollection.fetch();
                                 panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
                             });
-                        },500);
+                        },500);95131209378
                     });
                 });
             },
