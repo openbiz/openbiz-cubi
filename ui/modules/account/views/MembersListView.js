@@ -105,7 +105,7 @@ define(['text!templates/account/membersListView.html',
 				var appCollection = new model();
 				appCollection.fetch({success:function(){
 					self.apps = appCollection;
-					self.popupView('account.membersEditView');
+					self.popupView('account.MembersEditView');
 				}})
 			});
 		},
