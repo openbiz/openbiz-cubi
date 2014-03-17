@@ -35,6 +35,7 @@ define(['text!templates/me/setupWizardView.html',
                 "click .btn-test-create"    :   "showAppSelectorView",
                 "click .btn-test-invite"    :   "showUserInvitationView",
                 "click .btn-invite-users"   :   "showUserInvitationView",
+                "click .btn-save-selected-apps" : "saveSelectedApps",
                 "click .btn-add-user"       :   "showAddUserView",
                 "click .btn-done"           :   "gotoDashboard",
                 "ifChecked .choose-mode"    :   "showJoinCompanyForm"
@@ -53,6 +54,7 @@ define(['text!templates/me/setupWizardView.html',
             gotoDashboard:function(event){
                 event.preventDefault();
                 this.undelegateEvents();
+                self.app.views.get("system.MenuView").updateMenu();
                 Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
             },
             showJoinCompanyForm:function(event){
@@ -311,11 +313,11 @@ define(['text!templates/me/setupWizardView.html',
                         ){
                         //enable DONE button
                         $(self.el).find(".btn-add-user").removeClass("btn-theme");
-                        $(self.el).find(".btn-done").addClass("btn-theme").removeAttr("disabled");
+                        $(self.el).find(".btn-done").addClass("btn-theme");//.removeAttr("disabled");
                     }else{
                         //disable DONE button
                         $(self.el).find(".btn-add-user").addClass("btn-theme");
-                        $(self.el).find(".btn-done").removeClass("btn-theme").attr("disabled","disabled");
+                        $(self.el).find(".btn-done").removeClass("btn-theme");//.attr("disabled","disabled");
                     }
                 }
                 self.models.userCollection.off('sync');
@@ -411,8 +413,35 @@ define(['text!templates/me/setupWizardView.html',
                                 self.models.userCollection.fetch();
                                 panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
                             });
-                        },500);
+                        },500);95131209378
                     });
+                });
+            },
+            saveSelectedApps:function(){
+                if(event) event.preventDefault();
+                var self = this;
+                var selectedApps = [];
+                self.selectedApps =[];
+                $(this.el).find('.app-selection input[name="app"]').each(function(){                    
+                    if($(this).is(":checked")){
+                        selectedApps.push($(this).val());
+                        for(var i in self.systemApps){
+                            if (self.systemApps[i].name == $(this).val()){
+                                self.selectedApps.push(self.systemApps[i]);
+                                break;
+                            }
+                        }                                                
+                    }
+                });                
+                this.models.account.installApps(selectedApps,function(isSuccessed){
+                    var  btn=$(self.el).find(event.currentTarget), panelBody=btn.closest(".panel"),
+                        overlay = openbiz.ui.loader
+                    btn.removeClass("btn-panel-reload").addClass("disabled")
+                    panelBody.append(overlay);
+                    overlay.css('opacity',1).fadeIn();
+                    self.undelegateEvents();                    
+                    self.app.views.get("system.MenuView").updateMenu();
+                    Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
                 });
             },
             setupForm:function(){

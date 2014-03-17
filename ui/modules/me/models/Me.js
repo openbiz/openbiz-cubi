@@ -10,6 +10,7 @@ define(function(templateData){
 			roles:[]
 		},
 		createAccount:function(account,callback){
+			var self = this;
 			$.ajax({
 				type 		: "POST",
 				dataType 	: "json",
@@ -19,7 +20,9 @@ define(function(templateData){
 				complete 	: function(jqXHR,textStatus){
 					switch(jqXHR.status){
 						case 201:
-							callback(true);
+							self.fetch({success:function(){
+								callback(true);
+							}})							
 							break;
 						default:
 							callback(false);
@@ -29,6 +32,7 @@ define(function(templateData){
 			});
 		},
 		joinAccount:function(token,callback){
+			var self = this;
 			$.ajax({
 				type 		: "POST",
 				dataType 	: "json",
@@ -37,8 +41,10 @@ define(function(templateData){
 				data 		: JSON.stringify({"token":token}),
 				complete 	: function(jqXHR,textStatus){
 					switch(jqXHR.status){
-						case 200:
-							callback(true,jqXHR.responseJSON);							
+						case 200:							
+							self.fetch({success:function(){
+								callback(true,jqXHR.responseJSON);		
+							}})					
 							break;
 						case 403:
 							callback(false);

@@ -15,8 +15,8 @@ define(['./App'],function(App){
                                     baseUrl:app.baseUrl,
                                     context:"appCollection"+app.name,
                                     paths:{
-                                        'i18n'	: openbiz.baseUrl+'/vendor/require/plugins/i18n',
-                                        'text'	: openbiz.baseUrl+'/vendor/require/plugins/text'
+                                        'i18n'  : openbiz.baseUrl+'/vendor/require/plugins/i18n',
+                                        'text'  : openbiz.baseUrl+'/vendor/require/plugins/text'
                                     },
                                     config:{
                                         i18n:{
