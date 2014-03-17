@@ -14,7 +14,6 @@ define(['text!templates/account/membersEditView.html'],
 				openbiz.View.prototype.initialize.call(this);
 				this.template = _.template(templateData);
 				this.model = $("body").data('Members');
-				this.model.hasRole('rrr')
 			},
 			render:function(){
 
