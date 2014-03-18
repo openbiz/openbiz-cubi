@@ -68,7 +68,6 @@ define(['text!templates/account/invitationsListView.html',
 						    this.$el.empty();    
 						    var model = this.model;						    
 						    var value = model.get(this.column.get("name"));
-					      console.log(value);
 						    this.$el.html( _.template(
 						    	$('#action-column-template').html(),
 						    	{id:value},
