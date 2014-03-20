@@ -54,7 +54,7 @@ define(['text!templates/me/setupWizardView.html',
             gotoDashboard:function(event){
                 event.preventDefault();
                 this.undelegateEvents();
-                self.app.views.get("system.MenuView").updateMenu();
+                this.app.views.get("system.MenuView").updateMenu();
                 Backbone.history.navigate("#!/backend/dashboard", {trigger: true, replace: true});
             },
             showJoinCompanyForm:function(event){
