@@ -1,0 +1,51 @@
+{
+    "name":{
+        "firstName":  "String",
+        "middleName": "String",
+        "lastName":   "String",
+        "displayName":"String"
+    },
+    "avator":     "String",
+    "birthday":   "Date",
+    "company":    "String",
+    "department": "String",
+    "title":      "String",
+    "emails":[{
+        "category":   "String",
+        "email":      "String"
+    }],
+    "phones":[{            
+        "type":{
+            "type": "String",
+            "enum": ["mobile","linephone"]
+        },
+        "category":   "String",
+        "countryCode": "String",
+        "areaCode":   "Number",
+        "number":     "Number"
+    }],
+    "addresses":[{
+        "category":   "String",
+        "country":    "String",
+        "state":      "String",
+        "city":       "String",
+        "street":     "String",
+        "zipcode":    "Number"
+    }],
+    "ims":[{
+        "category":   "String",     
+        "type":       "String",     
+        "account":    "String"
+    }],
+    "creator":{
+        "id":{
+            "type": "ObjectId",
+            "ref": "cubi.user.User",
+            "required": true
+        },
+        "timestamp": {
+            "type": "Date"
+        }
+    }
+    
+}

@@ -1,0 +1,62 @@
+{
+    "name": {
+    	"type": "String",
+    	"required": true,
+    	"unique": true
+    },
+    "info":{
+        "website": "String",
+        "address":{            
+            "country": "String",
+            "province": "String",
+            "city": "String",
+            "street": "String",
+            "zipcode": "String"
+        },
+        "phone":{
+            "countryCode": "String",
+            "areaCode":   "Number",
+            "number":     "Number"
+        }
+    },
+    "apps":[{
+    	"_id": {
+    		"type": "String",
+    		"required": true
+    	},
+    	"setting": {}
+    }],
+    "users":[{
+    	"_id":{
+            "type": "ObjectId",
+            "ref": "cubi.user.User"
+        },
+        "role":{
+            "type": "String",
+            "enum": ["administrator","member"],
+            "default": "member"
+        }
+    }],        
+    "contacts":[{
+        "type": "ObjectId",
+        "ref": "cubi.contact.Contact"
+    }],
+    "creator":{
+        "id":{
+            "type": "ObjectId",
+            "ref": "cubi.user.User",
+            "required": true
+        },
+        "timestamp": {
+            "type": "Date"
+        }
+    },
+    "invitations":[{
+	    "_id":{
+		    "type": "String",
+		    "required": true
+	    },
+	    "expiredDate": "Date",
+	    "data":{}
+    }]
+}

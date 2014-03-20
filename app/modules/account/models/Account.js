@@ -2,70 +2,13 @@
 module.exports = function(app)
 {
 	var async = require('async');
-	var mongoose = app.openbiz.mongoose;
-    var schema = new mongoose.Schema({
-        name: {
-        	type: String,
-        	required: true,
-        	unique: true
-        },
-        info:{
-	        website: String,
-            address:{            
-                country: String,
-                province: String,
-                city: String,
-                street: String,
-                zipcode: String
-            },
-            phone:{
-                countryCode: String,
-                areaCode:   Number,
-                number:     Number
-            }
-        },
-        apps:[{
-        	_id: {
-        		type: String,
-        		required: true
-        	},
-        	setting: {}
-        }],
-        users:[{
-        	_id:{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'cubi.user.User'
-            },
-            role:{
-                type: String,
-                enum: ['administrator','member'],
-                default: 'member'
-            }
-        }],        
-        contacts:[{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'cubi.contact.Contact'
-        }],
-        creator:{
-            id:{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'cubi.user.User',
-                required: true
-            },
-            timestamp: {
-                type: Date,
-                default: Date.now
-            }
-        },
-	    invitations:[{
-		    _id:{
-			    type: String,
-			    required: true
-		    },
-		    expiredDate: Date,
-		    data:{}
-	    }]
-    },{
+	var mongoose = app.openbiz.mongoose;	
+    var schema = new mongoose.Schema(function(){
+		var schema = require(__filename.replace(/\.js$/i,'.json'));
+		//advanced parse config json can be done here
+		schema.creator.timestamp.default=Date.now;
+		return schema;
+	}(),{
         versionKey: false,
         collection: 'cubi_account'
     });
