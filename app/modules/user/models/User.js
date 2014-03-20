@@ -2,12 +2,9 @@
 module.exports = function(app)
 {
 	var mongoose = app.openbiz.mongoose;
-    var schema = new mongoose.Schema(function(){
-        var schema = require(__filename.replace(/\.js$/i,'.json'));
-        //advanced parse config json can be done here
-        schema.creator.timestamp.default=Date.now;      
-        return schema;
-    }(),{
+    var schema = new mongoose.Schema(
+    app.openbiz.MetadataParser.call(app.openbiz,__filename.replace(/\.js$/i,'.json')),
+    {
         versionKey: false,
         collection: 'cubi_user'
     });
