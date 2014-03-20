@@ -9,7 +9,7 @@ define(['text!templates/account/membersListView.html',
 		el: '#main',
 		apps:null,
 		collection:null,
-		_config:{
+		_metadata:{
 			fields:[
 				{
 					name:"displayName",

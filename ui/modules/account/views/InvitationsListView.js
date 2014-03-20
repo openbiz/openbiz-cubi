@@ -11,7 +11,7 @@ define(['text!templates/account/invitationsListView.html',
 		events:{
 			"click .btn-record-add" 	: "showRecordAddView"
 		},
-		_config:{
+		_metadata:{
 			fields:[
 				{
 					name:"Token",
