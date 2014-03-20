@@ -48,7 +48,8 @@
             "required": true
         },
         "timestamp": {
-            "type": "Date"
+            "type": "Date",
+            "default":"<% return Date.now %>"
         }
     },
     "invitations":[{
