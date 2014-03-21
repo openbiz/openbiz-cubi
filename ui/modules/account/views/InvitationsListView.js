@@ -9,15 +9,11 @@ define(['text!./invitationsListView.json',
 		name: 'invitationsListView',
 		el: '#main',
 		collection: dataCollection,
+		template : templateData,
+		metadata:  openbiz.MetadataParser(metadata),		
 		events:{
 			"click .btn-record-add" 	: "showRecordAddView"
-		},
-		_metadata: openbiz.MetadataParser(metadata),
-		initialize:function(){
-			openbiz.GridView.prototype.initialize.call(this);
-			this.template = _.template(templateData);
-			this.collection = new dataCollection();
-		},
+		},		
 		beforeRender:function(){
 			console.log("before render");
 		},
