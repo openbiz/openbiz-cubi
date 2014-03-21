@@ -38,9 +38,8 @@
 		{
 			"name":"detail",
 			"displayName":"Detail",
-			"type":"Button",
-			"event":"click",
-			"action":"showRecordDetail"
+			"type":"Link",
+			"url":"#!/backend/account/invitations/{{ id }}"
 		},
 		{
 			"name":"delete",

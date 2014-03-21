@@ -45,13 +45,6 @@ define(['text!./invitationsListView.json',
 		    		}
 		    	}
 	    	});
-	    },
-		showRecordDetail:function(event){
-			event.preventDefault();
-			var self = this;
-			var recordId = $(event.currentTarget).attr('record-id');
-			var url = "#!/backend/account/invitations/" + recordId;
-			Backbone.history.navigate(url, {trigger: true, replace: true});
-		}
+	    }
 	});
 });
