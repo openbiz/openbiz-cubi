@@ -14,34 +14,18 @@ define(['text!./invitationsListView.json',
 		events:{
 			"click .btn-record-add" 	: "showRecordAddView"
 		},		
-		beforeRender:function(){
-			console.log("before render");
-		},
-		afterRender:function(){
-			console.log("after render");
-		},
+		
+		beforeRender:function(){},
+		afterRender:function(){},
+
+		beforeDeleteRecord:function(){},
+		afterDeleteRecord:function(){},
+
+
 	    showRecordAddView:function(event){
 	    	event.preventDefault();	 
 	    	this.popupView('account.InvitationsNewView');
-	    },	    
-	    showRecordDeleteConfirm:function(event){	    	
-	    	event.preventDefault();	   
-	    	var self = this; 
-	    	var recordId = $(event.currentTarget).attr('record-id');	    		
-	    	bootbox.confirm({
-	    		title:"Data delete confirmation",
-	    		message:"<h2>"+recordId +"</h2> <br/> \
-	    				You are about to delete this invitation: <br/> \
-	    				Are you sure?",
-				callback:function(result){
-		    		if(result){
-		    			self.collection.get(recordId).destroy({success:function(){
-                            self.collection.fetch();
-                        }});          
-		    		}
-		    	}
-	    	});
-	    },
+	    },	    	    
 		showRecordDetail:function(event){
 			event.preventDefault();
 			var self = this;

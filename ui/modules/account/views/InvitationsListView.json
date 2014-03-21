@@ -44,10 +44,10 @@
 		},
 		{
 			"name":"delete",
-			"displayName":"delete",
+			"displayName":"Delete",
 			"type":"Button",
 			"event":"click",
-			"action":"showRecordDeleteConfirm"
+			"action":"deleteRecord"
 		}
 	]
 }
