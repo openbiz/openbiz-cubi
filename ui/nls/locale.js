@@ -6,6 +6,12 @@ define({
           name:'Openbiz Cubi Platform',
           description:"A openbiz based application, provides basically user, account, models and permission contronls."
         },
+        common:{
+            deleteConfirmationTitle: "Data delete confirmation",
+            deleteConfirmationMessage: "<h2><%= record %></h2> <br/> \
+                        You are about to delete this record: <br/> \
+                        Are you sure?",
+        },
         account:{
             invitationsNewView:{
                 viewTitle: '<span>Create</span> New Account',

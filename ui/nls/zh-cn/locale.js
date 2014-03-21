@@ -11,6 +11,12 @@ define({
             "cubi-account-member"   :"Cubi 账户成员"
         }
     },
+    common:{
+            deleteConfirmationTitle: "数据删除确认",
+            deleteConfirmationMessage: "<h2><%= record %></h2> <br/> \
+                        你即将删除这条数据: <br/> \
+                        是否确认此操作?",
+    },
     user:{
         loginView:{
             viewTitle: '<span>欢迎</span>登录',
