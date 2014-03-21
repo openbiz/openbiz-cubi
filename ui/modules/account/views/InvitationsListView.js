@@ -9,24 +9,23 @@ define(['text!./invitationsListView.json',
 		name: 'invitationsListView',
 		el: '#main',
 		collection: dataCollection,
+		template : templateData,
+		metadata:  openbiz.MetadataParser.call(this,metadata),		
 		events:{
 			"click .btn-record-add" 	: "showRecordAddView"
-		},
-		_metadata: openbiz.MetadataParser(metadata),
-		initialize:function(){
-			openbiz.GridView.prototype.initialize.call(this);
-			this.template = _.template(templateData);
-			this.collection = new dataCollection();
-		},
-		beforeRender:function(){
-			console.log("before render");
-		},
-		afterRender:function(){
-			console.log("after render");
-		},
+		},		
+		
+		beforeRender:function(){},
+		afterRender:function(){},
+
+		beforeDeleteRecord:function(){},
+		afterDeleteRecord:function(){},
+
+
 	    showRecordAddView:function(event){
 	    	event.preventDefault();	 
 	    	this.popupView('account.InvitationsNewView');
+<<<<<<< HEAD
 	    },	    
 	    showRecordDeleteConfirm:function(event){	    	
 	    	event.preventDefault();	   
@@ -46,5 +45,15 @@ define(['text!./invitationsListView.json',
 		    	}
 	    	});
 	    }
+=======
+	    },	    	    
+		showRecordDetail:function(event){
+			event.preventDefault();
+			var self = this;
+			var recordId = $(event.currentTarget).attr('record-id');
+			var url = "#!/backend/account/invitations/" + recordId;
+			Backbone.history.navigate(url, {trigger: true, replace: true});
+		}
+>>>>>>> 040a6c9f25929285a394c2ad8b3e4d1a2383d8a9
 	});
 });

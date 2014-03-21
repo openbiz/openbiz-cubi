@@ -22,7 +22,7 @@
 		},
 		{
 			"name":"expiredDate",
-			"field":"expiredDate",
+			"field":"{% return model.getDisplayExpiryDate() %}",
 			"displayName":"Expiry Date",
 			"sortable":true
 		},
@@ -43,10 +43,10 @@
 		},
 		{
 			"name":"delete",
-			"displayName":"delete",
+			"displayName":"Delete",
 			"type":"Button",
 			"event":"click",
-			"action":"showRecordDeleteConfirm"
+			"action":"deleteRecord"
 		}
 	]
 }
