@@ -1,12 +1,9 @@
 ol.breadcrumb
-	<% _.forEach(breadcrumbs,function(breadcrumb){ %>
-	<% if(breadcrumb.url !== 'undefined' && breadcrumb.url){ %>
 	li
-		a(href != "<%= breadcrumb.url %>") <%= breadcrumb.name %>
-	<% } else { %>
-	li.active <%= breadcrumb.name %>
-	<% } %>
-	<% }) %>
+		a(href='#!/backend/dashboard') Home
+	li
+		a(href='#!/backend/account') Account
+	li.active Invitations
 #content
 	.row
 		.col-md-12
