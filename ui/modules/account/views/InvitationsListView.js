@@ -1,8 +1,9 @@
 "use strict";
 define(['text!./invitationsListView.json',
 		'text!templates/account/invitationsListView.html',
-		'../models/InvitationCollection'],
-	function(metadata,templateData,dataCollection){
+		'../models/InvitationCollection'
+		,'./MyTestElement'],
+	function(metadata,templateData,dataCollection,element){
 	return openbiz.GridView.extend({
 		app: 'cubi',
         module:'account',
@@ -14,7 +15,9 @@ define(['text!./invitationsListView.json',
 		events:{
 			"click .btn-record-add" 	: "showRecordAddView"
 		},		
-		
+		elements:{
+			link:element
+		},
 		beforeRender:function(){},
 		afterRender:function(){},
 
