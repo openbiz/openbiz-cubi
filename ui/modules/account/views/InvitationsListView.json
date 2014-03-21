@@ -1,4 +1,20 @@
 {
+	"breadcrumbs":[
+		{
+			"name":"Home",
+			"url":"#!/backend/dashboard"
+		},
+		{
+			"name":"Account",
+			"url":"#!/backend/account"
+		}
+		,
+		{
+			"name":"Invitations"
+		}
+	],
+	"viewTitle":"User Invitations",
+	"viewDescription":"You can invite your colleague to join this account",
 	"fields":[
 		{
 			"name":"Token",

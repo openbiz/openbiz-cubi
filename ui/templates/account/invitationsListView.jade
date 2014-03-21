@@ -1,37 +1,21 @@
 ol.breadcrumb
-  li
-    a(href='#!/backend/dashboard') Home
-  li
-    a(href='#!/backend/account') Account
-  li.active Invitations
-// //breadcrumb
+	<% _.forEach(breadcrumbs,function(breadcrumb){ %>
+	<% if(breadcrumb.url !== 'undefined' && breadcrumb.url){ %>
+	li
+		a(href != "<%= breadcrumb.url %>") <%= breadcrumb.name %>
+	<% } else { %>
+	li.active <%= breadcrumb.name %>
+	<% } %>
+	<% }) %>
 #content
-  .row
-    .col-lg-12    
-        section.panel.wizard-form.corner-flip(role="form",parsley-validate,novalidate="novalidate")
-            header.panel-heading
-                h2 User Invitations
-                p You can invite your colleague to join this account  
-            
-            div.panel-body.data-grid
-
-            footer.panel-footer
-                button.btn-next.btn.btn-theme.btn-record-add(type="submit") 
-                    i.fa.fa-plus
-                    | &nbsp; Invite User &nbsp;                    
-
-//- Below template is only for action columns use
-script(type="text/template",id="action-column-template")
-    div.tooltip-area
-        a.btn.btn-default.btn-sm.btn-record-detail(href!="#!/backend/account/invitations/{{ id }}",style="margin-right:5px;")
-            span.hidden-xs
-                i.fa.fa-file-text-o
-                |&nbsp; Detail &nbsp;
-            span.visible-xs
-                i.fa.fa-file-text-o
-        a.btn.btn-default.btn-sm.btn-record-delete(href="#",record-id!='{{ id }}')
-            span.hidden-xs
-                i.fa.fa-trash-o
-                |&nbsp; Delete &nbsp;
-            span.visible-xs
-                i.fa.fa-trash-o
+	.row
+		.col-md-12
+			section.panel.wizard-form.corner-flip
+				header.panel-heading
+					h2 <%= viewTitle%>
+					p <%= viewDescription%>
+				.panel-body.data-grid
+				.panel-footer
+					button.btn-next.btn.btn-theme.btn-record-add
+						i.fa.fa-plus
+						| &nbsp; Invite User &nbsp;
