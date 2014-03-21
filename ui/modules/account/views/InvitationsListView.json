@@ -17,6 +17,7 @@
 		}
 	],
 	"viewTitle":"User Invitations",
+	"gridEmptyText" : "this is a empty text",
 	"viewDescription":"You can invite your colleague to join this account",
 	"fields":[
 		{
