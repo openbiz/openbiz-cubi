@@ -22,7 +22,7 @@
 		},
 		{
 			"name":"expiredDate",
-			"field":"expiredDate",
+			"field":"{% return model.getDisplayExpiryDate() %}",
 			"displayName":"Expiry Date",
 			"sortable":true
 		},
