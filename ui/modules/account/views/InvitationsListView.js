@@ -18,7 +18,12 @@ define(['text!./invitationsListView.json',
 			this.template = _.template(templateData);
 			this.collection = new dataCollection();
 		},
-
+		beforeRender:function(){
+			console.log("before render");
+		},
+		afterRender:function(){
+			console.log("after render");
+		},
 	    showRecordAddView:function(event){
 	    	event.preventDefault();	 
 	    	this.popupView('account.InvitationsNewView');
