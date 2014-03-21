@@ -25,8 +25,7 @@ define(['text!./invitationsListView.json',
 	    showRecordAddView:function(event){
 	    	event.preventDefault();	 
 	    	this.popupView('account.InvitationsNewView');
-<<<<<<< HEAD
-	    },	    
+	    },
 	    showRecordDeleteConfirm:function(event){	    	
 	    	event.preventDefault();	   
 	    	var self = this; 
@@ -45,15 +44,5 @@ define(['text!./invitationsListView.json',
 		    	}
 	    	});
 	    }
-=======
-	    },	    	    
-		showRecordDetail:function(event){
-			event.preventDefault();
-			var self = this;
-			var recordId = $(event.currentTarget).attr('record-id');
-			var url = "#!/backend/account/invitations/" + recordId;
-			Backbone.history.navigate(url, {trigger: true, replace: true});
-		}
->>>>>>> 040a6c9f25929285a394c2ad8b3e4d1a2383d8a9
 	});
 });
