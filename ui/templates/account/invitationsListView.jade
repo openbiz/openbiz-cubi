@@ -10,7 +10,9 @@ ol.breadcrumb
 			section.panel.wizard-form.corner-flip
 				header.panel-heading
 					h2 <%= viewTitle%>
+					<%if(typeof viewDescription=='string'){%>
 					p <%= viewDescription%>
+					<%}%>
 				.panel-body.data-grid
 				.panel-footer
 					button.btn-next.btn.btn-theme.btn-record-add
