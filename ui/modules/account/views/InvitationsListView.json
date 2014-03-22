@@ -1,19 +1,23 @@
 {
 	"breadcrumbs":[
 		{
-			"name":"Home",
+			"name":"home",
+			"displayName":"Home",
 			"url":"#!/backend/dashboard"
 		},
 		{
-			"name":"Account",
+			"name":"account",
+			"displayName":"Account",
 			"url":"#!/backend/account"
 		}
 		,
 		{
-			"name":"Invitations"
+			"name":"invitations",
+			"displayName":"Invitations"
 		}
 	],
 	"viewTitle":"User Invitations",
+	"gridEmptyText" : "this is a empty text",
 	"viewDescription":"You can invite your colleague to join this account",
 	"fields":[
 		{
@@ -62,7 +66,7 @@
 			"displayName":"Delete",
 			"type":"Button",
 			"event":"click",
-			"action":"deleteRecord"
+			"function":"deleteRecord"
 		}
 	]
 }

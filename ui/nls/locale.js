@@ -13,6 +13,10 @@ define({
                         Are you sure?",
         },
         account:{
+            invitationsListView:{
+                viewTitle: '<span>Invitations</span> Management',
+                viewDescription: 'Openbiz Cubi Application Platform 4.0'                
+            },
             invitationsNewView:{
                 viewTitle: '<span>Create</span> New Account',
                 viewDescription: 'Openbiz Cubi Application Platform 4.0',

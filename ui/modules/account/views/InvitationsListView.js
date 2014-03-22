@@ -15,7 +15,9 @@ define(['text!./invitationsListView.json',
 		events:{
 			"click .btn-record-add" 	: "showRecordAddView"
 		},		
-		
+		elements:{
+			link:element
+		},
 		beforeRender:function(){},
 		afterRender:function(){},
 
