@@ -2,59 +2,95 @@
 define(['text!templates/account/membersListView.html',
 		'../models/UserCollection'],
 	function(templateData,dataCollection){
-	return openbiz.GridView.extend({
+	return openbiz.View.extend({
 		app: 'cubi',
         module:'account',
 		name: 'membersListView',
 		el: '#main',
 		apps:null,
 		collection:null,
-		_metadata:{
-			fields:[
-				{
-					name:"displayName",
-					field:"user.contact.name.displayName",
-					displayName:"Name"
-				},
-				{
-					name:"email",
-					field:"user.username",
-					displayName:"Email",
-					className:"hidden-xs"
-				},
-				{
-					name:"role",
-					field:"role",
-					displayName:"Role"
-				},
-				{
-					"name":"actions",
-					"displayName":"Action",
-					"type":"recordActions"
-				}
-			],
-			paginator:true,
-			filter:false,
-			recordActions:[
-				{
-					"name":"edit",
-					"displayName":"Edit",
-					"type":"Button",
-					"event":"click",
-					"action":"showRecordDeleteConfirm"
-				}
-			]
-		},
 		events:{
-			"click .btn-record-add" : "showRecordAddView"
+			"click .btn-record-add" : "showRecordAddView",
+			"click .btn-record-detail" :"showRecordEidtView",
+			"click .btn-record-delete" 	: "showRecordDeleteConfirm"
 		},
 		initialize:function(){			
-			openbiz.GridView.prototype.initialize.call(this);
+			openbiz.View.prototype.initialize.call(this); 			
 	        this.template = _.template(templateData);
 			this.collection = new dataCollection();
     	},
-		render:function(){
-			openbiz.GridView.prototype.render.call(this);
+		renderDataGrid:function(){
+			var columns = [
+				{
+					name: "user.contact.name.displayName",
+					label: "Name",
+					cell: "String",
+					editable: false,
+					sortable: false
+				},
+				{
+					name: "user.username",
+					label: "Email",
+					cell: "String",
+					editable: false,
+					className:'hidden-xs',
+					sortable: false
+				},
+				{
+					name: "role",
+					label: "Role",
+					cell: "String",
+					editable: false,
+					sortable: false
+				},
+				{
+					name: "_id",
+					label: "Action",
+					cell: Backgrid.UriCell.extend({
+						render: function () {
+							this.$el.empty();
+							var model = this.model;
+							var value = model.get(this.column.get("name"));
+							this.$el.html( _.template(
+								$('#action-column-template').html(),
+								{id:value},
+								{interpolate: /\{\{(.+?)\}\}/g}) );
+							this.delegateEvents();
+							return this;
+						}
+					}),
+					editable: false,
+					sortable: false
+				}
+			];
+
+			//init the data grid
+			var grid = new Backgrid.Grid({
+				columns:columns,
+				collection: this.collection,
+				className: 'backgrid table table-striped table-bordered text-center',
+				emptyText: 'Please click "Invite User" button to start invite your colleagues.'
+			})
+			$(this.el).find('.data-grid').append(grid.render().el);
+
+			//init the paginator
+			var paginator = new Backgrid.Extension.Paginator({
+				windowSize: 10,
+				slideScale: 0.5,
+				goBackFirstOnSort: true,
+				collection: this.collection,
+				className:'pagination'
+			});
+			$(this.el).find('.data-grid').append(paginator.render().el);
+
+			//pull data from server now
+			this.collection.fetch();
+		},
+		render:function(){			
+	        $(this.el).html(this.template(this.locale));
+	        $(window).off('resize');
+        	openbiz.ui.update($(this.el));
+			this.renderDataGrid();
  	        return this;
 	    },
 		showRecordAddView:function(event){
