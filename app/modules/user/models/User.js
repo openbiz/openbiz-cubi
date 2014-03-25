@@ -16,7 +16,7 @@ module.exports = function(app)
             for(var i=0 ; i<this.roles.length; i++)
             {
                 var roleName = this.roles[i];    
-                if(openbiz.getRole(roleName).indexOf(permission) != -1)
+                if(typeof openbiz.getRole(roleName)!='undefined' && openbiz.getRole(roleName).indexOf(permission) != -1)
                 {
                     return true;                
                 }                

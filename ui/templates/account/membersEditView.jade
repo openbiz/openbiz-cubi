@@ -12,8 +12,8 @@
 						| &nbsp; <%= user.get("user").contact.emails[0].email %>
 					br
 					span
-						i.fa.fa-info-circle
-						| &nbsp; <%= user.get("user").contact.name.displayName %>
+						i.fa.fa-phone-square
+						| &nbsp; <%= user.get("user").contact.phones[0].countryCode %> <%= user.get("user").contact.phones[0].number %>
 			hr(style="margin-top:0px;")
 		section.role-selection
 			div

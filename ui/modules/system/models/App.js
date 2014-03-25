@@ -19,7 +19,7 @@ define(function(){
                 {
                     for(var i in resp.roles){
                         var role = resp.roles[i];
-                        role.name = resp.locale.roles[role.id];
+                        role.name = resp.locale.roles[role.id]?resp.locale.roles[role.id]:role.name;
                         newRoles.push(role)
                     }
                     resp.roles = newRoles;
