@@ -11,7 +11,7 @@ define(['text!./invitationsListView.json',
 		el: '#main',		
 		collection: dataCollection,
 		template : templateData,
-		metadata:  openbiz.MetadataParser.call(this,metadata),		
+		metadata: metadata,		
 		events:{
 			"click .btn-record-add" 	: "showRecordAddView"
 		},				

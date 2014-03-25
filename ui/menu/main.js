@@ -6,17 +6,11 @@ define(['text!templates/menu/accountMenuView.html'],
             el:'nav#menu ul.system-menu',
             menu: 'account-menu',
             menuRoot: 'nav#menu',
+            menuPermission: null,
+            menuACL: ['cubi-account-manage'],
             initialize:function(){
                 openbiz.Menu.prototype.initialize.call(this);
                 this.template = _.template(templateData);
-            },
-            render:function(){
-                var self = this;
-                if(openbiz.session.me.hasPermission('cubi-account-manage')){
-                    var menuHtml = this.template(this.locale);
-                    this.updateMenu(menuHtml);
-                }
-                return this;
             }
         });
     }

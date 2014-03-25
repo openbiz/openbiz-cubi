@@ -70,18 +70,25 @@ define(['text!templates/system/menuView.html'],
                 return this;
             },
             updateMenu:function(){
-                var self = this;
+                var self = this;                
+                $(document).data('menu',this.template());
+                $('nav#menu').html(this.template());
                 openbiz.session.me.fetch({success:function(){
                     self.app.require(['modules/system/models/AppCollection'],function(AppCollection){
                             var apps = new AppCollection();
-                            openbiz.session.apps = apps;
                             apps.fetch({success:function(){
-                                for(var app in openbiz.apps){                                    
-                                    openbiz.apps[app].require(['./menu/main'],function(menu){
-                                        var menu = new menu();
-                                        menu.render();
-                                    })
-                                }
+                                async.mapSeries(openbiz.loadedApps,
+                                    function(app,callback){
+                                        openbiz.apps[app].require(['./menu/main'],function(menu){
+                                            var menu = new menu();
+                                            menu.render();
+                                            callback(null,true);
+                                        });
+                                    },
+                                    function(err,result){
+                                        openbiz.ui.update($(self.el));
+                                    }
+                                )                                                       
                             }});
                         });
                     }});

@@ -36,7 +36,9 @@ define(['text!templates/account/membersEditView.html'],
 
 				this.model.save({roles:selectedRoles},{success:function(){
 					collection.fetch({success:function(){
-						self.app.views.get("system.MenuView").updateMenu();
+						if(self.model.id == openbiz.session.me.id){
+							self.app.views.get("system.MenuView").updateMenu();
+						}
 						self.$el.modal('hide');
 					}});
 				}});
