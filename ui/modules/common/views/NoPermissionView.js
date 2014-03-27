@@ -4,8 +4,8 @@ define(['text!templates/common/noPermissionView.html'],
         return openbiz.View.extend({
             app: 'cubi',
             module:'common',
-            name: 'noPermission',
-            el:'#wrapper #main',
+            name: 'noPermissionView',
+            el:'#main',
             events:{
               'click .menu-collapse' : 'menuCollapse'
             },

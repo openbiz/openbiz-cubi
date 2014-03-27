@@ -6,6 +6,7 @@ define(function(){
             "!/backend/*any"		: "notFound"
 		},		
 		notFound:function(){
+			this.app = openbiz.apps.cubi;			
 			this.renderView("common.NotFoundView");
 		}
 	});
