@@ -21,7 +21,9 @@ define(['i18n!./nls/locale',
             account: account
 		},
 		init:function(){			
+			//this.modules['common'].init();
 			for(var i in this.modules){				
+				if(i =='common') continue;
 				this.modules[i].init();				
 			}			
 		},
