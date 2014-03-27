@@ -15,7 +15,7 @@ define(['../system/views/LayoutView',
 		initialize:function(){
             openbiz.Router.prototype.initialize.call(this);
 			this.me = new me();
-		},
+		},		
 		home:function(){
 			this.me.fetch({
 				success:function(){
