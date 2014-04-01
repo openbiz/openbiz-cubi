@@ -14,11 +14,11 @@ define(['i18n!./nls/locale',
 		appUrl 	: REPLACE_APPURL,
 		baseUrl : REPLACE_BASEURL,
 		modules:{
-			common: common,
-            system: system,
-			user: user,
-            me: me,
-            account: account
+			common: new common(),
+            system: new system(),
+			user: new user(),
+            me: new me(),
+            account: new account()
 		},
 		init:function(){			
 			//this.modules['common'].init();
