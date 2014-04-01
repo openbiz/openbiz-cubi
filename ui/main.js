@@ -15,10 +15,10 @@ define(['i18n!./nls/locale',
 		baseUrl : REPLACE_BASEURL,
 		modules:{
 			common: new common(),
-            system: new system(),
+			system: new system(),
 			user: new user(),
-            me: new me(),
-            account: new account()
+			me: new me(),
+			account: new account()
 		},
 		init:function(){			
 			//this.modules['common'].init();
