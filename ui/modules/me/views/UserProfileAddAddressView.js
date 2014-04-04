@@ -1,6 +1,6 @@
 "use strict";
 define(['text!templates/me/userProfileAddAddressView.html',
-	'../models/Address'],
+	'../models/address'],
 	function(templateData,model){
 		return openbiz.View.extend({
 			app: 'cubi',

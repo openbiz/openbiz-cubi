@@ -1,5 +1,5 @@
 "use strict";
-define(['./Address'],function(Address){
+define(['./address'],function(Address){
 	return Backbone.PageableCollection.extend({
 		model: Address,
 		url: openbiz.apps.cubi.appUrl+'/me/addresses',
