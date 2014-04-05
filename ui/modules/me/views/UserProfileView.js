@@ -1,6 +1,6 @@
 "use strict";
 define(['text!templates/me/userProfileView.html',
-	'../models/AddressCollection',
+	'../models/addressCollection',
 	'../models/EmailCollection',
 	'../models/PhoneCollection',
 	'../models/Contact'],
