@@ -99,7 +99,7 @@ define(['text!templates/account/applicationsListView.html',
 				slideScale: 0.5,
 				goBackFirstOnSort: true,
 				collection: this.collection,
-				className:'pagination'
+				className:'vog'
 			});
 			$(this.el).find('.uninstall-grid').append(paginator.render().el);
 
