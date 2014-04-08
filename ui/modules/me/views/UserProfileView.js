@@ -102,7 +102,7 @@ define(['text!templates/me/userProfileView.html',
 					slideScale: 0.5,
 					goBackFirstOnSort: true,
 					collection: this.models.phoneCollection,
-					className:'pagination'
+					className:'vog'
 				});
 				$(this.el).find('.data-grid-phone').append(paginator.render().el);
 				this.models.phoneCollection.fetch();
@@ -184,7 +184,7 @@ define(['text!templates/me/userProfileView.html',
 					slideScale: 0.5,
 					goBackFirstOnSort: true,
 					collection: this.models.addressCollection,
-					className:'pagination'
+					className:'vog'
 				});
 				$(this.el).find('.data-grid-address').append(paginator.render().el);
 				var self = this;

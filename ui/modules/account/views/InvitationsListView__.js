@@ -103,7 +103,7 @@ define(['text!templates/account/invitationsListView.html',
 				slideScale: 0.5, 
 				goBackFirstOnSort: true, 
 				collection: this.collection,
-				className:'pagination'
+				className:'vog'
 			});
 			$(this.el).find('.data-grid').append(paginator.render().el);
 
