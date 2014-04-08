@@ -34,25 +34,26 @@ define(['text!templates/system/menuView.html'],
                     {
                         pageSelector:'div#wrapper'
                     }).on( "closing.mm", function(){
-                        var highest=$(this).find("ul.mm-highest");
-                        highest.find(".mm-subclose").trigger('click');
-                        setTimeout(function () { closeSub() }, 200);
-                        function closeSub(){
-                            var nav=$('nav#menu');
-                            if(nav.hasClass("mm-vertical")){
-                                nav.find("li").each(function(i) {
-                                    $(this).removeClass("mm-opened");
-                                });
-                            }else{
-                                nav.find("ul").each(function(i) {
-                                    if(i==0){
-                                        $(this).removeClass("mm-subopened , mm-hidden").addClass("mm-current");
-                                    }else{
-                                        $(this).removeClass("mm-opened , mm-subopened , mm-current  , mm-highest").addClass("mm-hidden");
-                                    }
-                                });
-                            }
-                        }
+                        console.log("closing me ");
+                        // var highest=$(this).find("ul.mm-highest");
+                        // highest.find(".mm-subclose").trigger('click');
+                        // setTimeout(function () { closeSub() }, 200);
+                        // function closeSub(){
+                        //     var nav=$('nav#menu');
+                        //     if(nav.hasClass("mm-vertical")){
+                        //         nav.find("li").each(function(i) {
+                        //             $(this).removeClass("mm-opened");
+                        //         });
+                        //     }else{
+                        //         nav.find("ul").each(function(i) {
+                        //             if(i==0){
+                        //                 $(this).removeClass("mm-subopened , mm-hidden").addClass("mm-current");
+                        //             }else{
+                        //                 $(this).removeClass("mm-opened , mm-subopened , mm-current  , mm-highest").addClass("mm-hidden");
+                        //             }
+                        //         });
+                        //     }
+                        // }
                     });
                     //////////     TOGGLE  OPEN LEFT CANVAS MENU      //////////
                     if($("body div.toggle-menu").length==0){
