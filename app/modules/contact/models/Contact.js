@@ -5,7 +5,7 @@ module.exports = function(app)
     var schema = new mongoose.Schema(
     app.openbiz.MetadataParser.call(app.openbiz,__filename.replace(/\.js$/i,'.json')),
     {
-        collection: 'cubi_contact'
+        collection: 'cubi.contact'
     });
 
     return app.openbiz.db.model('cubi.contact.Contact', schema);

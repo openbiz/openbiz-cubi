@@ -7,7 +7,7 @@ module.exports = function(app)
     app.openbiz.MetadataParser.call(app.openbiz,__filename.replace(/\.js$/i,'.json')),
     {
         versionKey: false,
-        collection: 'cubi_account'
+        collection: 'cubi.account'
     });
 
 	schema.statics.generateInvitationTokenCode = function(callback)

@@ -6,7 +6,7 @@ module.exports = function(app)
     app.openbiz.MetadataParser.call(app.openbiz,__filename.replace(/\.js$/i,'.json')),
     {
         versionKey: false,
-        collection: 'cubi_user'
+        collection: 'cubi.user'
     });
 
     schema.methods.hasPermission = function(permission,openbiz)
