@@ -1,0 +1,25 @@
+{
+    "filename": {
+        "type": "String"
+    },
+    "contentType": {
+        "type": "String"
+    },
+    "length": {
+        "type": "Number"
+    },
+    "chunkSize": {
+        "type": "Number"
+    },
+    "uploadDate": {
+        "type": "Date"
+    },
+    "aliases": {
+        "type": "String"
+    },
+    "metadata": {},
+    "md5": {
+        "type": "String",
+        "required": true
+    }
+}
