@@ -59,7 +59,7 @@
 			"name":"detail",
 			"displayName":"Detail",
 			"type":"Link",
-			"url":"#!/backend/account/invitations/{{ id }}"
+			"url":"/account/invitations/{{ id }}"
 		},
 		{
 			"name":"delete",

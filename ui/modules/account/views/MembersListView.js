@@ -11,7 +11,7 @@ define(['text!templates/account/membersListView.html',
 		collection:null,
 		events:{
 			"click .btn-record-add" : "showRecordAddView",
-			"click .btn-record-detail" :"showRecordEidtView",
+			"click .btn-record-detail" :"showRecordEditView",
 			"click .btn-record-delete" 	: "showRecordDeleteConfirm"
 		},
 		initialize:function(){			
@@ -96,7 +96,7 @@ define(['text!templates/account/membersListView.html',
 		showRecordAddView:function(event){
 			event.preventDefault();
 		},
-		showRecordEidtView:function(event){
+		showRecordEditView:function(event){
 			event.preventDefault();
 			var recordId = $(event.currentTarget).attr('record-id');
 			$("body").data('Members',this.collection.get(recordId));

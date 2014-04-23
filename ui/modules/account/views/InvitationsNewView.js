@@ -19,7 +19,8 @@ define(['text!templates/account/invitationsNewView.html',
 		render:function(){	 
 			var self = this;       			
 	        var output = self.locale;
-	        this.$el = $(self.template(output));
+            this.$el.html($(this.template(output)))
+            $(this.el).html(this.$el.html());
         	this._localizeAddUserForm();            
         	openbiz.ui.update(this.$el);
  	        return this;

@@ -28,7 +28,8 @@ define(['text!templates/account/invitationsDetailView.html',
 			        			var output = self.locale;        			
 			        			output.data = self.model;
 			        			output.installedApps = apps.models;
-			        			$(self.el).html(self.template(output));
+			        			self.$el.html($(self.template(output)))
+            					$(self.el).html(self.$el.html());
 				        		openbiz.ui.update($(self.el));
 		        			}
 		        		})
