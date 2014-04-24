@@ -104,7 +104,7 @@ define({
                 viewTitle:'<strong>我的</strong>个人资料'
             },
          userChangePasswordView:{
-                viewTitle:'<strong>修改</strong> 密码',
+                viewTitle:'<strong>修改</strong>密码',
                
                 fieldOldPassword:'老的密码',
                 placeholderOldPassword:'老的密码',
