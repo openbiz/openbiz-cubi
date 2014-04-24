@@ -1,9 +1,9 @@
 ol.breadcrumb
 	li
-		a(href='#') Home
+		a(href='#') <%= breadcrumb.home %>
 	li
-		a(href='#') Me
-	li.active Profile
+		a(href='#') <%= breadcrumb.me %>
+	li.active <%= breadcrumb.profile %>
 #content
 	.row
 		div.panel-heading

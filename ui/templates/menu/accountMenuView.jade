@@ -1,13 +1,13 @@
 li.app-menu.cubi-account-manage
   span
     i.icon.fa.fa-group
-    | Account
+    | <%= title %>
   ul
     li
-      a(href='#!/backend/account/applications')  Applications 
+      a(href='#!/backend/account/applications')  <%= menuApplications %>
     li
-      a(href='#!/backend/account/members')  Members
+      a(href='#!/backend/account/members')  <%= menuMembers %>
     li
-      a(href='#!/backend/account/invitations')  Invitations
+      a(href='#!/backend/account/invitations')  <%= menuInvitations %> 
     li
-      a(href='#!/backend/account/profile')  Profile
+      a(href='#!/backend/account/profile')  <%= menuProfile %> 

@@ -17,6 +17,13 @@ define({
                         你即将删除这条数据: <br/> \
                         是否确认此操作?",
     },
+    menu:{
+        title               :'公司账户设置',
+        menuApplications    :'应用程序管理',
+        menuMembers         :'公司用户管理',
+        menuInvitations     :'用户邀请管理',
+        menuProfile         :'企业档案管理',
+    },
     user:{
         loginView:{
             viewTitle: '<span>欢迎</span>登录',
@@ -80,13 +87,33 @@ define({
     system:{
         headerView:{
             hi: '欢迎',
-            help: '帮助'
+            help: '帮助',
+            signout: '退出登录',
+            profile: '我的资料管理'
         },
         navView:{
             hi: '欢迎'
+        },
+        menuView:{
+            title: "首页仪表板"
         }
     },
     me:{
+        userProfileView:{
+                viewTitle:'<strong>资料</strong>管理',
+                firstName:'名字',
+                lastName:'姓氏',
+                titleMr:    '先生',
+                titleMs:    '女士',
+                company: '公司',
+                department:'部门',
+                birthday:'生日',
+                oldPassword:'旧的密码',
+                newPassword:'新密码的',
+                repetNewPassword:'再次确认',
+                passwordNotMatch:'两次输入密码不一致',
+                wrongPassword:"密码输入错误"
+            },
         setupWizardView:{
             viewName:'设置向导',
             viewTitle: '<strong>账户</strong> 设置向导',
@@ -129,6 +156,8 @@ define({
     },
     breadcrumb:{
         home:'首页',
+        me:'我的账户',
         myAccount:'我的账户',
+        profile:'资料管理'
     }
 });

@@ -19,7 +19,7 @@ define(['text!templates/account/membersEditView.html'],
 
 				this.locale.user = this.model;
 				this.locale.apps = this.app.views.get('account.MembersListView').apps.toJSON();;				
-				this.$el.html($(this.template(this.locale)))
+				this.$el.html($(this.template(this.locale)));
 				$(this.el).html(this.$el.html());
 				openbiz.ui.update(this.$el)
 				return this;

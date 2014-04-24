@@ -26,24 +26,24 @@
 				li
 					a(href='#!/backend/me/profile')
 						i.fa.fa-user
-						| Profile
-				li
-					a(href='#do-nothing')
-						i.fa.fa-cog
-						| Setting
-				li
-					a(href='#do-nothing')
-						i.fa.fa-bookmark
-						| Bookmarks
-				li
-					a(href='#do-nothing')
-						i.fa.fa-money
-						| Make a Deposit
+						| <%= profile %>
+				//- li
+				//- 	a(href='#do-nothing')
+				//- 		i.fa.fa-cog
+				//- 		| Setting
+				//- li
+				//- 	a(href='#do-nothing')
+				//- 		i.fa.fa-bookmark
+				//- 		| Bookmarks
+				//- li
+				//- 	a(href='#do-nothing')
+				//- 		i.fa.fa-money
+				//- 		| Make a Deposit
 				li.divider
 				li
 					a.btn-logout(href='#!/backend/me/logout')
 						i.fa.fa-sign-out
-						| Signout
+						| <%= signout %>
 			// //dropdown-menu
 		li.visible-lg
 			a.h-seperate.fullscreen(href='#', data-toggle='tooltip', title='Full Screen', data-container='body', data-placement='left')

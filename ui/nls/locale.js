@@ -12,6 +12,13 @@ define({
                         You are about to delete this record: <br/> \
                         Are you sure?",
         },
+        menu:{
+            title:'Account',
+            menuApplications    :'Applications',
+            menuMembers         :'Members',
+            menuInvitations     :'Invitations',
+            menuProfile         :'Profile',
+        },
         account:{
             invitationsListView:{
                 viewTitle: '<span>Invitations</span> Management',
@@ -152,15 +159,20 @@ define({
         system:{
             headerView:{
                 hi: 'Hi',
-                help: 'Help'
+                help: 'Help',
+                signout: 'Signout',
+                profile: 'Profile'
             },
             navView:{
                 hi: 'Hi'
+            },
+            menuView:{
+                title: "Dashboard"
             }
         },
         me:{
 	        userProfileView:{
-				viewTitle:'<strong>Me</strong> Profile',
+				viewTitle:'<strong>My</strong> Profile',
 		        firstName:'First Name',
 		        lastName:'Last Name',
 		        titleMr: 	'Mr.',
@@ -238,7 +250,9 @@ define({
         },
         breadcrumb:{
             home:'Home',
-            myAccount:'My Account'
+            myAccount:'My Account',
+            me:'Me',            
+            profile:'Profile'
         }
 	},
 	'en-us': true,

@@ -1,1 +1,47 @@
-<ol class="breadcrumb"><li><a href="#">Home</a></li><li><a href="#">Me</a></li><li class="active">Profile</li></ol><div id="content"><div class="row"><div class="panel-heading"><h2><%= viewTitle %></h2></div><div class="panel-body"><div class="col-md-4 align-md-center"><img id="avator" alt="" src="<%= baseUrl %>/images/avatar.png" class="circle"/></div><div class="col-md-8"><form role="form" parsley-validate="parsley-validate" novalidate="novalidate" class="form-profile"><div class="form-group row"><div class="col-md-6"><label class="control-label"><%= lastName %></label><input id="contactLastname" required="required" type="text" placeholder="<%= lastName %>" value="<%= contact.get('name').lastName %>" class="form-control"/></div><div class="col-md-6"><label class="control-label"><%= firstName %></label><input id="contactFirstname" required="required" type="text" placeholder="<%= firstName %>" value="<%= contact.get('name').firstName %>" class="form-control"/></div></div></form><form role="form" parsley-validate="parsley-validate" novalidate="novalidate" class="form-password"><div class="form-group"><label class="control-label"><%= oldPassword %></label><input id="oldPassword" required="required" type="password" name="password" placeholder="<%= oldPassword %>" parsley-remote-method="POST" parsley-remote-message="<%= wrongPassword %>" parsley-required="true" class="form-control"/></div><div class="form-group"><label class="control-label"><%= newPassword %></label><input id="inputPassword" required="required" type="password" parsley-mincheck="6" parsley-trigger="change" placeholder="<%= newPassword %>" class="form-control"/></div><div class="form-group"><label class="control-label"><%= repetNewPassword %></label><input id="inputRepeatPassword" required="required" type="password" parsley-mincheck="6" parsley-trigger="change" name="password-repeat" placeholder="<%= repetNewPassword %>" parsley-equalto="#inputPassword" parsley-equalto-message="<%= passwordNotMatch %>" class="form-control"/></div></form><div class="form-group align-md-center"><button type="button" class="btn btn-theme btn-update"> Update</button></div></div></div></div></div>
+
+<ol class="breadcrumb">
+  <li><a href="#"><%= breadcrumb.home %></a></li>
+  <li><a href="#"><%= breadcrumb.me %></a></li>
+  <li class="active"><%= breadcrumb.profile %></li>
+</ol>
+<div id="content">
+  <div class="row">
+    <div class="panel-heading">
+      <h2><%= viewTitle %></h2>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-4 align-md-center"><img id="avator" alt="" src="<%= baseUrl %>/images/avatar.png" class="circle"/></div>
+      <div class="col-md-8">
+        <form role="form" parsley-validate="parsley-validate" novalidate="novalidate" class="form-profile">
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label class="control-label"><%= lastName %></label>
+              <input id="contactLastname" required="required" type="text" placeholder="<%= lastName %>" value="<%= contact.get('name').lastName %>" class="form-control"/>
+            </div>
+            <div class="col-md-6">
+              <label class="control-label"><%= firstName %></label>
+              <input id="contactFirstname" required="required" type="text" placeholder="<%= firstName %>" value="<%= contact.get('name').firstName %>" class="form-control"/>
+            </div>
+          </div>
+        </form>
+        <form role="form" parsley-validate="parsley-validate" novalidate="novalidate" class="form-password">
+          <div class="form-group">
+            <label class="control-label"><%= oldPassword %></label>
+            <input id="oldPassword" required="required" type="password" name="password" placeholder="<%= oldPassword %>" parsley-remote-method="POST" parsley-remote-message="<%= wrongPassword %>" parsley-required="true" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><%= newPassword %></label>
+            <input id="inputPassword" required="required" type="password" parsley-mincheck="6" parsley-trigger="change" placeholder="<%= newPassword %>" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><%= repetNewPassword %></label>
+            <input id="inputRepeatPassword" required="required" type="password" parsley-mincheck="6" parsley-trigger="change" name="password-repeat" placeholder="<%= repetNewPassword %>" parsley-equalto="#inputPassword" parsley-equalto-message="<%= passwordNotMatch %>" class="form-control"/>
+          </div>
+        </form>
+        <div class="form-group align-md-center">
+          <button type="button" class="btn btn-theme btn-update"> Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

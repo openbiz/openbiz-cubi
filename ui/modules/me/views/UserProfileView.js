@@ -192,7 +192,7 @@ define(['text!templates/me/userProfileView.html',
 			},
 			render:function(){
 				$(window).off('resize');
-				this.locale.contact = this.models.contact;
+				this.locale.contact = this.models.contact;				
 				$(this.el).html(this.template(this.locale));
 				openbiz.ui.update($(this.el));
 			},

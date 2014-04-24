@@ -24,7 +24,7 @@ define(['text!templates/system/menuView.html'],
                 });
             },
             render:function(){
-                $(this.el).html(this.template(this.app.locale.headerView));
+                $(this.el).html(this.template(this.locale));
                 if(!this.app.views.isRenderred("system.MenuView")){
                     $(document).data('menu',$('nav#menu').html());
                     $('nav#menu').mmenu({
