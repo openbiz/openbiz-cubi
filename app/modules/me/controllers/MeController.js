@@ -100,17 +100,21 @@ module.exports = function(app){
 			res.json(200,req.user.getOutput());
 		},		
 		updateMe: function(req, res){
+			if(typeof req.body.newPassword!='undefined'){
+				var userModel = app.getModel.call(app,'User');
+				req.user.password = userModel.encryptPassword(req.body.newPassword);
+			}
 			// var input = req.body;
 			// if(input.name){
 			// 	req.user.contact.name = input.name;
 			// }
-			// req.user.contact.save(function(err){
-			// 	if(err){
-			// 		res.json(500,{error:err});
-			// 	}else{
-			// 		res.send(204);
-			// 	}
-			// });
+			req.user.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}else{
+					res.send(204);
+				}
+			});
 		}
 		//,
 		// getMyPhones: function(req, res){

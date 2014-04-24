@@ -52,11 +52,13 @@ module.exports = function(app){
             }
         },
 	    checkPassword:function(req, res){
-		    if (req.user.password != app.getModel.call(app,'User').encryptPassword(req.body.password)) {
-			    res.json(200,false);
-		    }else{
-			    res.json(200,true);
-		    }
+            for(var i in req.body){
+    		    if (req.user.password != app.getModel.call(app,'User').encryptPassword(req.body[i])) {
+    			    res.json(200,false);
+    		    }else{
+    			    res.json(200,true);
+    		    }
+            }
 	    },
         checkUsernameUnique:function(req,res)
         {            

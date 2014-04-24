@@ -115,6 +115,9 @@ define({
                 fieldRepeatPassword:'再次确认密码',                
                 placeholderRepeatPassword:'再次确认密码',
 
+                passwordChangedTitle:"您的密码已经被成功修改",
+                passwordChangedMessage:"您的密码已经被成功修改<br/>您将需要重新登录系统来确认改变。",
+
                 validation:{
                     passwordNotMatch:'两次密码输入不一致',
                     incorrectPassword: '密码输入有误'

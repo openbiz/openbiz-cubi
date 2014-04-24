@@ -186,6 +186,9 @@ define({
 
                 fieldRepeatPassword:'Repeat Password',                
                 placeholderRepeatPassword:'Repeat Password',
+
+                passwordChangedTitle:"Your password has successful changed",
+                passwordChangedMessage:"Your password has successful changed, <br/>You will need to re-login to make effects",
                 validation:{
                     passwordNotMatch:'The password is not matched',
                     incorrectPassword: "The password is incorrect"

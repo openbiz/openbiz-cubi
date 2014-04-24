@@ -22,6 +22,17 @@ define(['text!./UserChangePasswordView.json',
 					}
 				});
 			},
+			saveRecordSuccess:function(){
+				 bootbox.alert({
+					title: this.locale.passwordChangedTitle,
+					message:this.locale.passwordChangedMessage,
+					buttons:{
+						ok:function(){
+							Backbone.history.navigate("#!/backend/me/logout", {trigger: true, replace: true});			
+						}
+					}
+				});				 
+			},
 			beforeRender:function(){},
 			afterRender:function(){},
 			beforeDeleteRecord:function(){},
