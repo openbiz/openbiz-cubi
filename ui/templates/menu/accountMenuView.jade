@@ -1,13 +1,21 @@
 li.app-menu.cubi-account-manage
-  span
-    i.icon.fa.fa-group
-    | <%= title %>
-  ul
-    li
-      a(href='#!/backend/account/applications')  <%= menuApplications %>
-    li
-      a(href='#!/backend/account/members')  <%= menuMembers %>
-    li
-      a(href='#!/backend/account/invitations')  <%= menuInvitations %> 
-    li
-      a(href='#!/backend/account/profile')  <%= menuProfile %> 
+    span
+        i.icon.fa.fa-group
+        | <%= title %>
+    ul
+        li
+            a(href='#!/backend/account/applications')
+                i.icon.fa.fa-th
+                | <%= menuApplications %>
+        li
+            a(href='#!/backend/account/members')
+                i.icon.fa.fa-user
+                | <%= menuMembers %>
+        li
+            a(href='#!/backend/account/invitations')
+                i.icon.fa.fa-user-md
+                | <%= menuInvitations %>
+        li
+            a(href='#!/backend/account/profile')
+                i.icon.fa.fa-building-o
+                | <%= menuProfile %>
