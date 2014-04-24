@@ -1,0 +1,16 @@
+{
+  "name": "UserProfileView",
+  "displayName": "My Profile",
+  "description": "My Profile",
+  "permission": "cubi-myaccount-manage",
+  "type": "nestView",
+  "url": "/profile",
+  "subviews": [	  
+    {
+      "name": "userProfileEditView",
+      "view": "me.userProfileEditView",
+      "placeholder": "数据加载中..."
+    }
+  ],
+  "comment": "APPBUILDER_ALLOW_OVERRIDE = YES // if you have manual modified this file please change APPBUILDER_ALLOW_OVERRIDE value to NO"
+}

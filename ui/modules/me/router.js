@@ -6,11 +6,11 @@ define(['./models/Me' ],
 		me: null,
 		views:{
 		},
-		routes:{
-			"do-nothing"			     : "doNothing",
+		routes:{			
 			"!/backend/me/logout" 	     : "logout",
-            "!/backend/me/profile"       : "setupProfile",
-            "!/backend/me/setup"         : "setupWizard"
+            "!/backend/me/profile"       : "setupProfile",            
+            "!/backend/me/setup"         : "setupWizard",
+            "!/backend/me/change-password"    : "changePassword",
 		},		
 		initialize:function(){			
 			// wired way to call parent methods 
@@ -21,9 +21,9 @@ define(['./models/Me' ],
 		setupProfile:function(){
 			this.renderView("me.UserProfileView");
 		},
-		doNothing:function(){
-
-		},
+		changePassword:function(){
+			this.renderView("me.UserChangePasswordView");
+		},		
         setupWizard:function(){
             this.renderView("me.SetupWizardView");
         },

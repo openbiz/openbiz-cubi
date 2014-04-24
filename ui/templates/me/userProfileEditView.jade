@@ -1,0 +1,26 @@
+form
+	.col-md-4.align-md-center
+		img.circle#avator(alt='', src!='<%= locale.baseUrl %>/images/avatar.png')
+	.col-md-8
+		.form-profile(role="form",parsley-validate,novalidate="novalidate")
+			.form-group.row
+				.col-md-6.name-firstname
+					.field-firstname
+				.col-md-6.name-lastname
+					.field-lastname								
+			.form-group.row
+				.col-md-6
+					.field-birthday
+				.col-md-6
+			hr
+	.col-md-12
+		.form-group.row
+			.col-md-12
+				.field-company		
+		.form-group.row
+			.col-md-6
+				.field-department
+			.col-md-6					
+				.field-position		
+	div
+			.act-saverecord

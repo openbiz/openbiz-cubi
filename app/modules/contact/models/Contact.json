@@ -10,6 +10,7 @@
     "company":    "String",
     "department": "String",
     "title":      "String",
+    "position":   "String",
     "emails":[{
         "category":   "String",
         "email":      "String"

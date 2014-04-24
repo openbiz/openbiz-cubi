@@ -1,0 +1,68 @@
+{
+	"name": "userProfileEditView",
+	"displayName": "User Profile Edit View",
+	"type": "editFormView",
+	"permission": "cubi-myaccount-manage",
+	"model": "Me",
+	"fields": [
+		{
+			"name": "firstName",
+			"field": "contact.name.firstName",
+			"displayName": "Fist Name",
+			"placeholder": "Fist Name",
+			"type": "text",
+			"required":true
+		},
+		{
+			"name": "lastName",
+			"field": "contact.name.lastName",
+			"displayName": "Last Name",
+			"placeholder": "Last Name",
+			"type": "text",
+			"required":true
+		},
+		{
+			"name": "birthday",
+			"displayValue" : "{{ moment(record.get('contact').birthday).format('YYYY-MM-DD') }}",
+			"field" : "contact.birthday",
+			"displayName": "Birthday",
+			"type": "date"
+		},
+		{
+			"name": "company",
+			"field": "contact.company",
+			"displayName": "Company",
+			"placeholder": "Company",
+			"type": "text",
+			"required":false
+		},
+		{
+			"name": "position",
+			"field": "contact.position",
+			"displayName": "Position",
+			"placeholder": "Position",
+			"type": "text",
+			"required":false
+		},
+		{
+			"name": "department",
+			"field": "contact.department",
+			"displayName": "Department",
+			"placeholder": "Department",
+			"type": "text",
+			"required":false
+		}
+	],
+	"actions": [
+		{
+			"name": "saveRecord",
+			"displayName": "保存",
+			"type": "button",
+			"event": "click",
+			"function": "saveRecord",
+			"className": "btn-theme x-large",
+			"icon": ".fa.fa-check"
+		}
+	],
+	"comment": "APPBUILDER_ALLOW_OVERRIDE = NO // if you have manual modified this file please change APPBUILDER_ALLOW_OVERRIDE value to NO"
+}

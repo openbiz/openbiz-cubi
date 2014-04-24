@@ -160,8 +160,9 @@ define({
             headerView:{
                 hi: 'Hi',
                 help: 'Help',
-                signout: 'Signout',
-                profile: 'Profile'
+                signout: 'Sign Out',
+                profile: 'Profile',
+                changePassword: 'Change Password'
             },
             navView:{
                 hi: 'Hi'
@@ -172,20 +173,49 @@ define({
         },
         me:{
 	        userProfileView:{
-				viewTitle:'<strong>My</strong> Profile',
-		        firstName:'First Name',
-		        lastName:'Last Name',
-		        titleMr: 	'Mr.',
-		        titleMs: 	'Ms.',
-		        company: 'Company',
-		        department:'Department',
-		        birthday:'Birthday',
-		        oldPassword:'Old Password',
-		        newPassword:'New Password',
-		        repetNewPassword:'Confirm New Password',
-		        passwordNotMatch:'The password is not matched',
-		        wrongPassword:"The password is wrong"
+				viewTitle:'<strong>My</strong> Profile',		        
 	        },
+            userChangePasswordView:{
+                viewTitle:'<strong>Change</strong> Password',
+               
+                fieldOldPassword:'Old Password',
+                placeholderOldPassword:'Old Password',
+
+                fieldNewPassword:'New Password',                
+                placeholderNewPassword:'New Password',
+
+                fieldRepeatPassword:'Repeat Password',                
+                placeholderRepeatPassword:'Repeat Password',
+                validation:{
+                    passwordNotMatch:'The password is not matched',
+                    incorrectPassword: "The password is incorrect"
+                }
+            },
+            userProfileEditView:{
+                viewTitle:'<strong>My</strong> Profile',
+                nameFormat: ['firstName','lastName'],
+                fieldFirstName:'First Name',
+                placeholderFirstName:'First Name',
+
+                fieldLastName:'Last Name',                
+                placeholderLastName:'Last Name',
+
+                fieldBirthday:'Birthday',                
+                placeholderBirthday:'Birthday',
+
+                fieldCompany:'Company',                
+                placeholderCompany:'Company',
+
+                fieldDepartment:'Department',                
+                placeholderDepartment:'Department',
+
+                fieldPosition:'Position',                
+                placeholderPosition:'Position',
+
+                titleMr:    'Mr.',
+                titleMs:    'Ms.'
+
+            },
             setupWizardView:{
                 viewName:'Setup Wizard',
                 viewTitle: '<strong>Account</strong> Setup Wizard',

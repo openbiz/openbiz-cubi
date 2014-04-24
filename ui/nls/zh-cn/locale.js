@@ -89,30 +89,54 @@ define({
             hi: '欢迎',
             help: '帮助',
             signout: '退出登录',
-            profile: '我的资料管理'
+            profile: '我的个人资料',
+            changePassword: '修改密码'
         },
         navView:{
             hi: '欢迎'
         },
         menuView:{
-            title: "首页仪表板"
+            title: "首页"
         }
     },
     me:{
         userProfileView:{
-                viewTitle:'<strong>资料</strong>管理',
-                firstName:'名字',
-                lastName:'姓氏',
+                viewTitle:'<strong>我的</strong>个人资料'
+            },
+         userChangePasswordView:{
+                viewTitle:'<strong>修改</strong> 密码',
+               
+                fieldOldPassword:'老的密码',
+                placeholderOldPassword:'老的密码',
+
+                fieldNewPassword:'新的密码',                
+                placeholderNewPassword:'新的密码',
+
+                fieldRepeatPassword:'再次确认密码',                
+                placeholderRepeatPassword:'再次确认密码',
+
+                validation:{
+                    passwordNotMatch:'两次密码输入不一致',
+                    incorrectPassword: '密码输入有误'
+                }
+            },
+        userProfileEditView:{
+                nameFormat: ['lastName','firstName'],
+                fieldFirstName:'名字',
+                placeholderFirstName:'名字',
+                fieldLastName:'姓氏',                
+                placeholderLastName:'姓氏',
+                fieldBirthday:'生日',                
+                placeholderBirthday:'生日',
+                fieldCompany:'公司',                
+                placeholderCompany:'公司',
+                fieldDepartment:'部门',                
+                placeholderDepartment:'部门',
+                fieldPosition:'职位',                
+                placeholderPosition:'职位',
+
                 titleMr:    '先生',
-                titleMs:    '女士',
-                company: '公司',
-                department:'部门',
-                birthday:'生日',
-                oldPassword:'旧的密码',
-                newPassword:'新密码的',
-                repetNewPassword:'再次确认',
-                passwordNotMatch:'两次输入密码不一致',
-                wrongPassword:"密码输入错误"
+                titleMs:    '女士'                
             },
         setupWizardView:{
             viewName:'设置向导',

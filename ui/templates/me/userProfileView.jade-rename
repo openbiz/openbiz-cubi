@@ -1,0 +1,34 @@
+ol.breadcrumb
+	li
+		a(href='#') <%= breadcrumb.home %>
+	li
+		a(href='#') <%= breadcrumb.me %>
+	li.active <%= breadcrumb.profile %>
+#content
+	.row
+		div.panel-heading
+			h2 <%= viewTitle %>
+		div.panel-body
+			.col-md-4.align-md-center
+				img.circle#avator(alt='', src!='<%= baseUrl %>/images/avatar.png')
+			.col-md-8
+				form.form-profile(role="form",parsley-validate,novalidate="novalidate")
+					.form-group.row
+						.col-md-6
+							label.control-label <%= lastName %>
+							input#contactLastname.form-control(required,type="text",placeholder!="<%= lastName %>",value!="<%= contact.get('name').lastName %>")
+						.col-md-6
+							label.control-label <%= firstName %>
+							input#contactFirstname.form-control(required,type="text",placeholder!="<%= firstName %>",value!="<%= contact.get('name').firstName %>")
+					hr
+					.form-group
+						label.control-label <%= oldPassword %>
+						input#oldPassword.form-control(required,type="password",name="password",placeholder!="<%= oldPassword %>",parsley-remote-method="POST",parsley-remote-message!="<%= wrongPassword %>",parsley-required="true")
+					.form-group
+						label.control-label <%= newPassword %>
+						input#inputPassword.form-control(required,type='password',parsley-mincheck="6", parsley-trigger="change", placeholder!='<%= newPassword %>')
+					.form-group
+						label.control-label <%= repetNewPassword %>
+						input#inputRepeatPassword.form-control(required,type='password',parsley-mincheck="6", parsley-trigger="change",name='password-repeat', placeholder!='<%= repetNewPassword %>',parsley-equalto="#inputPassword",parsley-equalto-message!="<%= passwordNotMatch %>")
+				.form-group.align-md-center
+						button.btn.btn-theme.btn-update(type='button')  Update

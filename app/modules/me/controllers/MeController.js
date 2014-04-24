@@ -98,191 +98,189 @@ module.exports = function(app){
 		getMe: function(req, res)
 		{
 			res.json(200,req.user.getOutput());
-		},
-		getContact: function(req, res){
-			res.json(200,req.user.contact);
-		},
-		updateContact: function(req, res){
-			var input = req.body;
-			if(input.name){
-				req.user.contact.name = input.name;
-			}
-			req.user.contact.save(function(err){
-				if(err){
-					res.json(500,{error:err});
-				}else{
-					res.send(204);
-				}
-			});
-		},
-		getMyPhones: function(req, res){
-			var results = app.openbiz.services.ArrayPaginator(req.user.contact.phones,req.query);
-			res.json(200,results);
-		},
-		createMyPhone: function(req, res){
-			req.user.contact.phones.push(req.body);
-			req.user.contact.save(function(err){
-				if(err){
-					res.json(500,{error:err});
-				}else{
-					res.send(201,req.body);
-				}
-			});
-		},
-		updateMyPhone: function(req, res){
-			var phone = req.user.contact.phones.id(req.params.id);
-			var input = req.body;
-			phone.type = input.type;
-			phone.category = input.category;
-			phone.countryCode = input.countryCode;
-			phone.number = input.number;
-			req.user.contact.save(function(err){
-				if(err){
-					res.json(500,{error:err});
-				}else{
-					res.send(204);
-				}
-			});
-		},
-		deleteMyPhone: function(req, res){
-			var phone = req.user.contact.phones.id(req.params.id);
-			if(phone == null){
-				res.send(304);
-			}else{
-				req.user.contact.phones.remove(phone);
-				req.user.contact.save(function(err){
-					if(err){
-						res.json(500,{error:err});
-					}else{
-						res.send(204);
-					}
-				});
-			}
-		},
-		createMyAddress: function(req, res){
-			req.user.contact.addresses.push(req.body);
-			req.user.contact.save(function(err){
-				if(err){
-					res.json(500,{error:err});
-				}else{
-					res.send(201,req.body);
-				}
-			});
-		},
-		getMyAddresses: function(req, res){
-			var results = app.openbiz.services.ArrayPaginator(req.user.contact.addresses,req.query);
-			res.json(200,results);
-		},
-		updateMyAddress: function(req, res){
-			var address = req.user.contact.addresses.id(req.params.id);
-			var input = req.body;
-			address.category = input.category;
-			address.country = input.country;
-			address.state = input.state;
-			address.city = input.city;
-			address.street = input.street;
-			address.zipcode = input.zipcode;
-			req.user.contact.save(function(err){
-				if(err){
-					res.json(500,{error:err});
-				}else{
-					res.send(204);
-				}
-			});
-		},
-		deleteMyAddress: function(req, res){
-			var address = req.user.contact.addresses.id(req.params.id);
-			if(address == null){
-				res.send(304);
-			}else{
-				req.user.contact.addresses.remove(address);
-				req.user.contact.save(function(err){
-					if(err){
-						res.json(500,{error:err});
-					}else{
-						res.send(204);
-					}
-				});
-			}
-		},
-		getMyEmails: function(req, res){
-			res.json(200,req.user.contact.emails);
-		},
-		createMyEmail: function(req, res){
-			req.user.contact.emails.push(req.body);
-			req.user.contact.save(function(err){
-				if(err){
-					res.json(500,{error:err});
-				}else{
-					res.send(201,req.body);
-				}
-			});
-		},
-		updateMyEmail: function(req, res){
-			var email = req.user.contact.emails.id(req.params.id);
-			var input = req.body;
-			email.category = input.category;
-			email.email = input.email;
-			req.user.contact.save(function(err){
-				if(err){
-					res.json(500,{error:err});
-				}else{
-					res.send(204);
-				}
-			});
-		},
-		deleteMyEmail: function(req, res){
-			var email = req.user.contact.emails.id(req.params.id);
-			if(email == null){
-				res.send(304);
-			}else{
-				req.user.contact.emails.remove(email);
-				req.user.contact.save(function(err){
-					if(err){
-						res.json(500,{error:err});
-					}else{
-						res.send(204);
-					}
-				});
-			}
-		},
-		onUpload:function(req,res)
-		{
-			var path = require('path');
-			var fs = require('fs');
-			var mkdir = function (path, root) {
-				var dirs = path.split('/'), dir = dirs.shift(), root = (root||'')+dir+'/';
-				if(!fs.existsSync(root))
-					fs.mkdirSync(root);
-				return !dirs.length||mkdir(dirs.join('/'), root);
-			}
-
-			var timestamp = new Date();
-			console.log("files " +req.files);
-
-			var file = req.files.picture;
-			var uploadPath =  path.join(__dirname, 'public','upload');
-			var	url = '/upload';
-
-			var newFilePath = path.join(uploadPath,'picture', String(timestamp.getFullYear()), String(timestamp.getMonth()),String(timestamp.getDay()));
-			var locationRoot = path.join(url,'picture', String(timestamp.getFullYear()), String(timestamp.getMonth()),String(timestamp.getDay()));
-			if(file.type.split('/')[0].toLowerCase()!='image'){
-				res.send(406);
-			}
-
-			var newFileName = String(timestamp.getTime())+path.extname(file.name);
-
-			//test if the folder exists
-			if(!fs.existsSync(newFilePath))
-			{
-				mkdir(newFilePath);
-			}
-			fs.renameSync(file.path,path.join(newFilePath,newFileName));
-			var location = locationRoot+"/"+newFileName;
-
-			res.send({
-				location:location
-			},201);
+		},		
+		updateMe: function(req, res){
+			// var input = req.body;
+			// if(input.name){
+			// 	req.user.contact.name = input.name;
+			// }
+			// req.user.contact.save(function(err){
+			// 	if(err){
+			// 		res.json(500,{error:err});
+			// 	}else{
+			// 		res.send(204);
+			// 	}
+			// });
 		}
+		//,
+		// getMyPhones: function(req, res){
+		// 	var results = app.openbiz.services.ArrayPaginator(req.user.contact.phones,req.query);
+		// 	res.json(200,results);
+		// },
+		// createMyPhone: function(req, res){
+		// 	req.user.contact.phones.push(req.body);
+		// 	req.user.contact.save(function(err){
+		// 		if(err){
+		// 			res.json(500,{error:err});
+		// 		}else{
+		// 			res.send(201,req.body);
+		// 		}
+		// 	});
+		// },
+		// updateMyPhone: function(req, res){
+		// 	var phone = req.user.contact.phones.id(req.params.id);
+		// 	var input = req.body;
+		// 	phone.type = input.type;
+		// 	phone.category = input.category;
+		// 	phone.countryCode = input.countryCode;
+		// 	phone.number = input.number;
+		// 	req.user.contact.save(function(err){
+		// 		if(err){
+		// 			res.json(500,{error:err});
+		// 		}else{
+		// 			res.send(204);
+		// 		}
+		// 	});
+		// },
+		// deleteMyPhone: function(req, res){
+		// 	var phone = req.user.contact.phones.id(req.params.id);
+		// 	if(phone == null){
+		// 		res.send(304);
+		// 	}else{
+		// 		req.user.contact.phones.remove(phone);
+		// 		req.user.contact.save(function(err){
+		// 			if(err){
+		// 				res.json(500,{error:err});
+		// 			}else{
+		// 				res.send(204);
+		// 			}
+		// 		});
+		// 	}
+		// },
+		// createMyAddress: function(req, res){
+		// 	req.user.contact.addresses.push(req.body);
+		// 	req.user.contact.save(function(err){
+		// 		if(err){
+		// 			res.json(500,{error:err});
+		// 		}else{
+		// 			res.send(201,req.body);
+		// 		}
+		// 	});
+		// },
+		// getMyAddresses: function(req, res){
+		// 	var results = app.openbiz.services.ArrayPaginator(req.user.contact.addresses,req.query);
+		// 	res.json(200,results);
+		// },
+		// updateMyAddress: function(req, res){
+		// 	var address = req.user.contact.addresses.id(req.params.id);
+		// 	var input = req.body;
+		// 	address.category = input.category;
+		// 	address.country = input.country;
+		// 	address.state = input.state;
+		// 	address.city = input.city;
+		// 	address.street = input.street;
+		// 	address.zipcode = input.zipcode;
+		// 	req.user.contact.save(function(err){
+		// 		if(err){
+		// 			res.json(500,{error:err});
+		// 		}else{
+		// 			res.send(204);
+		// 		}
+		// 	});
+		// },
+		// deleteMyAddress: function(req, res){
+		// 	var address = req.user.contact.addresses.id(req.params.id);
+		// 	if(address == null){
+		// 		res.send(304);
+		// 	}else{
+		// 		req.user.contact.addresses.remove(address);
+		// 		req.user.contact.save(function(err){
+		// 			if(err){
+		// 				res.json(500,{error:err});
+		// 			}else{
+		// 				res.send(204);
+		// 			}
+		// 		});
+		// 	}
+		// },
+		// getMyEmails: function(req, res){
+		// 	res.json(200,req.user.contact.emails);
+		// },
+		// createMyEmail: function(req, res){
+		// 	req.user.contact.emails.push(req.body);
+		// 	req.user.contact.save(function(err){
+		// 		if(err){
+		// 			res.json(500,{error:err});
+		// 		}else{
+		// 			res.send(201,req.body);
+		// 		}
+		// 	});
+		// },
+		// updateMyEmail: function(req, res){
+		// 	var email = req.user.contact.emails.id(req.params.id);
+		// 	var input = req.body;
+		// 	email.category = input.category;
+		// 	email.email = input.email;
+		// 	req.user.contact.save(function(err){
+		// 		if(err){
+		// 			res.json(500,{error:err});
+		// 		}else{
+		// 			res.send(204);
+		// 		}
+		// 	});
+		// },
+		// deleteMyEmail: function(req, res){
+		// 	var email = req.user.contact.emails.id(req.params.id);
+		// 	if(email == null){
+		// 		res.send(304);
+		// 	}else{
+		// 		req.user.contact.emails.remove(email);
+		// 		req.user.contact.save(function(err){
+		// 			if(err){
+		// 				res.json(500,{error:err});
+		// 			}else{
+		// 				res.send(204);
+		// 			}
+		// 		});
+		// 	}
+		// },
+		// onUpload:function(req,res)
+		// {
+		// 	var path = require('path');
+		// 	var fs = require('fs');
+		// 	var mkdir = function (path, root) {
+		// 		var dirs = path.split('/'), dir = dirs.shift(), root = (root||'')+dir+'/';
+		// 		if(!fs.existsSync(root))
+		// 			fs.mkdirSync(root);
+		// 		return !dirs.length||mkdir(dirs.join('/'), root);
+		// 	}
+
+		// 	var timestamp = new Date();
+		// 	console.log("files " +req.files);
+
+		// 	var file = req.files.picture;
+		// 	var uploadPath =  path.join(__dirname, 'public','upload');
+		// 	var	url = '/upload';
+
+		// 	var newFilePath = path.join(uploadPath,'picture', String(timestamp.getFullYear()), String(timestamp.getMonth()),String(timestamp.getDay()));
+		// 	var locationRoot = path.join(url,'picture', String(timestamp.getFullYear()), String(timestamp.getMonth()),String(timestamp.getDay()));
+		// 	if(file.type.split('/')[0].toLowerCase()!='image'){
+		// 		res.send(406);
+		// 	}
+
+		// 	var newFileName = String(timestamp.getTime())+path.extname(file.name);
+
+		// 	//test if the folder exists
+		// 	if(!fs.existsSync(newFilePath))
+		// 	{
+		// 		mkdir(newFilePath);
+		// 	}
+		// 	fs.renameSync(file.path,path.join(newFilePath,newFileName));
+		// 	var location = locationRoot+"/"+newFileName;
+
+		// 	res.send({
+		// 		location:location
+		// 	},201);
+		// }
 	});
 }
