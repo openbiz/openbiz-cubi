@@ -247,9 +247,10 @@ define({
 
                 fieldPosition:'Position',                
                 placeholderPosition:'Position',
-
-                titleMr:    'Mr.',
-                titleMs:    'Ms.'
+                fieldTitle:"称呼",
+                "selectionTitleMr.":    'Mr.',
+                "selectionTitleMs.":    'Ms.'
+               
 
             },
             setupWizardView:{

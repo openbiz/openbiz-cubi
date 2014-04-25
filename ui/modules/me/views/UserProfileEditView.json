@@ -22,6 +22,16 @@
 			"required":true
 		},
 		{
+            "name": "title",
+            "field": "title",
+            "displayName": "状态",
+            "type": "radio",
+            "dataSource": {
+                "type": "internal",
+                "model": ["Mr.","Ms."]
+            }
+        },
+		{
 			"name": "birthday",
 			"displayValue" : "{{ moment(record.get('contact').birthday).format('YYYY-MM-DD') }}",
 			"field" : "contact.birthday",

@@ -238,9 +238,9 @@ define({
                 placeholderDepartment:'部门',
                 fieldPosition:'职位',                
                 placeholderPosition:'职位',
-
-                titleMr:    '先生',
-                titleMs:    '女士'                
+                fieldTitle:"称呼",
+                "selectionTitleMr.":    '先生',
+                "selectionTitleMs.":    '女士' 
             },
         setupWizardView:{
             viewName:'设置向导',
