@@ -1,47 +1,46 @@
 ol.breadcrumb
   li
-    a(href='#!/backend/dashboard') Home
+    a(href='#') <%= breadcrumb.home %>
   li
-    a(href='#!/backend/account') Account
+    a(href='#') <%= breadcrumb.account %>
   li
-    a(href='#!/backend/account/invitations') Invitations
+    a(href='#!/backend/account/invitations')<%= breadcrumb.invitations %>
   li.active <%= data.id %>
-// //breadcrumb
 #content
   .row
     .col-lg-12    
         section.panel.wizard-form.corner-flip(role="form",parsley-validate,novalidate="novalidate")
             header.panel-heading
-                h3 User Invitations
+                h3 <%=viewTitle%>
                 h2 <%= data.id %>
             div.panel-body
               form.form-horizontal(data-alignlabel="left",data-collabel="3")                
                 .col-lg-6.col-md-6.col-sm-6
                   .divider
-                    h4 Details
+                    h4 <%=labelDetails%>
                   .form-group
                     label.col-xs-3 
                       i.fa.fa-tags
-                      span &nbsp; Name
+                      span &nbsp; <%=fieldName%>
                     .col-xs-9 <%= data.get('data').contact.name.displayName %>                  
                   .form-group
                     label.col-xs-3 
                       i.fa.fa-user
-                      span &nbsp; Email
+                      span &nbsp; <%=fieldEmail%>
                     .col-xs-9 <%= data.get('data').username %>
                   .form-group
                     label.col-xs-3 
                       i.fa.fa-phone-square
-                      span &nbsp; Mobile
+                      span &nbsp; <%=fieldMobile%>
                     .col-xs-9 <%= data.get('data').contact.phones[0].countryCode %> <%= data.get('data').contact.phones[0].number %>
                   .form-group
                     label.col-xs-3 
                       i.fa.fa-calendar-o
-                      span &nbsp; Expiry
+                      span &nbsp; <%=fieldExpiry%>
                     .col-xs-9 <%= data.getDisplayExpiryDate() %>
                 .col-lg-6.col-md-6.col-sm-6
                   .divider(style="margin-bottom:5px")
-                    h4 Roles
+                    h4 <%=labelRoles%>
                   div
                     <% _.forEach(installedApps,function(app){  app = app.toJSON(); %>
                     div
@@ -56,7 +55,7 @@ ol.breadcrumb
             footer.panel-footer
                 a.btn-next.btn.btn-theme.btn-record-back(style="margin-right:5px;",href="#!/backend/account/invitations")
                     i.fa.fa-list-ul
-                    | &nbsp; Back to list &nbsp;
+                    | &nbsp; <%=actionBack%> &nbsp;
                 button.btn-next.btn.btn-record-delete(record-id!='<%= data.id %>')
                     i.fa.fa-trash-o
-                    | &nbsp; Delete &nbsp;
+                    | &nbsp; <%=actionDelete%> &nbsp;

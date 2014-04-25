@@ -16,6 +16,8 @@ define({
             deleteConfirmationMessage: "<h2><%= record %></h2> <br/> \
                         你即将删除这条数据: <br/> \
                         是否确认此操作?",
+            savedNotificationTitle: "提示",
+            savedNotificationMessage: "<h2>数据已经保存成功</h2>"
     },
     menu:{
         title               :'公司账户设置',
@@ -24,6 +26,105 @@ define({
         menuInvitations     :'用户邀请管理',
         menuProfile         :'企业档案管理',
     },
+    account:{
+            invitationsListView:{
+                viewTitle: '<span>用户邀请</span>管理',
+                viewDescription: 'Openbiz Cubi Application Platform 4.0',             
+                actionInviteUser:'邀请用户',
+                fieldToken:"邀请码",
+                fieldUser:"用户",
+                fieldEmail:"电子邮件",
+                fieldExpriyDate:"失效日期",
+                fieldActions:"操作",
+                recordActionDetail:"详情",
+                recordActionDelete:"删除"
+            },
+            invitationsDetailView:{
+                viewTitle: '用户邀请',
+                actionDelete:"删除",
+                actionBack:"返回列表",
+                labelDetails: "详情",
+                labelRoles: "角色",
+                fieldName:"姓名",
+                fieldEmail:"电子邮件",
+                fieldMobile:"手机号码",
+                fieldExpiry:"到期日期"
+            },
+            invitationsNewView:{
+                viewTitle: '<span>Create</span> New Account',
+                viewDescription: 'Openbiz Cubi Application Platform 4.0',
+                copyright: '&copy; 2014 Openbiz LLC',
+                createAccountButton: 'Create Account',
+                alreadyHaveAccount: 'Already have an account? ',
+                goToLogin: 'Go to Login',
+                title: 'Title',
+                titleMr:    'Mr.',
+                titleMiss:  'Miss',
+                titleMrs:   'Mrs',
+                titleMs:    'Ms.',
+                name: 'Name',
+                firstName : 'First Name',
+                lastName : 'Last Name',
+                nameFormat: ['firstName','lastName'],
+                company: 'Company',
+                phone: 'Phone',
+                mobile: 'Mobile',
+                mobileNumber: 'Mobile Number',
+                phoneDefaultCountryCode: '+1',
+                phoneCountryCode: 'Country Code',
+                phoneAreaCode: 'Area Code',
+                phoneNumber: 'Phone Number',
+                email: 'Email',
+                password: 'Password',
+                passwordPlaceholder: 'At leaset 6 charactors',
+                repeatPassword: 'Repeat',
+                repeatPasswordPlaceholder: 'Repeat password',
+                agreeWith: 'I have read and agreed with ',
+                termOfUse: 'term of use',
+                signing: 'Signing up',
+                validation:{
+                    needAgreement: 'You need to check this agreement before continue',
+                    passwordNotMatch:'The password is not matched',
+                    emailDuplicated: 'The email address has been registered by other user',
+                    emailNotInvitable: 'The email address is already assicated with account'
+                }
+            },
+            profileView:{
+                viewTitle: '<span>公司</span> 档案管理',   
+                labelCompanyName: '公司名称',
+                labelPhoneNumber: '电话号码',
+                labelAddress: '地址',
+                labelWebsite: '网站',             
+                phoneDefaultCountryCode: '+86',
+                phoneCountryCode: '国家编码',
+                phoneAreaCode: '区号',
+                phoneNumber: '电话号码',
+                addressCountry: '国家',
+                addressDefaultCountry: '中国',
+                addressProvince: '省份',
+                addressCity: '城市',
+                addressStreet: '街道',
+                addressZipcode: '区号',                
+                actionSave:'保存',
+                validation:{                    
+                    companyNotUnique: '这个公司名称已经被他人占用'
+                }
+            },
+            membersListView:{
+                viewTitle:'公司用户管理',
+                fieldName:"名字",
+                fieldEmail:"电子邮件",
+                fieldRole:"角色",
+                fieldAction:"操作",
+                recordActionEdit:"编辑",
+                recordActionRemove:"删除",
+            },
+            membersEditView:{
+                viewTitle:'更新用户权限',
+                actionUpdate:'更新',
+            }
+
+        },    
     user:{
         loginView:{
             viewTitle: '<span>欢迎</span>登录',
@@ -185,6 +286,10 @@ define({
         home:'首页',
         me:'我的账户',
         myAccount:'我的账户',
-        profile:'资料管理'
+        profile:'资料管理',
+        account:'账户管理',
+        members:'公司用户管理',
+        invitations:"用户邀请管理",
+        company:"公司档案"
     }
 });

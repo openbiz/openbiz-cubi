@@ -49,8 +49,8 @@ define(['text!templates/account/profileView.html',
             this.model.save(account,{
             	success:function(){
             		bootbox.alert({
-			    		title:"Data notification",
-			    		message:"<h2>Data has been saved</h2>"						
+			    		title:self.app.locale.common.savedNotificationTitle,
+			    		message:self.app.locale.common.savedNotificationMessage					
 			    	});
 			    	//update UI company name
 			    	self.app.views.get('system.NavView').updateAccountNameDisplay(account.name);

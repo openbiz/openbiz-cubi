@@ -1,9 +1,9 @@
 ol.breadcrumb
 	li
-		a(href='#!/backend/dashboard') Home
+		a(href='#') <%= locale.breadcrumb.home %>
 	li
-		a(href='#!/backend/account') Account
-	li.active Invitations
+		a(href='#') <%= locale.breadcrumb.account %>
+	li.active <%= locale.breadcrumb.invitations %>
 #content
 	.row
 		.col-md-12
@@ -17,4 +17,4 @@ ol.breadcrumb
 				.panel-footer
 					button.btn-next.btn.btn-theme.btn-record-add
 						i.fa.fa-plus
-						| &nbsp; Invite User &nbsp;
+						| &nbsp; <%=locale.actionInviteUser%> &nbsp;

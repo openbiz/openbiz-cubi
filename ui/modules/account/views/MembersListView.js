@@ -23,14 +23,14 @@ define(['text!templates/account/membersListView.html',
 			var columns = [
 				{
 					name: "user.contact.name.displayName",
-					label: "Name",
+					label: this.locale.fieldName,
 					cell: "String",
 					editable: false,
 					sortable: false
 				},
 				{
 					name: "user.username",
-					label: "Email",
+					label: this.locale.fieldEmail,
 					cell: "String",
 					editable: false,
 					className:'hidden-xs',
@@ -38,14 +38,14 @@ define(['text!templates/account/membersListView.html',
 				},
 				{
 					name: "role",
-					label: "Role",
+					label: this.locale.fieldRole,
 					cell: "String",
 					editable: false,
 					sortable: false
 				},
 				{
 					name: "_id",
-					label: "Action",
+					label: this.locale.fieldAction,
 					cell: Backgrid.UriCell.extend({
 						render: function () {
 							this.$el.empty();
