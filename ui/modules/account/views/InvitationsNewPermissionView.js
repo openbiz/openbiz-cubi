@@ -20,7 +20,8 @@ define(['text!templates/account/invitationsNewPermissionView.html',
 	        var output = this.locale;
 	        output.user = $("body").data('newRecordData');
 	        output.apps = this.app.views.get('account.InvitationsNewView').apps.toJSON();
-        	this.$el  = $(this.template(output));
+        	this.$el.html($(this.template(output)))
+            $(this.el).html(this.$el.html());
     		openbiz.ui.update(this.$el);
  	        return this;
 	    },
