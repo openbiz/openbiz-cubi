@@ -15,13 +15,9 @@ define({
             deleteConfirmationTitle: "数据删除确认",
             deleteConfirmationMessage: "<h2><%= record %></h2> <br/> \
                         你即将删除这条数据: <br/> \
-<<<<<<< HEAD
-                        是否确认此操作?"
-=======
                         是否确认此操作?",
             savedNotificationTitle: "提示",
             savedNotificationMessage: "<h2>数据已经保存成功</h2>"
->>>>>>> a349e87292fc9947a33926130dcd8a1eeead8cea
     },
     menu:{
         title               :'公司账户设置',
