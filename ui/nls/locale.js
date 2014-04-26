@@ -11,18 +11,39 @@ define({
             deleteConfirmationMessage: "<h2><%= record %></h2> <br/> \
                         You are about to delete this record: <br/> \
                         Are you sure?",
+            savedNotificationTitle: "Data notification",
+            savedNotificationMessage: "<h2>Data has been saved</h2>"
         },
         menu:{
             title:'Account',
             menuApplications    :'Applications',
             menuMembers         :'Members',
             menuInvitations     :'Invitations',
-            menuProfile         :'Profile',
+            menuProfile         :'Profile'
         },
         account:{
             invitationsListView:{
                 viewTitle: '<span>Invitations</span> Management',
-                viewDescription: 'Openbiz Cubi Application Platform 4.0'                
+                viewDescription: 'Openbiz Cubi Application Platform 4.0',
+                actionInviteUser:'Invite User',
+                fieldToken:"Token",
+                fieldUser:"User",
+                fieldEmail:"Email",
+                fieldExpriyDate:"ExpriyDate",
+                fieldActions:"Action",
+                recordActionDetail:"Detail",
+                recordActionDelete:"Delete"
+            },
+            invitationsDetailView:{
+                viewTitle: 'User Inviataion',
+                actionDelete:"Delete",
+                actionBack:"Back to list",
+                labelDetails: "Details",
+                labelRoles: "Roles",
+                fieldName:"Name",
+                fieldEmail:"Email",
+                fieldMobile:"Mobile",
+                fieldExpiry:"Expiry"
             },
             invitationsNewView:{
                 viewTitle: '<span>Create</span> New Account',
@@ -66,6 +87,10 @@ define({
             profileView:{
                 viewTitle: '<span>Company</span> Profile',
                 viewDescription: 'Openbiz Cubi Application Platform 4.0',
+                labelCompanyName: 'Company Name',
+                labelPhoneNumber: 'Phone Number',
+                labelAddress: 'Address',
+                labelWebsite: 'Website',
                 phoneDefaultCountryCode: '+1',
                 phoneCountryCode: 'Country Code',
                 phoneAreaCode: 'Area Code',
@@ -76,16 +101,24 @@ define({
                 addressCity: 'City',
                 addressStreet: 'Street',
                 addressZipcode: 'Zipcode',
-                validation:{
-                    needAgreement: 'You need to check this agreement before continue',
-                    passwordNotMatch:'The password is not matched',
-                    emailDuplicated: 'The email address has been registered by other user',
-                    emailNotInvitable: 'The email address is already assicated with account'
+                actionSave:'Save',
+                validation:{                    
+                    companyNotUnique: 'The company has been taken'
                 }
             },
 	        membersListView:{
-		        viewTitle:'Account members'
-	        }
+		        viewTitle:'Account members',
+                fieldName:"Name",
+                fieldEmail:"Email",
+                fieldRole:"Role",
+                fieldAction:"Action",
+                recordActionEdit:"Edit",
+                recordActionRemove:"Remove"
+	        },
+            membersEditView:{
+                viewTitle:'Update permission for user',
+                actionUpdate:'Update'
+            }
         },
         user:{
             loginView:{
@@ -173,7 +206,7 @@ define({
         },
         me:{
 	        userProfileView:{
-				viewTitle:'<strong>My</strong> Profile',		        
+				viewTitle:'<strong>My</strong> Profile'
 	        },
             userChangePasswordView:{
                 viewTitle:'<strong>Change</strong> Password',
@@ -214,9 +247,10 @@ define({
 
                 fieldPosition:'Position',                
                 placeholderPosition:'Position',
-
-                titleMr:    'Mr.',
-                titleMs:    'Ms.'
+                fieldTitle:"称呼",
+                "selectionTitleMr.":    'Mr.',
+                "selectionTitleMs.":    'Ms.'
+               
 
             },
             setupWizardView:{
@@ -285,7 +319,11 @@ define({
             home:'Home',
             myAccount:'My Account',
             me:'Me',            
-            profile:'Profile'
+            profile:'Profile',            
+            account:'Account',
+            members:'Members',
+            invitations:"Invitations",
+            company:"Company Profile"
         }
 	},
 	'en-us': true,

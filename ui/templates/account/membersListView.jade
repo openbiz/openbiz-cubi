@@ -1,10 +1,9 @@
 ol.breadcrumb
 	li
-		a(href='#') Home
+		a(href='#') <%= breadcrumb.home %>
 	li
-		a(href='#') Account
-	li.active Members
-// //breadcrumb
+		a(href='#') <%= breadcrumb.account %>
+	li.active <%= breadcrumb.members %>
 #content
 	.row
 		.col-lg-12
@@ -12,22 +11,18 @@ ol.breadcrumb
 				header.panel-heading
 					h2 <%= viewTitle %>
 				div.panel-body.data-grid
-				//footer.panel-footer
-					button.btn-next.btn.btn-theme.btn-record-add(type="submit")
-						i.fa.fa-plus
-						| &nbsp; Invite User &nbsp;
 //- Below template is only for action columns use
 script(type="text/template",id="action-column-template")
 	div.tooltip-area
 		a.btn.btn-default.btn-sm.btn-record-detail(href!="#",record-id!='{{ id }}',style="margin-right:5px;")
 			span.hidden-xs
 				i.fa.fa-edit
-				|&nbsp; Edit &nbsp;
+				|&nbsp; <%= recordActionEdit %> &nbsp;
 			span.visible-xs
 				i.fa.fa-edit
 		a.btn.btn-default.btn-sm.btn-record-delete(href="#",record-id!='{{ id }}')
 			span.hidden-xs
 				i.fa.fa-trash-o
-				|&nbsp; Remove &nbsp;
+				|&nbsp; <%= recordActionRemove %> &nbsp;
 			span.visible-xs
 				i.fa.fa-trash-o

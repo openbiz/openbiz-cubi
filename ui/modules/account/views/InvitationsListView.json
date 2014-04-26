@@ -41,13 +41,13 @@
 			"sortable":true
 		},
 		{
-			"name":"expiredDate",
+			"name":"ExpiryDate",
 			"field":"{% return model.getDisplayExpiryDate() %}",
 			"displayName":"Expiry Date",
 			"sortable":true
 		},
 		{
-			"name":"actions",
+			"name":"Actions",
 			"displayName":"Action",
 			"type":"recordActions"
 		}

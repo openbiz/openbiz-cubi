@@ -1,9 +1,9 @@
 ol.breadcrumb
-  li
-    a(href='#') Home
-  li
-    a(href='#') Account
-  li.active Profile
+    li
+        a(href='#') <%= breadcrumb.home %>
+    li
+        a(href='#') <%= breadcrumb.account %>
+    li.active <%= breadcrumb.company %>
 // //breadcrumb
 #content
   .row
@@ -14,16 +14,16 @@ ol.breadcrumb
             div.panel-body
                 form.form-profile(role="form",parsley-validate,novalidate="novalidate")
                     div.form-group
-                        label Company Name
-                        input.form-control(name="name",required,parsley-mincheck="3",type="text",placeholder="Company Name",value!="<%= account.get('name') %>",parsley-remote-method="POST",parsley-remote-message!="<%= validation.companyNotUnique %>")
+                        label <%=labelCompanyName%>
+                        input.form-control(name="name",required,parsley-mincheck="3",type="text",placeholder!="<%=labelCompanyName%>",value!="<%= account.get('name') %>",parsley-remote-method="POST",parsley-remote-message!="<%= validation.companyNotUnique %>")
                     div.form-group
-                        label Phone Number
+                        label <%=labelPhoneNumber%>
                         div(style="height:34px;")
                             input.form-control.pull-left(name="phone-country-code",required,placeholder!="<%= phoneCountryCode %>",value!="<%= account.get('info').phone.countryCode %>",style="width:19%;margin-right:1%;")
                             input.form-control.pull-left(name="phone-area-code",required,placeholder!="<%= phoneAreaCode %>",value!="<%= account.get('info').phone.areaCode %>",style="width:24%;margin-right:1%;")
                             input.form-control.pull-left(name="phone-number",required,type="tel",placeholder!="<%= phoneNumber %>",value!="<%= account.get('info').phone.number %>",style="width:55%")
                     div.form-group
-                        label Address
+                        label <%=labelAddress%>
                         div(style="height:34px;margin-bottom:5px;")
                             input.form-control.pull-left(name="address-country",parsley-mincheck="2",required,placeholder!="<%= addressCountry %>",value!="<%= account.get('info').address.country %>",style="width:32%;margin-right:1%;")
                             input.form-control.pull-left(name="address-province",parsley-mincheck="2",required,placeholder!="<%= addressProvince %>",value!="<%= account.get('info').address.province %>",style="width:33%;margin-right:1%;")
@@ -32,11 +32,11 @@ ol.breadcrumb
                             input.form-control.pull-left(name="address-street",parsley-mincheck="6",required,placeholder!="<%= addressStreet %>",value!="<%= account.get('info').address.street %>",style="width:74%;margin-right:1%;")
                             input.form-control.pull-left(name="address-zipcode",required,parsley-type="digits",placeholder!="<%= addressZipcode %>",value!="<%= account.get('info').address.zipcode %>",style="width:25%")
                     div.form-group
-                        label Website
+                        label <%=labelWebsite%>
                         input.form-control(name="website",type="url",placeholder="http://www.yourcompany.com",value!="<%= account.get('info').website %>")
                     button.hidden(type="submit")
                 
             footer.panel-footer
                 button.btn-save.btn.btn-theme(type="submit")
                     i.fa.fa-check
-                        | &nbsp; Save &nbsp;
+                        | &nbsp; <%=actionSave%> &nbsp;
