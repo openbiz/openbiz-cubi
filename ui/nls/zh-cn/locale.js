@@ -15,14 +15,14 @@ define({
             deleteConfirmationTitle: "数据删除确认",
             deleteConfirmationMessage: "<h2><%= record %></h2> <br/> \
                         你即将删除这条数据: <br/> \
-                        是否确认此操作?",
+                        是否确认此操作?"
     },
     menu:{
         title               :'公司账户设置',
         menuApplications    :'应用程序管理',
         menuMembers         :'公司用户管理',
         menuInvitations     :'用户邀请管理',
-        menuProfile         :'企业档案管理',
+        menuProfile         :'企业档案管理'
     },
     user:{
         loginView:{
