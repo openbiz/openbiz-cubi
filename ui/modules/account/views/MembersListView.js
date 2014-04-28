@@ -13,6 +13,7 @@ define(['text!templates/account/membersListView.html',
 			"click .btn-record-add" : "showRecordAddView",
 			"click .btn-record-detail" :"showRecordEditView",
 			"click .btn-record-delete" 	: "showRecordDeleteConfirm"
+
 		},
 		initialize:function(){			
 			openbiz.View.prototype.initialize.call(this); 			
@@ -95,10 +96,14 @@ define(['text!templates/account/membersListView.html',
 	    },
 		showRecordAddView:function(event){
 			event.preventDefault();
+			this.popupView('account.MembersNewView');
 		},
 		showRecordEditView:function(event){
 			event.preventDefault();
 			var recordId = $(event.currentTarget).attr('record-id');
+			this.showEditView(recordId);
+		},
+		showEditView:function(recordId){
 			$("body").data('Members',this.collection.get(recordId));
 			var self = this;
 			this.app.require(['modules/system/models/AppCollection'],function(model){

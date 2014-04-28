@@ -229,6 +229,19 @@ module.exports = function(app){
 			if(req.invitationToken){
 				res.json(200,true);
 			}
+		},
+		joinMyAccount:function(req,res){
+			if(!req.user.account.users.id(req.body.userid)){
+				req.user.account.users.push({_id:req.body.userid});
+			}
+			req.user.account.save(function(err){
+				if(err){
+					res.json(500,{error:err});
+				}
+				else{
+					res.json(200);
+				}
+			});
 		}
 	});
 }

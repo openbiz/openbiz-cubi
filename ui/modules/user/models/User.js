@@ -25,6 +25,26 @@ define(['../../me/models/Me'],function(meModel){
 							callback(true,jqXHR.responseJSON);							
 							break;						
 						default:
+							callback(false,jqXHR.responseJSON);
+							break;
+					}
+				}
+			});
+		},
+		joinMyAccount:function(userid,callback){
+			$.ajax({
+				type 		: "POST",
+				dataType 	: "json",
+				contentType : "application/json",
+				url  		: openbiz.apps.cubi.appUrl+'/account/user-join-my-account',
+				data 		: JSON.stringify({userid:userid}),
+				complete 	: function(jqXHR,textStatus){
+					switch(jqXHR.status){
+						case 200:
+							callback(true,jqXHR.responseJSON);
+							break;
+						default:
+							callback(false,jqXHR.responseJSON);
 							break;
 					}
 				}

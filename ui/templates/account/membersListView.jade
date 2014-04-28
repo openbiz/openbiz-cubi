@@ -11,6 +11,10 @@ ol.breadcrumb
 				header.panel-heading
 					h2 <%= viewTitle %>
 				div.panel-body.data-grid
+				.panel-footer
+					button.btn-next.btn.btn-theme.btn-record-add
+						i.fa.fa-plus
+						| &nbsp; <%=actionAddUser%> &nbsp;
 //- Below template is only for action columns use
 script(type="text/template",id="action-column-template")
 	div.tooltip-area
@@ -20,9 +24,3 @@ script(type="text/template",id="action-column-template")
 				|&nbsp; <%= recordActionEdit %> &nbsp;
 			span.visible-xs
 				i.fa.fa-edit
-		a.btn.btn-default.btn-sm.btn-record-delete(href="#",record-id!='{{ id }}')
-			span.hidden-xs
-				i.fa.fa-trash-o
-				|&nbsp; <%= recordActionRemove %> &nbsp;
-			span.visible-xs
-				i.fa.fa-trash-o
