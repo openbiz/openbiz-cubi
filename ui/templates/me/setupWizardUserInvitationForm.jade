@@ -2,27 +2,27 @@ script#user-invitation-layout-template(type="text/template")
     section.panel.corner-flip
         div.wizard-form(role="form",parsley-validate,novalidate="novalidate")
             header.panel-heading
-                h2 Build your team now!
-                p Now its time to invite your team members join your company account
+                h2 <%= locale.viewTitle %>
+                p <%= locale.twoTitle %>
             div.panel-body
                 div.divider(style="margin-top:0px;")
-                    h3 Users
+                    h3 <%= locale.users %>
                 div#user-list
                     | Loading data ...
                                             
 
                 div.divider
-                    h3 Invitations
+                    h3 <%= locale.invitations %>
                 div#invitation-list
                     | Loading data ...
 
             footer.panel-footer
                 button.btn-add-user.btn.button.btn-theme(style="margin-right:10px;")
                     i.fa.fa-plus
-                    | &nbsp; Add User &nbsp;
+                    | &nbsp; <%= locale.addUser %> &nbsp;
                 button.btn-done.btn-send-invitations.btn.button
                     i.fa.fa-check
-                    | &nbsp; Done &nbsp;
+                    | &nbsp; <%= locale.done %> &nbsp;
             div.flip
 
 script#user-list-template(type="text/template")           
@@ -78,5 +78,5 @@ script#invitation-list-template(type="text/template")
             <% }else{ %>
             tr
                 td(colspan="4")
-                    | Please click "Add User" button to start add or invite your colleagues  
-            <% } %>    
+                    | 请点击“添加用户”按钮，开始添加或邀请您的同事
+            <% } %>                                  

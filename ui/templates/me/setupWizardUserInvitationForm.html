@@ -3,22 +3,22 @@
   <section class="panel corner-flip">
     <div role="form" parsley-validate="parsley-validate" novalidate="novalidate" class="wizard-form">
       <header class="panel-heading">
-        <h2>Build your team now!</h2>
-        <p>Now its time to invite your team members join your company account</p>
+        <h2><%= locale.viewTitle %></h2>
+        <p><%= locale.twoTitle %></p>
       </header>
       <div class="panel-body">
         <div style="margin-top:0px;" class="divider">
-          <h3>Users</h3>
+          <h3><%= locale.users %></h3>
         </div>
         <div id="user-list">Loading data ...</div>
         <div class="divider">
-          <h3>Invitations</h3>
+          <h3><%= locale.invitations %></h3>
         </div>
         <div id="invitation-list">Loading data ...</div>
       </div>
       <footer class="panel-footer">
-        <button style="margin-right:10px;" class="btn-add-user btn button btn-theme"><i class="fa fa-plus"></i>&nbsp; Add User &nbsp;</button>
-        <button class="btn-done btn-send-invitations btn button"><i class="fa fa-check"></i>&nbsp; Done &nbsp;</button>
+        <button style="margin-right:10px;" class="btn-add-user btn button btn-theme"><i class="fa fa-plus"></i>&nbsp; <%= locale.addUser %> &nbsp;</button>
+        <button class="btn-done btn-send-invitations btn button"><i class="fa fa-check"></i>&nbsp; <%= locale.done %> &nbsp;</button>
       </footer>
       <div class="flip"></div>
     </div>
@@ -71,8 +71,8 @@
       </tr><%     }) %>
       <% }else{ %>
       <tr>
-        <td colspan="4">Please click "Add User" button to start add or invite your colleagues  </td>
-      </tr><% } %>    
+        <td colspan="4">请点击“添加用户”按钮，开始添加或邀请您的同事</td>
+      </tr><% } %>                                  
     </tbody>
   </table>
 </script>

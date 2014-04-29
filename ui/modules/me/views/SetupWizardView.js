@@ -79,8 +79,12 @@ define(['text!templates/me/setupWizardView.html',
                 event.preventDefault();
                 $('body').modalmanager('loading');
                 this.app.require(["text!templates/me/userAddModalView.html"],function(templateData){
+                    debugger;
                     var template = _.template(templateData);
-                    var $modal = $(template(self.locale.setupWizardView.userAddModalView));
+                    var data = {
+                        locale: self.locale.userAddModalView
+                    };
+                    var $modal = $(template(data));
                     $modal.modal();
                     self.localizeAddUserForm();
                     openbiz.ui.update($modal);
@@ -326,7 +330,7 @@ define(['text!templates/me/setupWizardView.html',
                     var data = {
                         me: openbiz.session.me.toJSON(),
                         users: collection.toJSON(),
-                        locale:{}
+                        locale: {}
                     }                                      
                     toggleButtons();
                     $(self.el).find("#user-list").html(template(data));
@@ -403,7 +407,11 @@ define(['text!templates/me/setupWizardView.html',
                             btn.removeClass("disabled").addClass("btn-panel-reload") ;
                             panelBody.hide();                            
                             var template = _.template($("<div>"+templateData+"</div>").find("#user-invitation-layout-template").html());
-                            var rendered = template({});                            
+                            var data = {
+                                locale: self.locale.setupWizardUserInvitationForm
+                            };
+                            debugger;
+                            var rendered = template(data);                            
                             rendered = $(rendered).append($("<div>"+templateData+"</div>").find("#user-list-template"));
                             rendered = $(rendered).append($("<div>"+templateData+"</div>").find("#invitation-list-template"));
                             panelBody.replaceWith(rendered);

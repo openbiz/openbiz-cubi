@@ -107,6 +107,7 @@ define({
                 }
             },
 	        membersListView:{
+                actionAddUser:"Add User",
 		        viewTitle:'Account members',
                 fieldName:"Name",
                 fieldEmail:"Email",
@@ -292,14 +293,43 @@ define({
                     appMessage: 'Please select applications for your company',
                     inviteUsers: 'Invite Users'
                 },
-                setupWUserInvitationForm:{
+                setupWizardUserInvitationForm:{
                     viewTitle: 'Build your team now!',
                     twoTitle: 'Now its time to invite your team members join your company account',
                     users: 'Users',
                     invitations: 'Invitations',
                     done: 'Done',
                     addUser: 'Add User',
-                    noUserMessage: 'Please click "Add User" button to start add or invite your colleagues  '
+                    noUserMessage: 'Please click "Add User" button to start add or invite your colleagues '
+                },
+                userAddModalView: {
+                    viewTitle: 'Add a New User',
+                    addUser: 'Create New User',
+                    joinUser: 'Invite Colleague to Join',
+                    title: 'Title',
+                    titleMr: 'Mr',
+                    titleMs: 'Ms',
+                    name: 'Name',
+                    firstName : 'First Name',
+                    lastName : 'Last Name',
+                    mobile: 'Mobile',
+                    mobileNumber: 'Mobile Number',
+                    phoneDefaultCountryCode: '+1',
+                    phoneCountryCode: 'Country Code',
+                    phoneAreaCode: 'Area Code',
+                    phoneNumber: 'Phone Number',
+                    email: 'Email',
+                    password: 'Password',
+                    passwordPlaceholder: 'At leaset 6 charactors',
+                    repeatPassword: 'Repeat',
+                    repeatPasswordPlaceholder: 'Repeat password',
+                    next: 'Next',
+                    validation:{
+                        needAgreement: 'You need to check this agreement before continue',
+                        passwordNotMatch:'The password is not matched',
+                        emailDuplicated: 'The email address has been registered by other user',
+                        emailNotInvitable: 'The email address is already assicated with account'
+                    }
                 },
                 addUserView:{
                     viewTitle: '<span>Create</span> New Account',

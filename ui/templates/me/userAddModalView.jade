@@ -1,53 +1,53 @@
 #user-add-model.modal.fade(tabindex='-1')
     .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-        h3 <%= viewTitle %>
+        h3 <%= locale.viewTitle %>
     form.modal-body.form-add-user(role="form",parsley-validate,novalidate="novalidate")
         section.select-mode
             div(style="height:34px;")
                 ul.iCheck.user-add-mode(data-color='green')
                     li.pull-left.col-xs-6.col-sm-3.col-md-6(style="padding-bottom:0px")
                         input(type="radio",id="mode-create-account",checked="checked",name="create-mode",value="create-account", parsley-trigger="ifClicked ifChanged",parsley-required="true",parsley-group="create-mode")
-                        label(style="margin-bottom:0px;") <%= addUser %>
+                        label(style="margin-bottom:0px;") <%= locale.addUser %>
                     li.pull-left.col-xs-6(style="padding-bottom:0px")
                         input(type="radio",id="mode-invite-user",name="create-mode",value="invite-user", parsley-trigger="ifClicked ifChanged",parsley-group="create-mode")
-                        label(style="margin-bottom:0px") <%= joinUser %>
+                        label(style="margin-bottom:0px") <%= locale.joinUser %>
             hr(style="margin-top:10px;")
         section.profile
             div.form-group
-                label.pull-left(style="display:block;margin-right:20px;padding-top:5px;") <%= title %>
+                label.pull-left(style="display:block;margin-right:20px;padding-top:5px;") <%= locale.title %>
                 div(style="border:none;height:30px")
                     ul.iCheck.pull-left(data-color='green',style="width:200px;")
                         li.pull-left.col-xs-6(style="padding-bottom:0px")
                             input(type="radio",id="title-mr",name="title",value="Mr", parsley-trigger="ifClicked ifChanged",parsley-required="true",parsley-group="title")
-                            label(style="margin-bottom:0px;") <%= titleMr %>
+                            label(style="margin-bottom:0px;") <%= locale.titleMr %>
                         li.pull-left.col-xs-6(style="padding-bottom:0px")
                             input(type="radio",id="title-ms",name="title",value="Ms", parsley-trigger="ifClicked ifChanged",parsley-group="title")
-                            label(style="margin-bottom:0px") <%= titleMs %>
+                            label(style="margin-bottom:0px") <%= locale.titleMs %>
             div.form-group
-                label <%= name %>
+                label <%= locale.name %>
                 div(style="height:34px;")
-                    input.form-control.pull-left#inputFirstName(name="firstName",parsley-trigger="change",required,type="text",placeholder!="<%= firstName %>",style="width:49%;margin-right:2%")
-                    input.form-control.pull-left#inputLastName(name="lastName",parsley-trigger="change",required,type="text",placeholder!="<%= lastName %>",style="width:49%;0px;")
+                    input.form-control.pull-left#inputFirstName(name="firstName",parsley-trigger="change",required,type="text",placeholder!="<%= locale.firstName %>",style="width:49%;margin-right:2%")
+                    input.form-control.pull-left#inputLastName(name="lastName",parsley-trigger="change",required,type="text",placeholder!="<%= locale.lastName %>",style="width:49%;0px;")
             div.form-group
-                label <%= mobile %>
+                label <%= locale.mobile %>
                 div(style="height:34px;")
-                    input.form-control.pull-left#inputMobileCountryCode(name="mobileCountryCode",required,placeholder!="<%= phoneCountryCode %>",value!="<%= phoneDefaultCountryCode %>",style="width:25%;padding-right:0px;margin-right:2%")
-                    input.form-control.pull-left#inputMobileNumber(name="mobileNumber",required,type="tel",placeholder!="<%= mobile %>",style="width:73%")
+                    input.form-control.pull-left#inputMobileCountryCode(name="mobileCountryCode",required,placeholder!="<%= locale.phoneCountryCode %>",value!="<%= locale.phoneDefaultCountryCode %>",style="width:25%;padding-right:0px;margin-right:2%")
+                    input.form-control.pull-left#inputMobileNumber(name="mobileNumber",required,type="tel",placeholder!="<%= locale.mobile %>",style="width:73%")
 
             div.form-group
-                label <%= email %>
-                input#inputEmail.form-control(required,type="email", parsley-type="email", name='username', placeholder!='<%= email %>',parsley-remote-method="POST",parsley-remote-message!="<%= validation.emailDuplicated %>")
+                label <%= locale.email %>
+                input#inputEmail.form-control(required,type="email", parsley-type="email", name='username', placeholder!='<%= locale.email %>',parsley-remote-method="POST",parsley-remote-message!="<%= locale.validation.emailDuplicated %>")
 
         section.login
             div.form-group
-                label <%= password %>
-                input#inputPassword.form-control(required,parsley-mincheck="6",type='password', parsley-trigger="change",name='password', placeholder!='<%= password %>')
+                label <%= locale.password %>
+                input#inputPassword.form-control(required,parsley-mincheck="6",type='password', parsley-trigger="change",name='password', placeholder!='<%= locale.password %>')
             div.form-group
-                label <%= passwordAgain %>
-                input#inputRepeatPassword.form-control(required,parsley-mincheck="6",type='password', parsley-trigger="change",name='password-repeat', placeholder!='<%= passwordAgain %>',parsley-equalto="#inputPassword",parsley-equalto-message!="<%= validation.passwordNotMatch %>")
+                label <%= locale.repeatPassword %>
+                input#inputRepeatPassword.form-control(required,parsley-mincheck="6",type='password', parsley-trigger="change",name='password-repeat', placeholder!='<%= locale.repeatPasswordPlaceholder %>',parsley-equalto="#inputPassword",parsley-equalto-message!="<%= locale.validation.passwordNotMatch %>")
 
         section
             hr
-            button.btn-add-user-done.btn.button.btn-theme(style="margin-right:10px;",type="submit") &nbsp; <%= next %> &nbsp;
+            button.btn-add-user-done.btn.button.btn-theme(style="margin-right:10px;",type="submit") &nbsp; <%= locale.next %> &nbsp;
                 i.fa.fa-angle-right

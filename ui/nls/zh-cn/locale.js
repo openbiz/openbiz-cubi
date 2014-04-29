@@ -111,7 +111,7 @@ define({
                 }
             },
             membersListView:{
-                "actionAddUser":"添加用户",
+                actionAddUser:"添加用户",
                 viewTitle:'公司用户管理',
                 fieldName:"名字",
                 fieldEmail:"电子邮件",
@@ -325,7 +325,7 @@ define({
                 appMessage: '请选择适合您公司的应用',
                 inviteUsers: '邀请用户'
             },
-            setupWUserInvitationForm:{
+            setupWizardUserInvitationForm:{
                 viewTitle: '开始组建你的团队!',
                 twoTitle: '现在就邀请你的团队成员加入你的公司账户',
                 users: '用户',
@@ -333,6 +333,33 @@ define({
                 done: '完成',
                 addUser: '添加用户',
                 noUserMessage: '请点击“添加用户”按钮，开始添加或邀请您的同事'
+            },
+            userAddModalView: {
+                viewTitle: '添加新用户',
+                addUser: '创建新用户',
+                joinUser: '邀请好友加入',
+                title: '性别',
+                titleMr: '先生',
+                titleMs: '女士',
+                name: '姓名',
+                firstName : '姓',
+                lastName : '名字',
+                mobile: '电话',
+                mobileNumber: '电话号码',
+                phoneDefaultCountryCode: '+1',
+                phoneCountryCode: '国家编号',
+                email: '邮箱',
+                password: '密码',
+                passwordPlaceholder: '至少6个字符',
+                repeatPassword: '重复密码',
+                repeatPasswordPlaceholder: '重复密码',
+                next: '下一步',
+                validation:{
+                    needAgreement: '请先同意协议',
+                    passwordNotMatch:'两次密码不匹配',
+                    emailDuplicated: '此邮箱地址已经注册',
+                    emailNotInvitable: 'The email address is already assicated with account'
+                }
             },
             addUserView:{
                 viewTitle: '<span>创建</span>新的账户',
