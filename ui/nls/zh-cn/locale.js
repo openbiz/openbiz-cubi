@@ -312,7 +312,7 @@ define({
             companyCode: '有效的邀请码',
             done: '完成',
             validation:{
-                tokenInvalid: '无效的令牌',
+                tokenInvalid: '无效的邀请码',
                 companyNotUnique: '此公司已存在'
             },
             setupWizardAppSelectorForm:{
