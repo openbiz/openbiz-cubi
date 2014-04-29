@@ -12,23 +12,23 @@ ol.breadcrumb
             section.panel.wizard-form.corner-flip(role="form",parsley-validate,novalidate="novalidate")
                 header.panel-heading
                     h2 <%= viewTitle %>
-                    label(class="color",style="background-color:#edece5") Welcome to setup your account
+                    label(class="color",style="background-color:#edece5")<%= twoTitle %>
                 div.panel-body
                     div
-                        p How would you like to setup your account ?
+                        p <%=howSetUpTitle%>
                         ul.choose-mode.iCheck(data-color='red')
                           li
                             input(type="radio",name="mode",value="create", parsley-trigger="ifClicked ifChanged",parsley-required="true",parsley-group="setup-mode")
-                            label I want to create a new company account
+                            label <%=setNewCompany%>
                           li
                             input(type="radio",name="mode",value="join", parsley-trigger="ifClicked ifChanged",parsley-group="setup-mode")
-                            label I want to join a company account
+                            label <%=joinCompany%>
                     form.form-create-company(role="form",parsley-validate,novalidate="novalidate")
                         hr
-                        p Please review below form to create a new company account
+                        p <%=tableTitle%>
                         div.form-group
-                            label Company Name
-                            input.form-control(name="name",required,parsley-mincheck="3",type="text",placeholder="Company Name",parsley-remote-method="POST",parsley-remote-message!="<%= validation.companyNotUnique %>")
+                            label <%=companyName%>
+                            input.form-control(name="name",required,parsley-mincheck="3",type="text",placeholder!="<%=companyName%>",parsley-remote-method="POST",parsley-remote-message!="<%= validation.companyNotUnique %>")
                         div.form-group
                             label Phone Number
                             div(style="height:34px;")
@@ -45,18 +45,18 @@ ol.breadcrumb
                                 input.form-control.pull-left(name="address-street",parsley-mincheck="6",required,placeholder!="<%= addressStreet %>",style="width:74%;margin-right:1%;")
                                 input.form-control.pull-left(name="address-zipcode",required,parsley-type="digits",placeholder!="<%= addressZipcode %>",style="width:25%")
                         div.form-group
-                            label Website
+                            label <%=webSite%>
                             input.form-control(name="website",type="url",placeholder="http://www.yourcompany.com")
                         button.hidden(type="submit")
                     form.form-join-company(role="form",parsley-validate,novalidate="novalidate")
                         hr
-                        p Please ask your company's administrator for the invitation code. Normally it will send to by email or SMS.
+                        p <%=joinCompanyTitle%>
                         div.form-group
-                            label Company Invitation Code
+                            label <%=companyCode%>
                             input.form-control(name="token",style="text-transform: uppercase",required,type="text",parsley-remote-method="POST",parsley-remote-message!="<%= validation.tokenInvalid %>",parsley-required="true",placeholder!="<%= invitationCodePlaceHolder %>")
                         button.hidden(type="submit")
                 footer.panel-footer
-                    button.btn-next.btn.btn-theme(type="submit") Next Step &nbsp;
+                    button.btn-next.btn.btn-theme(type="submit") <%=nextstep%> &nbsp;
                         i.fa.fa-angle-right
                     //- button.btn-test-join.btn.btn-info(type="button",style="margin-left:10px") Test Join Company
                     //-     i.fa.fa-angle-right

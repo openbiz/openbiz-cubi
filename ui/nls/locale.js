@@ -256,6 +256,13 @@ define({
             setupWizardView:{
                 viewName:'Setup Wizard',
                 viewTitle: '<strong>Account</strong> Setup Wizard',
+                twoTitle: ' Welcome to setup your account',
+                howSetUpTitle: 'How would you like to setup your account ? ',
+                setNewCompany: 'I want to create a new company account',
+                joinCompany: 'I want to join a company account',
+                tableTitle: 'Please review below form to create a new company account',
+                companyName: 'Company Name',
+                nextstep: 'Next Step',
                 phoneDefaultCountryCode: '+1',
                 phoneCountryCode: 'Country Code',
                 phoneAreaCode: 'Area Code',
@@ -266,10 +273,33 @@ define({
                 addressCity: 'City',
                 addressStreet: 'Street',
                 addressZipcode: 'Zipcode',
+                webSite: 'Website',
                 invitationCodePlaceHolder: 'ACCT-XXXX-XXXXXX',
+                joinCompanyTitle: "Please ask your company's administrator for the invitation code. Normally it will send to by email or SMS.",
+                companyCode: 'Company Invitation Code',
+                done: 'Done',
                 validation:{
                     tokenInvalid: 'The token code is invalid',
                     companyNotUnique: 'The company has been taken'
+                },
+                setupWizardAppSelectorForm:{
+                    viewTitle: 'Awesome!',
+                    twoTitle: 'Welcome to start your new company',
+                    role: 'Your Role',
+                    phone: 'Phone',
+                    website: 'Website',
+                    application: 'Applications',
+                    appMessage: 'Please select applications for your company',
+                    inviteUsers: 'Invite Users'
+                },
+                setupWUserInvitationForm:{
+                    viewTitle: 'Build your team now!',
+                    twoTitle: 'Now its time to invite your team members join your company account',
+                    users: 'Users',
+                    invitations: 'Invitations',
+                    done: 'Done',
+                    addUser: 'Add User',
+                    noUserMessage: 'Please click "Add User" button to start add or invite your colleagues  '
                 },
                 addUserView:{
                     viewTitle: '<span>Create</span> New Account',

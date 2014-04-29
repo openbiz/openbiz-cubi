@@ -33,6 +33,17 @@ define(['text!./UserProfileEditView.json',
 					}
 				});
 			},
+			saveRecordSuccess:function(){
+				 bootbox.alert({
+					title: this.locale.saveSuccessedTitle,
+					message:this.locale.saveSuccessedMessage,
+					buttons:{
+						ok:function(){
+							Backbone.history.navigate("#!/backend/me/profile", {trigger: true, replace: true});			
+						}
+					}
+				});				 
+			},
 			saveRecordError:function(){},
 			beforeDeleteRecord:function(){},
 			deleteRecordSuccess:function(){},

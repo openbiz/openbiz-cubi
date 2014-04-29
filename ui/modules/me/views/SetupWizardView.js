@@ -80,7 +80,7 @@ define(['text!templates/me/setupWizardView.html',
                 $('body').modalmanager('loading');
                 this.app.require(["text!templates/me/userAddModalView.html"],function(templateData){
                     var template = _.template(templateData);
-                    var $modal = $(template(self.locale.addUserView));
+                    var $modal = $(template(self.locale.setupWizardView.userAddModalView));
                     $modal.modal();
                     self.localizeAddUserForm();
                     openbiz.ui.update($modal);
@@ -413,7 +413,7 @@ define(['text!templates/me/setupWizardView.html',
                                 self.models.userCollection.fetch();
                                 panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
                             });
-                        },500);95131209378
+                        },500);
                     });
                 });
             },

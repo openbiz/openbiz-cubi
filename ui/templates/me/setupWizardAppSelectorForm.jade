@@ -1,8 +1,8 @@
 section.panel.corner-flip
     div.wizard-form(role="form",parsley-validate,novalidate="novalidate")
         header.panel-heading
-            h2 Awesome!
-            p Welcome to start your new company
+            h2 <%=setupWizardAppSelectorForm.viewTitle%>
+            p <%=setupWizardAppSelectorForm.twoTitle%>
         div.panel-body
             div.row
                 div.col-sm-3
@@ -11,25 +11,25 @@ section.panel.corner-flip
                         h3 Openbiz LLC
                 div.col-sm-3
                     P(style="padding-top:5px;")
-                        strong Your Role
+                        strong <%=setupWizardAppSelectorForm.role%>
                         br
                         span Administrator
                 div.col-sm-3.hidden-xs
                     p(style="padding-top:5px;")
-                        strong Phone
+                        strong <%=setupWizardAppSelectorForm.phone%>
                         br
                         span +86 10 64955182
                 div.col-sm-3.hidden-xs
                     p(style="padding-top:5px;")
-                        strong Website
+                        strong <%=setupWizardAppSelectorForm.website%>
                         br
                         span http://www.openbiz.me
             hr
             div
 
                 div.divider(style="margin-bottom:0px;")
-                    h3 Applications
-                    p Please select applications for your company
+                    h3 <%=setupWizardAppSelectorForm.application%>
+                    p <%=setupWizardAppSelectorForm.appMessage%>
                 section.clearfix
                 ul.app-selection.iCheck(data-color='red')
                     <% _.forEach(apps,function(app){  %>
@@ -40,10 +40,10 @@ section.panel.corner-flip
                             p(style="margin-bottom:0px;font-weight:normal") <%= app.info.description %>
                     <% }) %>
         footer.panel-footer
-            button.btn-invite-users.btn.btn-theme(type="submit",style="margin-right:10px;") Invite Users &nbsp;
+            button.btn-invite-users.btn.btn-theme(type="submit",style="margin-right:10px;") <%=setupWizardAppSelectorForm.inviteUsers%> &nbsp;
                 i.fa.fa-angle-right
             button.btn-save-selected-apps.btn.button
-                | &nbsp; Done &nbsp;
+                | &nbsp; <%= done %> &nbsp;
             //- button.btn-test-invite.btn.btn-info(type="button",style="margin-left:10px") Test Add Users
             //-     i.fa.fa-angle-right
-        div.flip
+        div.flipsetupWizardAppSelectorForm
