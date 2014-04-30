@@ -29,10 +29,10 @@ script#user-list-template(type="text/template")
     table.table.table-striped.table-bordered.text-center
         thead
             tr
-                th.hidden-xs Name
-                th Email
-                th.hidden-xs Role
-                th Action
+                th.hidden-xs {{ locale.name }}
+                th {{ locale.email }}
+                th.hidden-xs {{ locale.role }}
+                th {{ locale.action }}
         tbody        
             <% _.forEach(users,function(user){ %>        
             tr
@@ -55,10 +55,10 @@ script#invitation-list-template(type="text/template")
     table.table.table-striped.table-bordered.text-center
         thead
             tr
-                th.hidden-xs Name
-                th Email
-                th.hidden-xs Invitation Code
-                th Action
+                th.hidden-xs {{ locale.name }}
+                th {{ locale.email }}
+                th.hidden-xs {{ locale.invitationCode }}
+                th {{ locale.action }}
         tbody
             <% if(invitations.length>0){ %> 
             <%      _.forEach(invitations,function(invitation){ %>                
@@ -78,5 +78,5 @@ script#invitation-list-template(type="text/template")
             <% }else{ %>
             tr
                 td(colspan="4")
-                    | 请点击“添加用户”按钮，开始添加或邀请您的同事
+                    | {{ locale.noUserMessage }}
             <% } %>                                  

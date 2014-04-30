@@ -322,8 +322,20 @@ define({
                 phone: '电话',
                 website: '网址',
                 application: '应用',
+                done: '完成',
                 appMessage: '请选择适合您公司的应用',
                 inviteUsers: '邀请用户'
+            },
+            setupWizardAccountDetailForm:{
+                viewTitle: '真棒!',
+                twoTitle: '欢迎加入新公司',
+                company: '公司',
+                role: '角色',
+                phone: '电话',
+                website: '网址',
+                applications: '应用',
+                done: '完成',
+                name: '名称'
             },
             setupWizardUserInvitationForm:{
                 viewTitle: '开始组建你的团队!',
@@ -332,6 +344,11 @@ define({
                 invitations: '邀请码',
                 done: '完成',
                 addUser: '添加用户',
+                name: '姓名',
+                email: '邮箱',
+                role: '角色',
+                action: '操作',
+                invitationCode: '邀请码',
                 noUserMessage: '请点击“添加用户”按钮，开始添加或邀请您的同事'
             },
             userAddModalView: {
@@ -353,6 +370,7 @@ define({
                 passwordPlaceholder: '至少6个字符',
                 repeatPassword: '重复密码',
                 repeatPasswordPlaceholder: '重复密码',
+                done: '完成',
                 next: '下一步',
                 validation:{
                     needAgreement: '请先同意协议',
@@ -395,6 +413,10 @@ define({
                     emailDuplicated: '该邮件地址已经被其他用户注册',
                     emailNotInvitable: '该邮件地址已关联，不能重复邀请'
                 }
+            },
+            userPermissionView:{
+                viewTitle: '设置新用户权限',
+                done: '完成'
             }
         }
     },

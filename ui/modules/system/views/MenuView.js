@@ -71,9 +71,10 @@ define(['text!templates/system/menuView.html'],
                 return this;
             },
             updateMenu:function(){
-                var self = this;                
-                $(document).data('menu',this.template());
-                $('nav#menu').html(this.template());
+                var self = this;    
+                debugger;        
+                $(document).data('menu',this.template(self.locale));
+                $('nav#menu').html(this.template(self.locale));
                 openbiz.session.me.fetch({success:function(){
                     self.app.require(['modules/system/models/AppCollection'],function(AppCollection){
                             var apps = new AppCollection();

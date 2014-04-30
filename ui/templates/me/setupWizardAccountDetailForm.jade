@@ -1,25 +1,25 @@
 section.panel.corner-flip
     div.wizard-form(role="form",parsley-validate,novalidate="novalidate")
         header.panel-heading
-            h2 Awesome!
-            p Welcome to join the company
+            h2 <%= locale.viewTitle %>
+            p <%= locale.twoTitle %>
         div.panel-body
             div.col-sm-5
                 div.divider
-                    h3 Company
-                strong Name
-                p <%= data.account.name %>
-                strong Your Role
+                    h3 <%= locale.company %>
+                strong <%= locale.name %>
                 p <%= data.account.role %>
-                strong Phone
+                strong <%= locale.twoTitle %>
+                p <%= data.account.role %>
+                strong <%= locale.phone %>
                 p <%= data.account.info.phone.countryCode %> <%= data.account.info.phone.areaCode %> <%= data.account.info.phone.number %>
-                strong Website
+                strong <%= locale.website %>
                 p 
                     a(href!="<%= data.account.info.website %>", target="_blank") <%= data.account.info.website %>
             div.col-sm-7
                 hr.visible-xs
                 div.divider
-                    h3 Applications
+                    h3 <%= locale.applications %>
                 ul
                     li.rounded-list
                         <% _.forEach(data.installedApps,function(app){  %>
@@ -34,5 +34,5 @@ section.panel.corner-flip
         footer.panel-footer
             button.btn-done.btn.btn-theme
                 i.fa.fa-check
-                | &nbsp; Done &nbsp;
+                | &nbsp; <%= locale.done %> &nbsp;
         div.flip

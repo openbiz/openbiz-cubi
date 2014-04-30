@@ -251,8 +251,6 @@ define({
                 fieldTitle:"称呼",
                 "selectionTitleMr.":    'Mr.',
                 "selectionTitleMs.":    'Ms.'
-               
-
             },
             setupWizardView:{
                 viewName:'Setup Wizard',
@@ -290,6 +288,7 @@ define({
                     phone: 'Phone',
                     website: 'Website',
                     application: 'Applications',
+                    done: 'done',
                     appMessage: 'Please select applications for your company',
                     inviteUsers: 'Invite Users'
                 },
@@ -300,7 +299,23 @@ define({
                     invitations: 'Invitations',
                     done: 'Done',
                     addUser: 'Add User',
+                    name: 'Name',
+                    email: 'Email',
+                    role: 'Role',
+                    action: 'Action',
+                    invitationCode: 'Invitation Code',
                     noUserMessage: 'Please click "Add User" button to start add or invite your colleagues '
+                },
+                setupWizardAccountDetailForm:{
+                    viewTitle: 'Awesome!',
+                    twoTitle: 'Welcome to join the company',
+                    company: 'Company',
+                    role: 'Your Role',
+                    phone: 'Phone',
+                    website: 'Website',
+                    applications: 'Applications',
+                    done: 'Done',
+                    name: 'Name'
                 },
                 userAddModalView: {
                     viewTitle: 'Add a New User',
@@ -323,6 +338,7 @@ define({
                     passwordPlaceholder: 'At leaset 6 charactors',
                     repeatPassword: 'Repeat',
                     repeatPasswordPlaceholder: 'Repeat password',
+                    done: '完成',
                     next: 'Next',
                     validation:{
                         needAgreement: 'You need to check this agreement before continue',
@@ -371,7 +387,8 @@ define({
                     }
                 },
                 userPermissionView:{
-
+                    viewTitle: 'Setup permission for new user',
+                    done: 'Done'
                 }
             }
         },

@@ -1,7 +1,7 @@
 #user-permission-model.modal.fade(tabindex='-1')
     .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-        h3 Setup permission for new user
+        h3 <%= viewTitle %>
     form.modal-body.form-add-user(role="form",parsley-validate,novalidate="novalidate")
         section.select-mode
             div.row(style="height:60px;")
@@ -35,4 +35,4 @@
         section        
             button.btn-add-permission-done.btn.button.btn-theme(style="margin-right:10px;",type="submit")
                 i.fa.fa-check
-                | &nbsp; Done &nbsp;
+                | &nbsp; <%= done %> &nbsp;

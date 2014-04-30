@@ -250,7 +250,8 @@ define(['text!templates/me/setupWizardView.html',
             },
             //* 处理用户添加逻辑的表单 结束 *//
 
-            showAccountDetailView:function(event,data){              
+            showAccountDetailView:function(event,data){     
+                debugger;         
                 var self = this;
                 if(event) event.preventDefault();
                 var  btn=$(this.el).find("button.btn-next"), panelBody=btn.closest(".panel"),
@@ -267,8 +268,9 @@ define(['text!templates/me/setupWizardView.html',
                                     btn.removeClass("disabled").addClass("btn-panel-reload") ;
                                     var template = _.template(templateData);
                                     panelBody.hide();
-                                    data.installedApps = apps.toJSON();                                    
-                                    panelBody.replaceWith(template({data:data}));
+                                    data.installedApps = apps.toJSON(); 
+                                    debugger;                                   
+                                    panelBody.replaceWith(template({data:data, locale: self.locale.setupWizardAccountDetailForm}));
                                     openbiz.ui.update(panelBody);
                                     panelBody.fadeIn(function(){
                                         panelBody.find(overlay).fadeOut(function(){ $(this).remove() });
@@ -411,7 +413,12 @@ define(['text!templates/me/setupWizardView.html',
                                 locale: self.locale.setupWizardUserInvitationForm
                             };
                             debugger;
-                            var rendered = template(data);                            
+                            var rendered = template(data);     
+                            templateData = _.template(templateData,data,{
+                              evaluate    : /\{%([\s\S]+?)%\}/g,
+                              interpolate : /\{\{([\s\S]+?)\}\}/g,
+                              escape      : /\{-([\s\S]+?)\}/g
+                            });                       
                             rendered = $(rendered).append($("<div>"+templateData+"</div>").find("#user-list-template"));
                             rendered = $(rendered).append($("<div>"+templateData+"</div>").find("#invitation-list-template"));
                             panelBody.replaceWith(rendered);
@@ -490,12 +497,13 @@ define(['text!templates/me/setupWizardView.html',
             onJoinAccount:function(event){
                 var token = $(this.el).find('input[name="token"]').val().toUpperCase();
                 var self = this;
+                debugger;
                 this.models.me.joinAccount(token,function(isSuccessed,data){
                     console.log(isSuccessed);
                     console.log(data);
                     if(isSuccessed == true)
                     {
-                        self.showAccountDetailView(event);
+                        self.showAccountDetailView(event, data);
                     }
                 });
             },

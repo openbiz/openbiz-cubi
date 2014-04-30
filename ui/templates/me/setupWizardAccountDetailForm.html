@@ -1,1 +1,37 @@
-<section class="panel corner-flip"><div role="form" parsley-validate="parsley-validate" novalidate="novalidate" class="wizard-form"><header class="panel-heading"><h2>Awesome!</h2><p>Welcome to join the company</p></header><div class="panel-body"><div class="col-sm-5"><div class="divider"><h3>Company</h3></div><strong>Name</strong><p><%= data.account.name %></p><strong>Your Role</strong><p><%= data.account.role %></p><strong>Phone</strong><p><%= data.account.info.phone.countryCode %> <%= data.account.info.phone.areaCode %> <%= data.account.info.phone.number %></p><strong>Website</strong><p><a href="<%= data.account.info.website %>" target="_blank"><%= data.account.info.website %></a></p></div><div class="col-sm-7"><hr class="visible-xs"/><div class="divider"><h3>Applications</h3></div><ul><li class="rounded-list"><% _.forEach(data.installedApps,function(app){  %><strong><%= app.info.name %></strong><p style="margin-top:5px"><% _.forEach(app.roles,function(role){ if(data.data.roles.indexOf(role.id)!=-1){ %><div style="margin-bottom:5px"><span style="margin-right:5px" class="glyphicon glyphicon-user"></span><span><%= role.name %>    </span></div><% }}) %>               </p><% }) %></li></ul></div></div><footer class="panel-footer"><button class="btn-done btn btn-theme"><i class="fa fa-check"></i>&nbsp; Done &nbsp;</button></footer><div class="flip"></div></div></section>
+
+<section class="panel corner-flip">
+  <div role="form" parsley-validate="parsley-validate" novalidate="novalidate" class="wizard-form">
+    <header class="panel-heading">
+      <h2><%= locale.viewTitle %></h2>
+      <p><%= locale.twoTitle %></p>
+    </header>
+    <div class="panel-body">
+      <div class="col-sm-5">
+        <div class="divider">
+          <h3><%= locale.company %></h3>
+        </div><strong><%= locale.name %></strong>
+        <p><%= data.account.role %></p><strong><%= locale.twoTitle %></strong>
+        <p><%= data.account.role %></p><strong><%= locale.phone %></strong>
+        <p><%= data.account.info.phone.countryCode %> <%= data.account.info.phone.areaCode %> <%= data.account.info.phone.number %></p><strong><%= locale.website %></strong>
+        <p><a href="<%= data.account.info.website %>" target="_blank"><%= data.account.info.website %></a></p>
+      </div>
+      <div class="col-sm-7">
+        <hr class="visible-xs"/>
+        <div class="divider">
+          <h3><%= locale.applications %></h3>
+        </div>
+        <ul>
+          <li class="rounded-list"><% _.forEach(data.installedApps,function(app){  %><strong><%= app.info.name %></strong>
+            <p style="margin-top:5px"><% _.forEach(app.roles,function(role){ if(data.data.roles.indexOf(role.id)!=-1){ %>
+              <div style="margin-bottom:5px"><span style="margin-right:5px" class="glyphicon glyphicon-user"></span><span><%= role.name %>    </span></div><% }}) %>               
+            </p><% }) %>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <footer class="panel-footer">
+      <button class="btn-done btn btn-theme"><i class="fa fa-check"></i>&nbsp; <%= locale.done %> &nbsp;</button>
+    </footer>
+    <div class="flip"></div>
+  </div>
+</section>
