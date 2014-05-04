@@ -1,5 +1,5 @@
 "use strict";
-define(['text!./invitationsListView.json',
+define(['text!./InvitationsListView.json',
 		'text!templates/account/invitationsListView.html',
 		'../models/InvitationCollection'
 		/*CUSTOM_ELEMNT_CLASSES*/],
