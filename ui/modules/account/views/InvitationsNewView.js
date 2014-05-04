@@ -86,10 +86,10 @@ define(['text!templates/account/invitationsNewView.html',
                 switch(parseInt(i))
                 {
                     case 0:
-                        elem.css({'margin-right':'2%'});
+                        $(elem).css({'margin-right':'2%'});
                         break;
                     case 1:
-                        elem.css({'margin-right':'0%'});
+                        $(elem).css({'margin-right':'0%'});
                         break;
                 }
                 nameRootElem.append(elem);
