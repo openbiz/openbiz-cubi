@@ -8,8 +8,9 @@ ol.breadcrumb
 	.row
 		.col-md-12
 			section.panel.wizard-form.corner-flip
-				header.panel-heading
-					h2 <%= locale.viewTitle%>
+				header.panel-heading.sm
+					h2 
+						strong <%= locale.viewTitle%>
 					<%if(typeof viewDescription=='string'){%>
 					p <%= locale.viewDescription%>
 					<%}%>

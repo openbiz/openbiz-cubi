@@ -9,8 +9,9 @@ ol.breadcrumb
   .row
     .col-lg-12    
         section.panel.wizard-form.corner-flip(role="form",parsley-validate,novalidate="novalidate")
-            header.panel-heading
-                h2 <%= viewTitle %>
+            header.panel-heading.sm
+                h2
+                    strong <%= viewTitle %>
             div.panel-body
                 form.form-profile(role="form",parsley-validate,novalidate="novalidate")
                     div.form-group
