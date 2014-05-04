@@ -27,7 +27,22 @@ define(['text!templates/account/invitationsDetailView.html',
 	                        success:function(){
 			        			var output = self.locale;        			
 			        			output.data = self.model;
-			        			output.installedApps = apps.models;
+			        			var installedApps = [];
+			        			for(var i=0;i< apps.models.length;i++){ 
+			        				var app =  apps.models[i].toJSON(); 
+			        				var roles = [];
+			        				for(var z in app.roles){
+			        					var role = app.roles[z];
+			        					if(self.model.get('data').roles.indexOf(role.id)!=-1){
+			        						roles.push(role);
+			        					}
+			        				}
+			        				app.roles = roles;
+			        				if(app.roles.length > 0){
+			        					installedApps.push(app);
+			        				}
+			        			}
+								output.installedApps = installedApps;
 			        			self.$el.html($(self.template(output)))
             					$(self.el).html(self.$el.html());
 				        		openbiz.ui.update($(self.el));

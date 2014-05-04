@@ -1,61 +1,76 @@
 ol.breadcrumb
-  li
-    a(href='#') <%= breadcrumb.home %>
-  li
-    a(href='#') <%= breadcrumb.account %>
-  li
-    a(href='#!/backend/account/invitations')<%= breadcrumb.invitations %>
-  li.active <%= data.id %>
+    li
+        a(href='#') <%= breadcrumb.home %>
+    li
+        a(href='#') <%= breadcrumb.account %>
+    li
+        a(href='#!/backend/account/invitations')<%= breadcrumb.invitations %>
+    li.active <%= data.id %>
 #content
-  .row
-    .col-lg-12    
-        section.panel.wizard-form.corner-flip(role="form",parsley-validate,novalidate="novalidate")
-            header.panel-heading
-                h3 <%=viewTitle%>
-                h2 <%= data.id %>
-            div.panel-body
-              form.form-horizontal(data-alignlabel="left",data-collabel="3")                
-                .col-lg-6.col-md-6.col-sm-6
-                  .divider
-                    h4 <%=labelDetails%>
-                  .form-group
-                    label.col-xs-3 
-                      i.fa.fa-tags
-                      span &nbsp; <%=fieldName%>
-                    .col-xs-9 <%= data.get('data').contact.name.displayName %>                  
-                  .form-group
-                    label.col-xs-3 
-                      i.fa.fa-user
-                      span &nbsp; <%=fieldEmail%>
-                    .col-xs-9 <%= data.get('data').username %>
-                  .form-group
-                    label.col-xs-3 
-                      i.fa.fa-phone-square
-                      span &nbsp; <%=fieldMobile%>
-                    .col-xs-9 <%= data.get('data').contact.phones[0].countryCode %> <%= data.get('data').contact.phones[0].number %>
-                  .form-group
-                    label.col-xs-3 
-                      i.fa.fa-calendar-o
-                      span &nbsp; <%=fieldExpiry%>
-                    .col-xs-9 <%= data.getDisplayExpiryDate() %>
-                .col-lg-6.col-md-6.col-sm-6
-                  .divider(style="margin-bottom:5px")
-                    h4 <%=labelRoles%>
-                  div
-                    <% _.forEach(installedApps,function(app){  app = app.toJSON(); %>
-                    div
-                      label <%= app.info.name %>   
-                    ul(style="margin-bottom:10px")
-                      <% _.forEach(app.roles,function(role){ if(data.get('data').roles.indexOf(role.id)!=-1){ %>
-                      li(style="margin-bottom:5px")
-                          span.glyphicon.glyphicon-user(style="margin-right:5px") 
-                          span <%= role.name %>    
-                      <% }}) %>               
-                    <% }) %>
-            footer.panel-footer
-                a.btn-next.btn.btn-theme.btn-record-back(style="margin-right:5px;",href="#!/backend/account/invitations")
-                    i.fa.fa-list-ul
-                    | &nbsp; <%=actionBack%> &nbsp;
-                button.btn-next.btn.btn-record-delete(record-id!='<%= data.id %>')
-                    i.fa.fa-trash-o
-                    | &nbsp; <%=actionDelete%> &nbsp;
+    .row
+        .col-lg-12
+            section.panel
+                header.panel-heading.sm
+                    h3 <%=viewTitle%>
+                    h2 <%= data.id %>
+                .panel-body
+                    form.form.record-form(role='form', parsley-validate='parsley-validate', novalidate='novalidate')
+                        .row.vogdata-show-grid
+                            .col-md-6
+                              h4.vog-sub-title
+                                  strong <%=labelDetails%>
+                        hr
+                        .row.vogdata-show-grid
+                            .col-md-6
+                                label.col-xs-3 
+                                    i.fa.fa-tags
+                                    span &nbsp; <%=fieldName%>
+                                .col-xs-9 <%= data.get('data').contact.name.displayName %>  
+                            .col-md-6
+                                label.col-xs-3 
+                                    i.fa.fa-user
+                                    span &nbsp; <%=fieldEmail%>
+                                .col-xs-9 <%= data.get('data').username %>
+                        .row.vogdata-show-grid
+                            .col-md-6
+                                label.col-xs-3 
+                                    i.fa.fa-phone-square
+                                    span &nbsp; <%=fieldMobile%>
+                                .col-xs-9 <%= data.get('data').contact.phones[0].countryCode %> <%= data.get('data').contact.phones[0].number %>
+                            .col-md-6
+                                label.col-xs-3 
+                                    i.fa.fa-calendar-o
+                                    span &nbsp; <%=fieldExpiry%>
+                                .col-xs-9 <%= data.getDisplayExpiryDate() %>
+                        hr
+                        .row.vog-sub-title-grid
+                            .col-md-3
+                                h4.vog-sub-title
+                                    strong <%=labelRoles%>
+                        hr
+                        <% for(var i=0;i<installedApps.length;i++){ var app = installedApps[i]; %>
+                        hr
+                        .row.vogdata-show-grid
+                            .col-md-6
+                                h4
+                                    strong
+                                    | <%= app.info.name %>
+                        <% for(var z=0;z<app.roles.length;z+=2){%>
+                        .row.vogdata-show-grid
+                            .col-md-6
+                                <% var role = app.roles[z]%>
+                                label <%= role.name %>
+                            <% if(z+1 < app.roles.length) { var role1 = app.roles[z+1];%>
+                            .col-md-6
+                               label <%= role1.name %>
+                            <%}%>
+                        <%}%>
+                        <% } %>
+                        
+                footer.panel-footer
+                    a.btn-next.btn.btn-theme.btn-record-back(style="margin-right:5px;",href="#!/backend/account/invitations")
+                        i.fa.fa-list-ul
+                        | &nbsp; <%=actionBack%> &nbsp;
+                    button.btn-next.btn.btn-record-delete(record-id!='<%= data.id %>')
+                        i.fa.fa-trash-o
+                        | &nbsp; <%=actionDelete%> &nbsp;
