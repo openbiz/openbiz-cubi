@@ -106,6 +106,35 @@ define({
                 recordActionEdit:"Edit",
                 recordActionRemove:"Remove"
 	        },
+            membersNewView:{
+                viewTitle: 'Add a New Member',
+                title: 'Title',
+                titleMr:    'Mr.',
+                titleMs:    'Ms.',
+                name: 'Name',
+                firstName : 'First Name',
+                lastName : 'Last Name',
+                nameFormat: ['firstName','lastName'],
+                mobile: 'Mobile',
+                mobileNumber: 'Mobile Number',
+                phoneDefaultCountryCode: '+1',
+                phoneCountryCode: 'Country Code',
+                phoneAreaCode: 'Area Code',
+                phoneNumber: 'Phone Number',
+                email: 'Email',
+                password: 'Password',
+                passwordPlaceholder: 'At leaset 6 charactors',
+                repeatPassword: 'Repeat Password',
+                repeatPasswordPlaceholder: 'Repeat password',
+                create: 'Create',
+                validation:{
+                    passwordNotMatch:'The password is not matched',
+                    emailDuplicated: 'The email address has been registered by other user',
+                    emailNotInvitable: 'The email address is already assicated with account'
+                },
+                addUserErrorTitle:"错误",
+                addUserErrorMessage:"创建用户失败"
+            },
             membersEditView:{
                 viewTitle:'Update permission for user',
                 actionUpdate:'Update'
